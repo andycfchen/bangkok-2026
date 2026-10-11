@@ -138,7 +138,7 @@ footer{margin-top:40px;font-size:12.5px;color:var(--mute)}
 <p class="lead">整理 Excel 時發現的不一致與可能排不下的地方，出發前建議先對一次。</p>
 <div id="issues"></div>
 
-<footer>資料來源：2026曼谷.xlsx。營業時間依表格記載，出發前請再看一次店家官方公告。</footer>
+<footer>資料來源：2026曼谷.xlsx。圖片來源：Wikimedia Commons。營業時間依表格記載，出發前請再看一次店家官方公告。</footer>
 </div>
 
 <script>
@@ -276,8 +276,13 @@ const clean=t=>{t=t.replace(/[☕📷🍳🥭🎨🛍️✨🎷🍸]/gu,'').trim
 const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分流|二選一|泳池|Buffet|早餐$|夜間/;
 /* 貼圖：在下面填「店名（和頁面標題裡的名稱一致）: 圖片網址」，頁面就會顯示 */
 const PIC={
+'Sanctuary of Truth 真理寺':'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Santuaryoftruth2.jpg/960px-Santuaryoftruth2.jpg',
+'出發前往 Tha Tien 碼頭／鄭王廟':'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg/960px-%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg',
+'出發去 centralwOrld，約 14:30 抵達':'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/CentralWorld_20190825.jpg/960px-CentralWorld_20190825.jpg',
+'Emsphere':'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Emsphere%2C_Bangkok%2C_June_2024.jpg/960px-Emsphere%2C_Bangkok%2C_June_2024.jpg',
+'Song Wat／嵩越路慢逛':'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg/960px-%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg',
 };
-const picOf=t=>{const k=Object.keys(PIC).find(n=>t.includes(n));return k?`<a href="${PIC[k]}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${k}" src="${PIC[k]}"></a>`:''};
+const picOf=t=>{const k=Object.keys(PIC).find(n=>t===n);return k?`<a href="${PIC[k]}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${k}" src="${PIC[k]}"></a>`:''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
 D.forEach(d=>{const city=cityOf(d.no);
