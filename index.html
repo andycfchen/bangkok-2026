@@ -136,6 +136,13 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
   .herocard{min-height:300px;padding:18px}
   .dayhead{padding:16px 18px}.card{padding-inline:16px}
 }
+
+.maps{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.maps:empty{display:none}
+.mapchip{display:inline-block;font-size:13px;line-height:1.5;padding:3px 11px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--ink);text-decoration:none;overflow-wrap:anywhere}
+.mapchip:hover{border-color:var(--taxi)}
+.mapchip:focus-visible{outline:2px solid var(--taxi);outline-offset:2px}
+.mapchip.photo{background:transparent;color:var(--mute)}
 </style>
 
 <div class="wrap">
@@ -206,7 +213,7 @@ const D=[
  ['14:00','出發前往 centralwOrld 百貨，14:30 抵達','move'],
  ['14:30–15:30','Pokémon Center BANGKOK（Andy）','go','centralwOrld 6F'],
  ['14:30–15:30','After You 吃蜜糖吐司／泰奶刨冰（同行其他人）','eat'],
- ['16:00–18:00','GalileOasis 藝文商圈逛街','go','Boyis Flagship Store 等特色品牌','','店名請再確認'],
+ ['16:00–18:00','GalileOasis 藝文商圈逛街','go','Boyis Flagship Store 等特色品牌'],
  ['18:30–20:00','晚餐　Abandoned Mansion','eat','Sukhumvit 14 巷地窖爵士酒吧，特色調酒與輕食。建議預約吧台或靠近舞台座位'],
  ['晚上','步行回相鐵飯店休息，約 6 分鐘','rest']]},
 {no:4,date:'12/09',wd:'三',title:'曼谷時髦商場＋鄭王廟泰服外拍＋點燈河景晚餐',svg:'prang',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 晚餐後搭車返回飯店'],
@@ -217,7 +224,7 @@ const D=[
  ['11:45–12:30','Emsphere 百貨逛街','go','BEAMS Emsphere 等；A KEEN HOUSE - Emsphere 咖啡輕食'],
  ['13:00–14:00','午餐　Shake Shack Emsphere','eat','人氣漢堡，現場入座'],
  ['14:00–15:10','前往 Tha Tien 碼頭','move','提前出發避開塞車'],
- ['15:10–18:15','同行分流活動','go','📷 泰服組：搭船至對岸鄭王廟（Wat Arun）換泰服拍夕陽，泰服現場租借約 ฿200–฿300　☕ 咖啡組：Tha Tien 老街文創散步，ViVi The Coffee Place（河畔第一排露台）','','鄭王廟關門時間要再確認'],
+ ['15:10–18:15','同行分流活動','go','📷 泰服組：搭船至對岸鄭王廟（Wat Arun）換泰服拍夕陽，泰服現場租借約 ฿200–฿300　☕ 咖啡組：Tha Tien 老街文創散步，ViVi The Coffee Place（河畔第一排露台）'],
  ['18:30–20:30','河畔夜景晚餐　RONGROS（榮泰）','eat','主選：RONGROS（榮泰），米其林推薦精緻泰菜。備選：Chom Arun 頂樓露台。正對夜間點燈的鄭王廟，務必提早 1–2 個月預約河景第一排'],
  ['20:30–22:00','夜間二選一　AETHER BANGKOK 或按摩','go','方案 A：AETHER BANGKOK 高空景觀酒吧（建議提早訂位）　方案 B：回市區 1 小時泰式按摩，或賣場採買']]},
 {no:5,date:'12/10',wd:'四',title:'舊城文青＋嵩越路老街＋唐人街夜逛',svg:'cup',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 返回相鐵飯店打包行李'],
@@ -228,7 +235,7 @@ const D=[
  ['10:45–11:10','Mamuang Shop（芒果妹）','go','文創周邊插畫店。10:30 先出發前往'],
  ['11:10–11:30','前往嵩越路（Song Wat）','move'],
  ['11:30–13:15','午餐　Rung Klan Nuea「牛面王」','eat','米其林推薦，招牌清燉牛肉湯、牛腩粄條'],
- ['14:00–17:00','Song Wat／嵩越路慢逛挖寶','go','逛：Kodangs（衣服、選品、拍貼機）、Tudi eyewear（太陽眼鏡）、Copenn（本土香氛）、Garçon dept Songwat（文創雜貨）。吃喝：Wanjai cafe House（芒果糯米飯）、% Arabica adidas Originals Store（老宅概念店）、akho_at_songwat（泰奶烤吐司＋手沖泰奶）、Lost in Songwat（百年老宅咖啡廳）','https://maps.app.goo.gl/xKRK1ogdEpVcw18K8','13:15 到 14:00 之間沒有安排'],
+ ['14:00–17:00','Song Wat／嵩越路慢逛挖寶','go','逛：Kodangs（衣服、選品、拍貼機）、Tudi eyewear（太陽眼鏡）、Copenn（本土香氛）、Garçon dept Songwat（文創雜貨）。吃喝：Wanjai cafe House（芒果糯米飯）、% Arabica adidas Originals Store（老宅概念店）、akho_at_songwat（泰奶烤吐司＋手沖泰奶）、Lost in Songwat（百年老宅咖啡廳）'],
  ['18:00–20:00','唐人街晚餐（三選一）','eat','1. T&K Seafood（綠衫碳烤海鮮熱炒）　2. 廣興海南雞飯／林老三魚丸麵　3. 蓮花大酒店旁室內空調泰菜合菜餐廳。建議選有室內冷氣的店面'],
  ['夜晚','最後伴手禮採買','go']]},
 {no:6,date:'12/11',wd:'五',title:'曼谷 → 台北　CI832',svg:'plane',stay:['✈ 中華航空 CI832 14:05 – 18:40','🚕 飯店 → BKK，預留塞車緩衝'],
@@ -286,11 +293,53 @@ const PIC={
 "唐人街晚餐":"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Yaowarat_at_night_%2832455695783%29.jpg/960px-Yaowarat_at_night_%2832455695783%29.jpg",
 };
 const picOf=t=>{const k=Object.keys(PIC).find(n=>t.includes(n));return k?`<a href="${PIC[k]}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${k}" src="${PIC[k]}"></a>`:''};
+
+const MAPEX={
+'Ana Anan Resort & Villas Pattaya':'https://maps.app.goo.gl/1i1jdgLEXYYXLCcV9',
+'Sotetsu Grand Fresa Bangkok':'https://maps.app.goo.gl/GMQVVcskogiUhE7T8',
+'The Lunar Beach House':'https://maps.app.goo.gl/mTxG9kVrgKu2MLKN9',
+'Nitan Coffee’s Tale Pattaya':'https://maps.app.goo.gl/BCwpR2YKUNrjA8dF9',
+'VANVELA cafe & space':'https://maps.app.goo.gl/WPmq8QgojzKwcJEz5',
+'% Arabica adidas Originals Store Song Wat':'https://maps.app.goo.gl/xKRK1ogdEpVcw18K8'
+};
+const PL=[
+['抵達 Ana Anan',['Ana Anan Resort & Villas Pattaya']],
+['Lunar Beach House',['The Lunar Beach House']],
+['Sanctuary of Truth',['Sanctuary of Truth']],
+['Khanom Sen Khun Ya',['Khanom Sen Khun Ya']],
+['Nitan',['Nitan Coffee’s Tale Pattaya','VANVELA cafe & space']],
+['The Sky Gallery',['The Sky Gallery','The Oxygen Beachfront Oasis','Fish Club Seafood Grill']],
+['Big C',['Big C Supercenter South Pattaya']],
+['抵達 Sotetsu',['Sotetsu Grand Fresa Bangkok']],
+['centralwOrld 百貨',['centralwOrld']],
+['Pokémon Center',['Pokémon Center BANGKOK']],
+['After You',['After You centralwOrld']],
+['GalileOasis',['GalileOasis','Boyis Flagship Store']],
+['Abandoned Mansion',['Abandoned Mansion']],
+['Dib Bangkok',['Dib Bangkok']],
+['Emsphere 百貨',['Emsphere','A KEEN HOUSE Emsphere']],
+['Shake Shack',['Shake Shack Emsphere']],
+['Tha Tien',['Tha Tien Pier']],
+['同行分流',['Wat Arun','ViVi The Coffee Place']],
+['RONGROS',['RONGROS','Chom Arun']],
+['AETHER',['AETHER Bangkok']],
+['Factory Coffee',['Factory Coffee - BKK']],
+['Kope Hya',['Kope Hya Tai Kee']],
+['Mamuang Shop',['Mamuang Shop']],
+['Rung Klan Nuea',['Rung Klan Nuea']],
+['Song Wat／嵩越路',['Kodangs Song Wat','Tudi eyewear Song Wat','Copenn Song Wat','Garçon dept Songwat','Wanjai Cafe House','% Arabica adidas Originals Store Song Wat','akho_at_songwat','Lost in Songwat']],
+['唐人街晚餐',['T&K Seafood Yaowarat','廣興海南雞飯','林老三魚丸麵','蓮花大酒店']],
+['桃園機場',['Taoyuan International Airport Terminal 1']],
+['BKK 機場',['Suvarnabhumi Airport']],
+['抵達機場',['Suvarnabhumi Airport']]
+];
+const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
+const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
 D.forEach(d=>{const city=cityOf(d.no);
  nav.insertAdjacentHTML('beforeend',`<a href="#day${d.no}"><b>${d.date}</b>Day ${d.no}</a>`);
- const li=d.items.map(([t,title,k,n,link,w])=>`<li><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}<div class="alt">${link?`<a href="${esc(link)}" target="_blank" rel="noopener">地圖</a>`:''}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`${link?'　':''}<a href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div>${picOf(title)}</div></li>`).join('');
+ const li=d.items.map(([t,title,k,n,link,w])=>`<li><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}<div class="maps">${mapChips(title,d.no)}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`<a class="mapchip photo" href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div>${picOf(title)}</div></li>`).join('');
  host.insertAdjacentHTML('beforeend',`<section class="day" id="day${d.no}"><div class="dayhead${DAYPIC[d.no]?' cover':''}"${DAYPIC[d.no]?` style="background-image:linear-gradient(90deg,rgba(8,16,28,.82),rgba(8,16,28,.25)),url('${DAYPIC[d.no]}')"`:''}><div class="no">${d.no}</div><div><div class="meta">${d.date}（${d.wd}）</div><h2>${esc(d.title)}</h2></div>${ICON[d.svg]}</div><div class="card"><div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="note">${esc(d.note)}</div>`:''}<ol class="tl">${li}</ol></div></section>`);
 });
 document.getElementById('rows').innerHTML=RES.map(r=>`<tr><td><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}">${r[0]}</span></td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join('');
