@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2026 曼谷行程</title>
-<style>body{margin:0;font-size:14px}</style>
+<style>body{margin:0;font-size:14px}.toprow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.themebtn{font:inherit;font-size:13px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.themebtn:focus-visible{outline:2px solid var(--taxi);outline-offset:2px}
+</style>
 </head>
 <body>
 
@@ -14,6 +17,7 @@
 :root{
   --bg:#F4F6F8; --surface:#FFFFFF; --ink:#1C2430; --mute:#5B6675; --line:#DDE2E8; --head:#1F2A37; --num:#9CC2EA;
   --taxi:#2F5D8A; --teal:#2F5D8A; --gold:#8A96A6; --tint:#EBEFF4; --warn:#B4540A; --warnbg:#FDF0E1;
+  color-scheme:light;
   --f-display:'Noto Serif TC','Songti TC','PMingLiU',serif;
   --f-body:'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;
   --f-mono:'DM Mono',ui-monospace,Menlo,Consolas,monospace;
@@ -102,7 +106,7 @@ ol.routem b{font-family:var(--f-mono);font-weight:500;color:var(--taxi);margin-r
 
 <div class="wrap">
 <header class="hero">
-  <div class="eyebrow">Bangkok · Pattaya　2026/12/06 – 12/11</div>
+  <div class="toprow"><div class="eyebrow">Bangkok · Pattaya　2026/12/06 – 12/11</div><button type="button" id="themebtn" class="themebtn" aria-label="切換淺色或深色">跟隨系統</button></div>
   <h1>2026 曼谷行程</h1>
   <p>四人同行，夜班機出發。第一天凌晨落地先到芭達雅放鬆一天，12/8 回曼谷住三晚，逛美術館、百貨、老街與河畔夕陽，12/11 下午飛回台北。</p>
   <div class="route" aria-label="路線圖">
@@ -166,7 +170,7 @@ const D=[
  ['11:30–13:30','私人包車司機接送，芭達雅 → 曼谷','move'],
  ['13:30','抵達 Sotetsu Grand Fresa，辦理入住／放行李','move','','https://maps.app.goo.gl/GMQVVcskogiUhE7T8'],
  ['14:00','出發前往 centralwOrld 百貨，14:30 抵達','move'],
- ['14:30–15:30','Pokémon Center BANGKOK（君輔）','go','centralwOrld 6F'],
+ ['14:30–15:30','Pokémon Center BANGKOK（Andy）','go','centralwOrld 6F'],
  ['14:30–15:30','After You 吃蜜糖吐司／泰奶刨冰（同行其他人）','eat'],
  ['16:00–18:00','GalileOasis 藝文商圈逛街','go','Boyis Flagship Store 等特色品牌','','店名請再確認'],
  ['18:30–20:00','晚餐　Abandoned Mansion','eat','Sukhumvit 14 巷地窖爵士酒吧，特色調酒與輕食。建議預約吧台或靠近舞台座位'],
@@ -222,6 +226,9 @@ const clean=t=>{t=t.replace(/[☕📷🍳🥭🎨🛍️✨🎷🍸]/gu,'').trim
 const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分流|二選一|泳池|Buffet|早餐$|夜間/;
 /* 貼圖：在下面填「店名（和頁面標題裡的名稱一致）: 圖片網址」，頁面就會顯示 */
 const PIC={
+"Khanom Sen Khun Ya":"https://img.wongnai.com/p/1920x0/2025/11/17/da31f7a479554a09ad4dabcc6243a0c1.jpg",
+"Nitan":"https://img.wongnai.com/p/1920x0/2023/11/15/6a1056917a58416ba6acf0dd761a38ad.jpg",
+"The Sky Gallery":"https://img.wongnai.com/p/1920x0/2017/05/03/c1d84db410ed43a7a56a5f1ca3d9f5ed.jpg",
 "Lunar Beach House":"https://storage.googleapis.com/tripniceday/uploads/places/1639726669541.jpg",
 "抵達 Ana Anan":"https://images.thaiholidayguide.com/images/accommodation/ana-anan-resort-villas-pattaya.webp",
 "抵達 Sotetsu":"https://images.thaiholidayguide.com/images/accommodation/sotetsu-grand-fresa-bangkok-3.webp",
@@ -249,6 +256,14 @@ D.forEach(d=>{const city=cityOf(d.no);
  host.insertAdjacentHTML('beforeend',`<section class="day" id="day${d.no}"><div class="dayhead"><div class="no">${d.no}</div><div><div class="meta">${d.date}（${d.wd}）</div><h2>${esc(d.title)}</h2></div>${ICON[d.svg]}</div><div class="card"><div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="note">${esc(d.note)}</div>`:''}<ol class="tl">${li}</ol></div></section>`);
 });
 document.getElementById('rows').innerHTML=RES.map(r=>`<tr><td><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}">${r[0]}</span></td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join('');
+(function(){
+ const btn=document.getElementById('themebtn'),order=['auto','light','dark'],label={auto:'跟隨系統',light:'淺色',dark:'深色'};
+ let m='auto';try{m=localStorage.getItem('bkk-theme')||'auto'}catch(e){}
+ if(!label[m])m='auto';
+ function apply(){const r=document.documentElement;if(m==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',m);btn.textContent=label[m];}
+ btn.onclick=()=>{m=order[(order.indexOf(m)+1)%3];try{localStorage.setItem('bkk-theme',m)}catch(e){}apply()};
+ apply();
+})();
 </script>
 
 </body>
