@@ -143,6 +143,16 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
 .mapchip:hover{border-color:var(--taxi)}
 .mapchip:focus-visible{outline:2px solid var(--taxi);outline-offset:2px}
 .mapchip.photo{background:transparent;color:var(--mute)}
+
+.picbox{display:grid;gap:10px;min-width:0}
+.xpic{margin:0}.xpic figcaption{font-size:12.5px;color:var(--mute);margin-top:4px}
+/* 手機：單欄時間軸（必須放在最後才不會被前面的設定蓋掉） */
+@media (max-width:640px){
+  ol.tl li{grid-template-columns:minmax(0,1fr);gap:2px;padding-block:14px}
+  ol.tl li .dot{display:none}
+  .t{padding-top:0}
+  .what.hasp{grid-template-columns:minmax(0,1fr)}
+}
 </style>
 
 <div class="wrap">
@@ -270,7 +280,7 @@ const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分�
 const PIC={
 "Mamuang Shop":"https://img.wongnai.com/p/1920x0/2020/08/03/5b91a6d9e49d488ba87e4cb9b9a0191e.jpg",
 "Shake Shack":"https://thailandmagazine.com/wp-content/uploads/2025/05/Shake-Shack-in-Bangkok-Thailand-27.jpg",
-"Kope Hya":"https://media.timeout.com/images/103751563/image.jpg",
+"Kope Hya":"https://upload.wikimedia.org/wikipedia/commons/7/74/Giant_Swing_Bangkok_Thailand.jpg",
 "After You":"https://img.wongnai.com/p/1920x0/2026/09/09/09d31ff15ac44184bacc9e5eaf14bde6.jpg",
 "Khanom Sen Khun Ya":"https://img.wongnai.com/p/1920x0/2025/11/17/da31f7a479554a09ad4dabcc6243a0c1.jpg",
 "Nitan":"https://img.wongnai.com/p/1920x0/2023/11/15/6a1056917a58416ba6acf0dd761a38ad.jpg",
@@ -335,11 +345,13 @@ const PL=[
 ];
 const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
 const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
+const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"https://www.bkmagazine.com/wp-content/uploads/2026/06/img_3005.jpeg"]]};
+const extraPics=t=>{const k=Object.keys(EXTRA).find(n=>t.includes(n));return k?EXTRA[k].map(([c,u])=>`<figure class="xpic"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${c}" src="${u}"><figcaption>${c}</figcaption></figure>`).join(''):''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
 D.forEach(d=>{const city=cityOf(d.no);
  nav.insertAdjacentHTML('beforeend',`<a href="#day${d.no}"><b>${d.date}</b>Day ${d.no}</a>`);
- const li=d.items.map(([t,title,k,n,link,w])=>`<li><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}<div class="maps">${mapChips(title,d.no)}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`<a class="mapchip photo" href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div>${picOf(title)}</div></li>`).join('');
+ const li=d.items.map(([t,title,k,n,link,w])=>`<li><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}<div class="maps">${mapChips(title,d.no)}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`<a class="mapchip photo" href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div><div class="picbox">${picOf(title)}${extraPics(title)}</div></div></li>`).join('');
  host.insertAdjacentHTML('beforeend',`<section class="day" id="day${d.no}"><div class="dayhead${DAYPIC[d.no]?' cover':''}"${DAYPIC[d.no]?` style="background-image:linear-gradient(90deg,rgba(8,16,28,.82),rgba(8,16,28,.25)),url('${DAYPIC[d.no]}')"`:''}><div class="no">${d.no}</div><div><div class="meta">${d.date}（${d.wd}）</div><h2>${esc(d.title)}</h2></div>${ICON[d.svg]}</div><div class="card"><div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="note">${esc(d.note)}</div>`:''}<ol class="tl">${li}</ol></div></section>`);
 });
 document.getElementById('rows').innerHTML=RES.map(r=>`<tr><td><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}">${r[0]}</span></td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join('');
