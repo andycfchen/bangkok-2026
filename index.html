@@ -86,7 +86,11 @@ details.issues summary{cursor:pointer;padding-block:10px;font-weight:700;font-fa
 details.issues ul{margin:0 0 12px;padding-left:18px;font-size:14px}
 details.issues li{margin-bottom:6px}
 footer{margin-top:40px;font-size:12.5px;color:var(--mute)}
+ol.routem{display:none;list-style:none;margin:0;padding:0;gap:6px}
+ol.routem li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px}
+ol.routem b{font-family:var(--f-mono);font-weight:500;color:var(--taxi);margin-right:8px}
 @media (max-width:520px){
+  .route{display:none}ol.routem{display:grid}
   ol.tl li{grid-template-columns:1fr;gap:2px}
   .dot{display:none}
   .t{padding-top:0;color:var(--taxi)}
@@ -100,7 +104,7 @@ footer{margin-top:40px;font-size:12.5px;color:var(--mute)}
 <header class="hero">
   <div class="eyebrow">Bangkok · Pattaya　2026/12/06 – 12/11</div>
   <h1>2026 曼谷行程</h1>
-  <p>四人同行，夜班機出發。第一天凌晨落地先到芭達雅放鬆一天，12/8 回曼谷住三晚，逛咖啡店、潮牌店與河畔夕陽，12/11 下午飛回台北。</p>
+  <p>四人同行，夜班機出發。第一天凌晨落地先到芭達雅放鬆一天，12/8 回曼谷住三晚，逛美術館、百貨、老街與河畔夕陽，12/11 下午飛回台北。</p>
   <div class="route" aria-label="路線圖">
     <svg viewBox="0 0 640 150" role="img" aria-label="台北到曼谷、芭達雅、再回曼谷與台北的路線">
       <path d="M50 96 C130 20 230 20 300 70" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-dasharray="6 6"/>
@@ -115,6 +119,8 @@ footer{margin-top:40px;font-size:12.5px;color:var(--mute)}
       <text x="476" y="52" font-size="13" font-weight="700" fill="var(--ink)">曼谷 12/08 – 12/11</text>
     </svg>
   </div>
+  <ol class="routem" aria-label="路線">
+    <li><b>12/06</b>桃園 22:30 起飛</li><li><b>12/07</b>01:35 抵達 BKK，車程約 2 小時到芭達雅</li><li><b>12/08</b>芭達雅 → 曼谷，住 Sotetsu 三晚</li><li><b>12/11</b>14:05 曼谷起飛，18:40 抵達桃園</li></ol>
   <div class="chips">
     <span class="chip"><b>去</b>CI837 22:30 → 01:35</span>
     <span class="chip"><b>回</b>CI832 14:05 → 18:40</span>
@@ -126,144 +132,84 @@ footer{margin-top:40px;font-size:12.5px;color:var(--mute)}
 <nav class="days" id="nav" aria-label="日期"></nav>
 <main id="days"></main>
 
-<h2 class="sec" id="spots">備選店單</h2>
-<p class="lead">依地區整理的咖啡店、選物店與小吃。標星號的已排進行程，其餘依當天體力與時間機動調整。</p>
-<div class="filters" id="filters" role="group" aria-label="地區篩選"></div>
-<div class="tbl"><table><thead><tr><th>地區</th><th>店家</th><th>類型</th><th>安排</th><th>營業時間／備註</th></tr></thead><tbody id="rows"></tbody></table></div>
+<h2 class="sec" id="book">重點預約清單</h2>
+<p class="lead">出發前先訂好的項目，依重要程度排序。</p>
+<div class="tbl"><table><thead><tr><th>重要度</th><th>項目</th><th>日期／時段</th><th>預約建議</th><th>備註</th></tr></thead><tbody id="rows"></tbody></table></div>
 
-<h2 class="sec" id="alt">芭達雅餐廳備選</h2>
-<div class="cols" id="pattaya"></div>
-
-<h2 class="sec" id="check">行程檢查</h2>
-<p class="lead">整理 Excel 時發現的不一致與可能排不下的地方，出發前建議先對一次。</p>
-<div id="issues"></div>
-
-<footer>資料來源：2026曼谷.xlsx。圖片來源：Wikimedia Commons。營業時間依表格記載，出發前請再看一次店家官方公告。</footer>
+<footer>資料來源：2026曼谷.xlsx。行程資料來源：2026曼谷芭達雅_最新優化行程表。營業時間與預約方式出發前請再看一次店家官方公告。圖片來源：Wikimedia Commons 與各店家公開頁面。</footer>
 </div>
 
 <script>
 const D=[
-{no:1,date:'12/06',wd:'日',title:'台北 → 曼谷　夜班機',svg:'plane',stay:['✈ CI837 22:30 – 01:35'],
- items:[['20:00','桃園機場第 1 航廈集合','move'],['22:30','CI837 起飛，台北 → 曼谷','move','23:30 前後在機上休息，隔天凌晨 01:35 落地']]},
-{no:2,date:'12/07',wd:'一',title:'芭達雅　紅眼班機後輕鬆行',svg:'wave',stay:['🏨 Ana Anan Resort & Villas Pattaya','🚐 BKK → 芭達雅 4 人私人車，約 2 小時','市區內以 Grab／私人車為主'],
- note:'4 人私人接送。今天不提早入住，只寄放行李。',
+{no:1,date:'12/06',wd:'日',title:'台北 → 曼谷　夜班機',svg:'plane',stay:['✈ 中華航空 CI837 22:30 – 01:35','機票已訂、私人接送已確認'],
+ items:[['20:00','桃園機場第 1 航廈報到','move'],['22:30','CI837 起飛，台北 → 曼谷','move','機上用餐'],['01:35','抵達曼谷 BKK 機場（隔日）','move','私人接送專車直奔芭達雅，車程約 2 小時']]},
+{no:2,date:'12/07',wd:'一',title:'芭達雅海濱放鬆＋絕美真理寺',svg:'wave',stay:['🏨 Ana Anan Resort & Villas Pattaya','🚐 BKK → 芭達雅 4 人私人車，約 2 小時'],
+ note:'不提早入住，只寄放行李。芭達雅市區內以 Grab／私人車為主。',
  items:[
  ['01:35','BKK 入境','move'],
- ['約 03:00','私人車前往芭達雅','move'],
- ['約 05:00','抵達 Ana Anan，只寄放行李','rest','05:00–07:30 在大廳休息','https://maps.app.goo.gl/1i1jdgLEXYYXLCcV9'],
- ['08:00–09:30','早餐　The Lunar Beach House','eat','','https://maps.app.goo.gl/mTxG9kVrgKu2MLKN9'],
- ['10:00–11:30','Sanctuary of Truth 真理寺','go'],
- ['12:00–13:30','午餐　Khanom Sen Khun Ya「老奶奶餐廳」','eat','','', '12/8 午餐欄也寫了同一間'],
- ['約 14:00–15:00',"咖啡　Nitan Coffee's Tale Pattaya","eat",'備選：VANVELA cafe & space','https://maps.app.goo.gl/BCwpR2YKUNrjA8dF9'],
- ['15:00–17:30','飯店自由活動','rest','按摩、海灘拍照或睡覺'],
- ['17:00–18:00','按摩 1 小時（芭達雅）','rest','','','與 17:30 叫車去餐廳重疊'],
- ['18:00–20:00','晚餐　The Sky Gallery','eat','海邊夕陽後接晚餐；備選 The Oxygen Beachfront Oasis'],
- ['晚上','Big C Supercenter South Pattaya 採買','go']]},
-{no:3,date:'12/08',wd:'二',title:'芭達雅 → 曼谷　Sukhumvit＋市中心＋寶可夢',svg:'city',stay:['🏨 Sotetsu Grand Fresa Bangkok　12/08–12/11','🚐 芭達雅直奔曼谷，私人包車約 2 小時'],
- note:'備註欄另寫：老奶奶餐廳後 13:00 出發，中途停春武里 Harudot 喝咖啡，傍晚朱拉隆功大學＋班塔通美食，晚上高空酒吧。這和下方時間軸不同，詳見「行程檢查」。',
+ ['約 05:00','抵達 Ana Anan，只寄放行李','rest','05:00–07:30 大廳梳洗休息','https://maps.app.goo.gl/1i1jdgLEXYYXLCcV9'],
+ ['08:00–09:30','早餐　The Lunar Beach House','eat','芭達雅人氣海景懸崖景觀早餐，免預約','https://maps.app.goo.gl/mTxG9kVrgKu2MLKN9'],
+ ['10:00–11:30','Sanctuary of Truth 真理寺','go','全木雕建築藝術古蹟。建議先在 Klook／KKday 購票'],
+ ['12:00–13:30','午餐　Khanom Sen Khun Ya「老奶奶餐廳」','eat','在地人氣泰式米線、特色炸雞，現場入座'],
+ ['13:30–15:00','咖啡廳小憩　Nitan Coffee’s Tale（或 VANVELA）','eat','二選一：1. Nitan Coffee’s Tale Pattaya　2. VANVELA cafe & space','https://maps.app.goo.gl/BCwpR2YKUNrjA8dF9'],
+ ['15:00–17:30','Ana Anan 飯店自由活動','rest','按摩、海灘拍照或睡覺'],
+ ['17:30','集合叫車去餐廳','move'],
+ ['18:00–20:00','晚餐　The Sky Gallery','eat','懸崖夕陽海景餐廳。備選：The Oxygen Beachfront Oasis／Fish Club。強烈建議提前預約夕陽海景第一排'],
+ ['20:00–21:30','Big C 超市採買伴手禮','go'],
+ ['晚上','回飯店休息，調整紅眼班機時差','rest']]},
+{no:3,date:'12/08',wd:'二',title:'芭達雅 → 曼谷　Sukhumvit＋市中心＋寶可夢',svg:'city',stay:['🏨 Sotetsu Grand Fresa Bangkok（相鐵飯店）　12/08–12/11','🚐 私人包車直奔曼谷，約 2 小時'],
+ note:'沒有安排正式午餐，車上休息，留胃給下午茶與晚餐。',
  items:[
- ['08:00–09:00','泳池拍照','go'],
+ ['08:00–09:00','飯店泳池拍照放鬆','go'],
  ['09:00–10:00','飯店早餐 Buffet','eat'],
  ['10:45','大廳集合退房','move'],
- ['11:30','司機接送，芭達雅 → 曼谷','move'],
- ['13:30','抵達 Sotetsu Grand Fresa，辦理入住／放行李','move','','https://maps.app.goo.gl/GMQVVcskogiUhE7T8','午餐欄寫「不吃午餐」，其他欄位卻有午餐安排'],
- ['14:00','出發去 centralwOrld，約 14:30 抵達','move'],
- ['15:30','分流活動','go','君輔：Pokémon Center BANGKOK（6F）　其他人：After You 吃下午茶'],
- ['16:00–18:00','GalileOasis 商圈逛街','go','品牌 Boyis、Flagship Store 等','','店名需再確認'],
- ['18:30–20:00','Abandoned Mansion　Sukhumvit 14 巷地窖爵士酒吧／調酒','eat','吃完走路回飯店，約 6 分鐘'],
- ['19:00–20:00','按摩 1 小時（曼谷）','rest','','','與晚餐時段重疊']]},
-{no:4,date:'12/09',wd:'三',title:'曼谷　鄭王廟泰服＋河畔夕陽＋夜景餐廳',svg:'prang',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 晚餐後叫車返回市區飯店或酒吧'],
- note:'原則是區域集中。FRAGMENT COFFEE 與 % Arabica Song Wat 也列為必去，位置見備選店單。',
+ ['11:30–13:30','私人包車司機接送，芭達雅 → 曼谷','move'],
+ ['13:30','抵達 Sotetsu Grand Fresa，辦理入住／放行李','move','','https://maps.app.goo.gl/GMQVVcskogiUhE7T8'],
+ ['14:00','出發前往 centralwOrld 百貨，14:30 抵達','move'],
+ ['14:30–15:30','Pokémon Center BANGKOK（君輔）','go','centralwOrld 6F'],
+ ['14:30–15:30','After You 吃蜜糖吐司／泰奶刨冰（同行其他人）','eat'],
+ ['16:00–18:00','GalileOasis 藝文商圈逛街','go','Boyis Flagship Store 等特色品牌','','店名請再確認'],
+ ['18:30–20:00','晚餐　Abandoned Mansion','eat','Sukhumvit 14 巷地窖爵士酒吧，特色調酒與輕食。建議預約吧台或靠近舞台座位'],
+ ['晚上','步行回相鐵飯店休息，約 6 分鐘','rest']]},
+{no:4,date:'12/09',wd:'三',title:'曼谷時髦商場＋鄭王廟泰服外拍＋點燈河景晚餐',svg:'prang',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 晚餐後搭車返回飯店'],
  items:[
- ['08:00–09:00','早餐','eat'],
- ['09:00','出發，09:30 抵達 Dib Bangkok','move'],
- ['10:00–11:30','Dib Bangkok','go','建議提前預約'],
- ['11:45–12:30','Emsphere','go','BEAMS Emsphere、A KEEN HOUSE'],
- ['13:00–14:00','午餐　Shake Shack Emsphere','eat'],
- ['14:00–15:10','出發前往 Tha Tien 碼頭／鄭王廟','move','提早出發，避開下班尖峰'],
- ['15:10–18:15','同行分流','go','📷 泰服組：鄭王廟換泰服拍夕陽　☕ 咖啡組：Tha Tien 河景咖啡（ViVi The Coffee Place 等）＋老街','','鄭王廟關門時間要再確認'],
- ['17:30–18:30','按摩 1 小時（彈性時間）','rest','','','與分流活動重疊'],
- ['18:30–20:30','河畔景觀晚餐　RONGROS（榮泰）或 Chom Arun','eat','正對點燈的鄭王廟，建議提早預約河景第一排'],
- ['20:30–22:00','夜間二選一','go','方案 A：AETHER BANGKOK 復古高空酒吧　方案 B：回市區按摩或賣場採買']]},
-{no:5,date:'12/10',wd:'四',title:'曼谷　舊城區＋咖啡＋唐人街',svg:'cup',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 Sotetsu → Factory Coffee 約 20–30 分'],
- note:'先東後西再進市中心；餐廳盡量選有店面、室內座位。Abandoned Mansion 依體力前往。',
+ ['08:00–09:00','早餐　飯店周邊自理','eat','飯店早餐或 7-11 輕食'],
+ ['09:00','出發，09:30 抵達','move'],
+ ['10:00–11:30','Dib Bangkok（美術館）','go','建議提前預約到訪時段'],
+ ['11:45–12:30','Emsphere 百貨逛街','go','BEAMS Emsphere 等；A KEEN HOUSE - Emsphere 咖啡輕食'],
+ ['13:00–14:00','午餐　Shake Shack Emsphere','eat','人氣漢堡，現場入座'],
+ ['14:00–15:10','前往 Tha Tien 碼頭','move','提前出發避開塞車'],
+ ['15:10–18:15','同行分流活動','go','📷 泰服組：搭船至對岸鄭王廟（Wat Arun）換泰服拍夕陽，泰服現場租借約 ฿200–฿300　☕ 咖啡組：Tha Tien 老街文創散步，ViVi The Coffee Place（河畔第一排露台）','','鄭王廟關門時間要再確認'],
+ ['18:30–20:30','河畔夜景晚餐　RONGROS（榮泰）','eat','主選：RONGROS（榮泰），米其林推薦精緻泰菜。備選：Chom Arun 頂樓露台。正對夜間點燈的鄭王廟，務必提早 1–2 個月預約河景第一排'],
+ ['20:30–22:00','夜間二選一　AETHER BANGKOK 或按摩','go','方案 A：AETHER BANGKOK 高空景觀酒吧（建議提早訂位）　方案 B：回市區 1 小時泰式按摩，或賣場採買']]},
+{no:5,date:'12/10',wd:'四',title:'舊城文青＋嵩越路老街＋唐人街夜逛',svg:'cup',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 返回相鐵飯店打包行李'],
+ note:'早餐先喝咖啡再吃老字號早餐，現場候位即可。',
  items:[
- ['08:00–09:00','☕ Factory Coffee - BKK（Phaya Thai）','eat','精品咖啡，必去'],
- ['09:30–10:30','邢泰記 Kope Hya Tai Kee','eat','近百年老字號早餐：鐵鍋蛋、法棍烤吐司、古法泰奶'],
- ['10:45–11:10','Mamuang Shop（芒果妹）','go'],
- ['11:30–13:15','午餐　Rung Klan Nuea「牛面王」','eat','泰式風味清燉牛肉湯，嵩越一帶'],
- ['14:00–17:00','Song Wat／嵩越路慢逛','go','吃：Wanjai Cafe House 芒果糯米飯、% Arabica adidas Originals Store Song Wat、akho_at_songwat 泰奶烤吐司、Lost in Songwat 百年老宅咖啡廳　逛：Kodangs、Tudi eyewear、Copenn、Garçon dept Songwat','https://maps.app.goo.gl/xKRK1ogdEpVcw18K8','13:15 到 14:00 之間沒有安排'],
- ['18:00–20:00','晚餐　KINKIN Sukhumvit 47（蟹肉炒飯）','eat','','','備註寫的是 Rongsi Pochana Langsuan'],
- ['20:30–21:15','按摩（彈性時間）','rest','表格寫 1 小時，時段只有 45 分'],
- ['','最後伴手禮採買','go']]},
-{no:6,date:'12/11',wd:'五',title:'曼谷 → 台北　CI832',svg:'plane',stay:['✈ CI832 14:05 – 18:40','🚕 飯店 → BKK 約 45–60 分，預留交通緩衝'],
+ ['08:00–09:00','Factory Coffee - BKK','eat','冠軍手沖咖啡'],
+ ['09:30–10:30','Kope Hya Tai Kee 邢泰記','eat','老字號鐵鍋蛋、烤吐司、古法泰奶'],
+ ['10:45–11:10','Mamuang Shop（芒果妹）','go','文創周邊插畫店。10:30 先出發前往'],
+ ['11:10–11:30','前往嵩越路（Song Wat）','move'],
+ ['11:30–13:15','午餐　Rung Klan Nuea「牛面王」','eat','米其林推薦，招牌清燉牛肉湯、牛腩粄條'],
+ ['14:00–17:00','Song Wat／嵩越路慢逛挖寶','go','逛：Kodangs（衣服、選品、拍貼機）、Tudi eyewear（太陽眼鏡）、Copenn（本土香氛）、Garçon dept Songwat（文創雜貨）。吃喝：Wanjai cafe House（芒果糯米飯）、% Arabica adidas Originals Store（老宅概念店）、akho_at_songwat（泰奶烤吐司＋手沖泰奶）、Lost in Songwat（百年老宅咖啡廳）','https://maps.app.goo.gl/xKRK1ogdEpVcw18K8','13:15 到 14:00 之間沒有安排'],
+ ['18:00–20:00','唐人街晚餐（三選一）','eat','1. T&K Seafood（綠衫碳烤海鮮熱炒）　2. 廣興海南雞飯／林老三魚丸麵　3. 蓮花大酒店旁室內空調泰菜合菜餐廳。建議選有室內冷氣的店面'],
+ ['夜晚','最後伴手禮採買','go']]},
+{no:6,date:'12/11',wd:'五',title:'曼谷 → 台北　CI832',svg:'plane',stay:['✈ 中華航空 CI832 14:05 – 18:40','🚕 飯店 → BKK，預留塞車緩衝'],
  items:[
- ['08:00–09:00','早餐（飯店）','eat'],
- ['09:00–10:00','整理行李、退房','move'],
- ['10:30','飯店 → BKK','move'],
- ['約 11:30','抵達機場','move'],
- ['11:30–13:00','報到、托運、出境、免稅店','move'],
+ ['08:00–09:00','飯店悠閒早餐','eat'],
+ ['09:00–10:00','整理行李、辦理退房','move'],
+ ['10:30','飯店出發前往 BKK 機場','move','10:30 準時出發'],
+ ['11:30','抵達機場','move'],
+ ['11:30–13:00','報到托運、出境、免稅店最後採購','move','午餐在機場航廈美食區自理'],
  ['14:05','CI832 起飛，曼谷 → 台北','move'],
- ['18:40','抵達桃園','move']]}
+ ['18:40','抵達桃園機場 T1','move','機上用餐']]}
 ];
-const SP=[
-['Song Wat／Yaowarat','Wanjai Cafe House @ SongWat','咖啡／甜點','備選','一～四 10:00–19:00；五 10:00–19:30；六 10:00–20:00；日 10:00–19:30'],
-['Song Wat／Yaowarat','興隆 Mango Sticky Rice @ SongWat','芒果糯米飯','備選','一～四 10:00–19:00；五 10:00–19:30；六 10:00–20:00；日 10:15–19:30'],
-['Song Wat／Yaowarat','SCR - Song Wat Coffee Roasters','精品咖啡','咖啡備選','約 09:00–17:00'],
-['Song Wat／Yaowarat','LOCAL BOYS COFFEE CO. SONG WAT','咖啡／烘豆','咖啡備選','約 08:30–20:00'],
-['Song Wat','% Arabica Bangkok adidas Originals Store Song Wat','精品咖啡','★ 必去','原行程已安排'],
-['Talat Noi／Charoen Krung','Mother Roaster Talat Noi','咖啡／老宅','備選','約 09:30–17:30'],
-['Charoen Krung／Warehouse 30','KITTTAKHON','設計／生活選物','備選','約 11:00–18:00'],
-['Charoen Krung／Warehouse 30','Warehouse 30','藝文／選物','備選','與 Horse Unit、WOOT WOOT 一起安排'],
-['Charoen Krung／Warehouse 30','Horse Unit','選物','備選','Warehouse 30 內'],
-['Charoen Krung／Warehouse 30','WOOT WOOT','選物','備選','Warehouse 30 內'],
-['Thonglor／Ekkamai','All Kinds @ theCOMMONS Thonglor','特色選物','備選','每日 10:00–20:00'],
-['Thonglor／Ekkamai','Mae Varee','芒果糯米飯','備選','每日 06:00–22:00'],
-['Thonglor／Sukhumvit','Bump Coffee Space Thonglor','精品咖啡','咖啡備選','約 07:30–17:30；週末較晚'],
-['Thonglor／Sukhumvit','Samadool Coffee','烘豆／精品咖啡','咖啡備選','約 07:00–16:00；週末 08:00–16:00'],
-['Thonglor／Sukhumvit','Ceresia Coffee Roasters','烘豆／精品咖啡','咖啡備選','約 08:00–17:00'],
-['Thonglor／Sukhumvit','Sometimes I Feel','精品咖啡','咖啡備選','約 08:30–17:30'],
-['Thonglor／theCOMMONS','ROAST coffee & eatery','咖啡／餐廳','備選','每日約 09:00–22:00；可與 All Kinds 一起'],
-['Thonglor','C.P.S. COFFEE Flagship Sukhumvit 53','精品咖啡','★ 必去','原行程已安排'],
-['Phra Khanong','Ning’s Mango Stand','芒果／甜點','備選','每日 13:00–22:00'],
-['Ratchaprasong／centralwOrld','Good Goods','泰國特色選物','★ 正式行程','每日 10:00–22:00；與 Pokémon Center 同區'],
-['Phaya Thai','Factory Coffee - BKK','精品咖啡','★ 必去','官方目前 08:00–16:00；建議上午'],
-['Sam Yot／舊城區','FRAGMENT COFFEE','精品咖啡','★ 必去','原行程已安排'],
-['Sam Yot／巨鞦韆','Kope Hya Tai Kee 邢泰記','老字號傳統早餐','★ 正式行程','近百年傳統早餐；招牌鐵鍋蛋、法棍烤吐司、泰奶'],
-['Phrom Phong','FRIEND FRIEND／Sauce Coffee','選物／咖啡','★ 必去','原行程已安排'],
-['Phloen Chit','SIWILAI Store','頂級潮流選物','★ 正式行程','Central Embassy 5F；與 HUMAN MADE 同商場'],
-['Banthat Thong','Lobster City Bantadthong','海鮮／蝦膏飯','★ 正式行程','人氣去殼蝦仁飯配特濃蝦膏套餐'],
-['Banthat Thong','HAAB.BKK 奶油雞蛋糕','街頭甜點','★ 正式行程','宋卡傳統炭烤爆漿奶油雞蛋糕'],
-['Banthat Thong','Everyday Thai Tea','人氣泰奶','★ 正式行程','招牌小男孩濃厚泰式奶茶'],
-['Siam / Banthat Thong','Paradise Lost Bangkok - Rooftop Bar','高空露天酒吧','★ 正式行程','Siam@Siam 頂樓 25F，俯瞰市景'],
-['Sukhumvit / Asok','Abandoned Mansion','爵士酒吧／調酒','★ 正式行程','Sukhumvit 14 巷地窖，1930 美式黑幫復古風，近相鐵飯店'],
-['Chonburi','Harudot Chonburi by Nana Coffee Roasters','精品咖啡／建築地標','★ 正式行程','包車途中停留；黑色木造特色建築'],
-['曼谷選物','HUMAN MADE BANGKOK','潮流選物','孤立筆記','Central Embassy；表格有兩個不同時段（15:00 與 17:30）'],
-['曼谷選物','Boyis. Flagship Store','潮流選物','孤立筆記','16:40–17:10，接著 17:25 前往 centralwOrld']
-];
-const PAT=[
-['Squid & Co.','早餐：紅眼班機後最方便'],['Praneat Seafood','主選午餐'],['Fish Club Seafood Grill','主選晚餐'],['Glass House Boho','夕陽＋海景備選'],['ISEA Sky & The Jetty','夕陽＋海景備選'],['Pupen Seafood','海鮮備選'],['La Cucina','義式備選'],['Lung Sawai Seafood','海鮮備選'],['Sereia Thai Coastal Grill','早餐備選'],['BACK-FABRIK','早餐備選']];
-const ISS=[
-['日期寫錯',['第 5、6 天的日期儲存格是 2012/10/26 與 2012/11/26，應為 2026/12/10 與 12/11。本頁已更正。']],
-['時間或安排互相衝突',[
- '12/8 午餐有三種說法：午餐欄「不吃午餐」；備選欄把老奶奶餐廳標成 12/8 午餐（11:15–12:15）；備註欄寫老奶奶後 13:00 出發並中停春武里。時間軸卻是 11:30 出發、13:30 到飯店。老奶奶餐廳 12/7 午餐也排了一次。',
- '12/8 傍晚備註寫朱拉隆功大學、班塔通美食、晚上高空酒吧，時間軸卻是 centralwOrld → Abandoned Mansion。班塔通三家小吃與 Paradise Lost 標為正式行程，但沒進任何一天。',
- '按摩有四天都撞時間：12/7 17:00–18:00 撞 17:30 叫車；12/8 19:00–20:00 撞晚餐 18:30–20:00；12/9 17:30–18:30 撞分流活動與 18:30 晚餐；12/10 寫「1 小時」但時段只有 45 分。',
- '12/10 蟹肉炒飯：晚餐是 KINKIN Sukhumvit 47，備註與 12/8 交通欄寫的是 Rongsi Pochana Langsuan，兩家不同店、不同區。',
- '12/8 13:30 到飯店、14:00 就出發，只有 30 分鐘整理，而且午餐欄寫不吃午餐，下一餐是 18:30，中間約 5 小時沒有吃東西。',
- '12/7 備選欄把 Praneat Seafood 標為主選午餐、12/8 的 Fish Club 標為主選晚餐，與時間軸選的老奶奶、The Sky Gallery 不同。']],
-['內容放錯天或沒掛上行程',[
- '12/9 的備註其實是 12/10 的內容（Factory Coffee → Kope → Mamuang，下午 FRAGMENT → Song Wat → 唐人街）。12/10 標題有唐人街，時間軸卻沒有，FRAGMENT COFFEE 也沒排進去。',
- 'Good Goods、Pokémon Center、HUMAN MADE 在備註與「必去」列被寫成 12/10 正式行程，12/10 時間軸卻沒有；Pokémon Center 已排在 12/8，重複。',
- '表格右側有三格孤立文字（I11、L11、L12）：C.P.S.、FRIEND FRIEND、HUMAN MADE、SIWILAI、Boyis、Pokémon Center 的整段行程，沒有掛在任何一天。HUMAN MADE 在裡面還有 15:00 與 17:30 兩個時間。',
- '「備選／必去／特色店／Google Maps」這幾列被放進天數欄，造成 12/6（夜班機）有芭達雅早餐備選、12/11 有芭達雅海鮮備選。Google Maps 連結只有 6 個，Pokémon Center 沒有連結。',
- '「排列原則」標題底下其實是補充店單，標題與內容不符。']],
-['時間可能排不下，建議查證',[
- '12/9 鄭王廟 15:10–18:15 換泰服拍夕陽，但鄭王廟一般 18:00 關門、最後入場更早，12 月日落約 17:50。請看官網確認，並預留換裝與租借時間。',
- '12/10 午餐 13:15 結束，Song Wat 14:00 才開始，中間 45 分鐘空白；Song Wat 17:00 離開到 Sukhumvit 47 吃 18:00 的晚餐，車程在傍晚尖峰可能超過 40 分鐘。',
- '12/8 的「GalileOasis」疑似打錯字，請確認實際店名與位置。']]
-];
-
+const RES=[
+['極高','RONGROS 或 Chom Arun','12/09（三）18:30 晚餐','出發前 1–2 個月於官方 FB／LINE／官網預約','正對點燈鄭王廟的河景第一排極度搶手，需指定河景席'],
+['極高','Dib Bangkok','12/09（三）10:00 上午','提前透過官方管道確認預約時段','預約制／人流管制的質感設計選物空間'],
+['高','The Sky Gallery Pattaya','12/07（一）17:30 晚餐','出發前於官方管道預約 17:00–17:30 席位','芭達雅熱門懸崖夕陽餐廳，需指定靠海景觀位'],
+['高','Abandoned Mansion','12/08（二）18:30 晚餐／酒吧','出發前 3–7 天線上或官方社群預約','熱門美式地窖爵士酒吧，建議指定舞台周邊座位'],
+['高','AETHER BANGKOK','12/09（三）20:30 夜間','出發前線上或電話預約','現代質感高空景觀酒吧，外圍景觀好席位需預約'],
+['建議','Sanctuary of Truth 真理寺','12/07（一）10:00 上午','出發前於 Klook／KKday 購票','線上購票比現場優惠，掃碼直接入場']];
 const ICON={
 plane:'<svg viewBox="0 0 84 56" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 40 C26 10 52 10 76 20"/><path d="M60 14 L80 21 L62 30 L66 22 Z" fill="#fff"/><circle cx="6" cy="40" r="3" fill="#fff"/></svg>',
 wave:'<svg viewBox="0 0 84 56" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M4 36 q10 -10 20 0 t20 0 t20 0 t20 0"/><path d="M4 46 q10 -10 20 0 t20 0 t20 0 t20 0" opacity=".6"/><circle cx="62" cy="14" r="8" fill="#9CC2EA" stroke="none"/></svg>',
@@ -276,13 +222,29 @@ const clean=t=>{t=t.replace(/[☕📷🍳🥭🎨🛍️✨🎷🍸]/gu,'').trim
 const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分流|二選一|泳池|Buffet|早餐$|夜間/;
 /* 貼圖：在下面填「店名（和頁面標題裡的名稱一致）: 圖片網址」，頁面就會顯示 */
 const PIC={
-'Sanctuary of Truth 真理寺':'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Santuaryoftruth2.jpg/960px-Santuaryoftruth2.jpg',
-'出發前往 Tha Tien 碼頭／鄭王廟':'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg/960px-%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg',
-'出發去 centralwOrld，約 14:30 抵達':'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/CentralWorld_20190825.jpg/960px-CentralWorld_20190825.jpg',
-'Emsphere':'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Emsphere%2C_Bangkok%2C_June_2024.jpg/960px-Emsphere%2C_Bangkok%2C_June_2024.jpg',
-'Song Wat／嵩越路慢逛':'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg/960px-%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg',
+"Lunar Beach House":"https://storage.googleapis.com/tripniceday/uploads/places/1639726669541.jpg",
+"Nitan":"https://www.kupi.com/kland-storage/images/1200x630/50x50//attractions/th/pattaya/nitan-coffees-tale/3fa1de14-c41a-409f-8ac0-c82396bad879.webp",
+"The Sky Gallery":"https://img.wongnai.com/p/1920x0/2020/01/21/4ca371950c274987944ca10720a6dbbe.jpg",
+"抵達 Ana Anan":"https://images.thaiholidayguide.com/images/accommodation/ana-anan-resort-villas-pattaya.webp",
+"抵達 Sotetsu":"https://images.thaiholidayguide.com/images/accommodation/sotetsu-grand-fresa-bangkok-3.webp",
+"Abandoned Mansion":"https://media.timeout.com/images/106382960/image.jpg",
+"Pokémon Center":"https://media.timeout.com/images/106402082/image.jpg",
+"After You":"https://img.wongnai.com/p/1920x0/2026/09/09/09d31ff15ac44184bacc9e5eaf14bde6.jpg",
+"Dib Bangkok":"https://gorktksmwzabnzbhfrcx.supabase.co/storage/v1/object/public/locations/locations/ChIJuQxlKwCf4jARhBH0bCE0vDs/0.jpg",
+"Shake Shack":"https://img.wongnai.com/p/1920x0/2024/03/14/2cd9e21692a343f6b9b389059c6862f2.jpg",
+"RONGROS":"https://cdn.enprimeurclub.com/storage/v1/object/public/images/locations/reczK0zwIyx3K9kb3/hero1.jpg?width=1200&quality=85&aspect_ratio=1.91%3A1&crop_gravity=center",
+"AETHER":"https://static1.squarespace.com/static/69367a1de6f6ff071db009fe/t/6a476b0ef8f57e1a94684440/1783065358712/260419AETHER-92.jpg?format=1500w",
+"Factory Coffee":"https://www.ladyironchef.com/wp-content/uploads/2017/08/Factory-BKK.jpg",
+"Kope Hya":"https://media.timeout.com/images/103751563/image.jpg",
+"Rung Klan Nuea":"https://content.phuket101.net/wp-content/uploads/20260811152912/Rong-Klan-Nuea-9.jpg",
+"Sanctuary of Truth":"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Santuaryoftruth2.jpg/960px-Santuaryoftruth2.jpg",
+"Tha Tien":"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg/960px-%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg",
+"centralwOrld 百貨":"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/CentralWorld_20190825.jpg/960px-CentralWorld_20190825.jpg",
+"Emsphere 百貨":"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Emsphere%2C_Bangkok%2C_June_2024.jpg/960px-Emsphere%2C_Bangkok%2C_June_2024.jpg",
+"Song Wat／嵩越路":"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg/960px-%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B9%81%E0%B8%82%E0%B8%81%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%A7%E0%B8%B2%E0%B8%94_2.jpg",
+"唐人街晚餐":"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Yaowarat_at_night_%2832455695783%29.jpg/960px-Yaowarat_at_night_%2832455695783%29.jpg",
 };
-const picOf=t=>{const k=Object.keys(PIC).find(n=>t===n);return k?`<a href="${PIC[k]}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${k}" src="${PIC[k]}"></a>`:''};
+const picOf=t=>{const k=Object.keys(PIC).find(n=>t.includes(n));return k?`<a href="${PIC[k]}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${k}" src="${PIC[k]}"></a>`:''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
 D.forEach(d=>{const city=cityOf(d.no);
@@ -290,14 +252,7 @@ D.forEach(d=>{const city=cityOf(d.no);
  const li=d.items.map(([t,title,k,n,link,w])=>`<li><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}${picOf(title)}<div class="alt">${link?`<a href="${esc(link)}" target="_blank" rel="noopener">地圖</a>`:''}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`${link?'　':''}<a href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div></li>`).join('');
  host.insertAdjacentHTML('beforeend',`<section class="day" id="day${d.no}"><div class="dayhead"><div class="no">${d.no}</div><div><div class="meta">${d.date}（${d.wd}）</div><h2>${esc(d.title)}</h2></div>${ICON[d.svg]}</div><div class="card"><div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="note">${esc(d.note)}</div>`:''}<ol class="tl">${li}</ol></div></section>`);
 });
-// 店單
-const areas=['全部',...new Set(SP.map(r=>r[0].split(/[／\/]/)[0].trim()))];
-const fb=document.getElementById('filters'),tb=document.getElementById('rows');let cur='全部';
-function draw(){tb.innerHTML=SP.filter(r=>cur==='全部'||r[0].split(/[／\/]/)[0].trim()===cur).map(r=>`<tr><td>${esc(r[0])}</td><td><strong>${esc(r[1])}</strong><div class="alt"><a href="${esc(img(r[1]+' Bangkok'))}" target="_blank" rel="noopener">看照片</a></div></td><td>${esc(r[2])}</td><td>${r[3].startsWith('★')?`<span class="tag must">${esc(r[3])}</span>`:r[3]==='孤立筆記'?`<span class="tag warn">未排入</span>`:`<span class="tag">${esc(r[3])}</span>`}</td><td>${esc(r[4])}</td></tr>`).join('');
- fb.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a===cur));}
-areas.forEach(a=>{const b=document.createElement('button');b.type='button';b.dataset.a=a;b.textContent=a;b.onclick=()=>{cur=a;draw()};fb.appendChild(b)});draw();
-document.getElementById('pattaya').innerHTML=`<div><h4>餐廳備選</h4><ul>${PAT.map(p=>`<li><strong>${esc(p[0])}</strong>　${esc(p[1])}</li>`).join('')}</ul></div>`;
-document.getElementById('issues').innerHTML=ISS.map((g,i)=>`<details class="issues"${i===0?' open':''}><summary>${esc(g[0])}（${g[1].length}）</summary><ul>${g[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`).join('');
+document.getElementById('rows').innerHTML=RES.map(r=>`<tr><td><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}">${r[0]}</span></td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join('');
 </script>
 
 </body>
