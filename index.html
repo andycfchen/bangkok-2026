@@ -167,7 +167,13 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
 }
 
 .bk{font-size:13.5px;line-height:1.6;margin-top:6px;padding:5px 10px;border-radius:8px;border:1px dashed var(--line);color:var(--ink)}
-.bk b{font-weight:700;margin-right:6px;color:var(--taxi)}
+.bk summary{cursor:pointer;font-weight:700;color:var(--taxi);list-style:none;display:flex;align-items:center;gap:6px;user-select:none}
+.bk summary::-webkit-details-marker{display:none}
+.bk summary::before{content:"▸";display:inline-block;transition:transform .15s}
+.bk[open] summary::before{transform:rotate(90deg)}
+.bk[open] summary{margin-bottom:2px}
+.altbox{margin:8px 0 0;padding:8px 12px}
+.altbox .lead{margin:8px 0}
 .bk .bki{margin:3px 0 0;padding-left:1.1em;text-indent:-1.1em;display:block}
 .bk .bki::before{content:"・";display:inline-block;width:1.1em;text-indent:0;text-align:center;color:var(--mute)}
 </style>
@@ -209,8 +215,10 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
 <div class="tbl"><table><thead><tr><th>重要度</th><th>項目</th><th>日期／時段</th><th>預約建議</th><th>備註</th></tr></thead><tbody id="rows"></tbody></table></div>
 
 <h2 class="sec" id="alt">備選地點</h2>
+<details class="bk altbox"><summary>展開備選地點（7）</summary>
 <p class="lead">原始行程表有、目前行程沒排的地方，當備案。營業時間都是第三方資料，出發前請再確認；週二（12/08）、週三（12/09）都沒有查到公休說法，但沒有一間拿到官方證實。</p>
 <div class="tbl"><table><thead><tr><th>地點</th><th>位置</th><th>營業時間</th><th>備註</th></tr></thead><tbody id="altrows"></tbody></table></div>
+</details>
 
 <footer>資料來源：2026曼谷.xlsx。行程資料來源：2026曼谷芭達雅_最新優化行程表。營業時間為 2026-10-12 上網核對，多數來自 Wongnai、Time Out、Trip.com 等第三方，僅真理寺與 Factory Coffee 查到官網；預約方式與營業時間出發前請再看一次店家官方公告。圖片來源：Wikimedia Commons 與各店家公開頁面。</footer>
 </div>
@@ -385,7 +393,7 @@ const HNOTE={
 5:'12/10 是泰國國定假日（憲法日），銀行與政府機關休息。今天去的 11 間店都沒查到憲法日的營業公告，全部屬未能證實：出發前一週與 12/03 前後，看店家 IG／FB 與 Google 地圖的特殊營業時間，必要時打電話確認。'
 };
 const BACKUP={"CPS Coffee": ["STOCKROOM（Wongnai 地址寫 Phaya Thai Rd 119/80，離 GalileOasis 走路可到的 Phetchaburi 18 巷是否同一處未核對）：Wongnai 寫週二至三 08:30–17:00、週一公休（最新評論 2025-12-25），12/09 週三可能有開", "Piccolo Vicolo Cafe（GalileOasis 園區內）：三個來源互相矛盾（一說 09:00–17:00、一說每天 11:00–17:00 且週二休、一說週三至週日 08:00–16:00），09:00 是否已開有爭議，未能證實，只當最後備案"], "Pokémon Center": ["沒開幕或排隊太久：這段改全員在 centralwOrld 逛街（百貨 10:00–22:00），Andy 一起去 After You"], "Dib Bangkok（美術館）": ["若 12/08 實際沒開（週二營業來源有衝突）：改去 Boyis. Little Boy Store（188 Soi Chulalongkorn 5，Dragon Town）。品牌 Linktree 寫 14:00–21:00、沒列公休日，IG 到 2026-10-09 仍有發文，可能有開，但旗艦店與 GalileOasis 週二休，這間不一定", "或留在 centralwOrld 繼續逛，再提早去 Abandoned Mansion（17:30 起營業）"], "Tonkin Annam": ["Home Cafe Tha Tien（Soi Tha Tien 小巷）：上一輪三個來源寫主菜約 ฿100–140、有冷氣、有素食，週三 10:30–19:00；但後來另一次核實查不到這間店，請現場確認。午餐會擠，12:15 一到就去", "Pad Thai Kratong Thong by ama（Maha Rat Rd 270-272）：炒河粉專賣，離碼頭約 80 公尺，每日 10:00–17:30（Visit Thailand Today，2026-10），可能有開；沒有冷氣、座位少，Wanderlog 有評論說午餐要排 1–2 小時", "Chai Chuan Chim（Soi Pratu Nok Yung 口）：街邊叉燒麵、叉燒飯約 ฿60，兩次查證都查不到營業時間或店家資料，只有 Wongnai 評論，純粹現場看有沒有開"], "ViVi": ["Make Me Mango Tha Tian（Maha Rat Rd 67）：芒果甜點專賣，4.7 分、2,011 則評論，有冷氣，離碼頭步行約 2 分（單一來源）。營業時間：Visit Thailand Today（2026-10）週一至五 10:30–20:00；其他來源 10:00–22:00 或 09:30–19:00，14:00–15:00 與 17:45–18:15 多數說法都有開；芒果糯米飯約 ฿175，尖峰要排隊", "A Pink Rabbit + Bob's Good Coffee（Maha Rat Rd 378，Wat Pho 對面）：復古小店，約 7 桌，每人約 ฿200，每日 09:00–20:00（Khaosod 2020、Funliday 2025），冷氣未能證實；Funliday 的地址不同（Song Wat Rd），目前是否仍營業未能證實，行前看 IG @apinkrabbitandbob"]};
-const bkOf=t=>{const k=Object.keys(BACKUP).find(n=>t.includes(n));return k?`<div class="bk"><b>備案</b>${BACKUP[k].map(x=>`<div class="bki">${esc(x)}</div>`).join('')}</div>`:''};
+const bkOf=t=>{const k=Object.keys(BACKUP).find(n=>t.includes(n));return k?`<details class="bk"><summary>備案（${BACKUP[k].length}）</summary>${BACKUP[k].map(x=>`<div class="bki">${esc(x)}</div>`).join('')}</details>`:''};
 const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
 const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
 const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"https://www.bkmagazine.com/wp-content/uploads/2026/06/img_3005.jpeg"]]};
