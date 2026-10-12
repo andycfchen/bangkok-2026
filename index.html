@@ -176,6 +176,17 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
 .altbox .lead{margin:8px 0}
 .bk .bki{margin:3px 0 0;padding-left:1.1em;text-indent:-1.1em;display:block}
 .bk .bki::before{content:"・";display:inline-block;width:1.1em;text-indent:0;text-align:center;color:var(--mute)}
+
+nav.logjump{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+nav.logjump a{text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:13px}
+nav.logjump a b{display:block;font-family:var(--f-mono);font-weight:500;font-size:12px;color:var(--taxi)}
+nav.logjump a:focus-visible,nav.logjump a:hover{outline:2px solid var(--teal)}
+.logday{margin:0 0 16px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;scroll-margin-top:130px}
+.logday h3{margin:0 0 6px;font-size:15px;font-family:var(--f-mono);color:var(--taxi)}
+.logday h3 span{font-family:inherit;color:var(--ink);font-weight:700}
+.logday ul{margin:0;padding-left:1.1em;font-size:14px;line-height:1.6}
+.logday li{margin:2px 0}
+.logday code{font-family:var(--f-mono);font-size:12px;color:var(--mute);margin-right:4px}
 </style>
 
 <div class="wrap">
@@ -219,6 +230,11 @@ ol.tl li{padding-block:16px;grid-template-columns:104px 14px minmax(0,1fr)}
 <p class="lead">原始行程表有、目前行程沒排的地方，當備案。營業時間都是第三方資料，出發前請再確認；週二（12/08）、週三（12/09）都沒有查到公休說法，但沒有一間拿到官方證實。</p>
 <div class="tbl"><table><thead><tr><th>地點</th><th>位置</th><th>營業時間</th><th>備註</th></tr></thead><tbody id="altrows"></tbody></table></div>
 </details>
+
+<h2 class="sec" id="log">更新紀錄</h2>
+<p class="lead">每次推送的變更，點日期可直接跳到該天。括號內是 commit 代號，要回復可用。</p>
+<nav class="logjump" aria-label="更新日期"><a href="#log-2026-10-12"><b>10/12</b>19 項</a><a href="#log-2026-10-12-b"><b>10/12</b>7 項</a><a href="#log-2026-10-11"><b>10/11</b>10 項</a></nav>
+<div class="logwrap"><div class="logday" id="log-2026-10-12"><h3>2026-10-12　<span>12/08、12/09 行程重排、備案與核實</span></h3><ul><li><code>3fc35ca</code> 備案與備選地點改成預設收合，點開才看</li><li><code>ae9d978</code> 新增「備選地點」表：原表有、目前沒排的地點</li><li><code>0818c5a</code> 修正備案版面（原本被時間軸樣式擠成 21 px 寬）</li><li><code>5fd9b8d</code> 渡船：營運 05:00–19:00、約 5.5 THB、Tha Tien 碼頭狀態</li><li><code>beda52c</code> 鄭王廟：建議 17:15 開始往出口走（關門時間來源矛盾）</li><li><code>151bb89</code> 備案與營業時間依核實結果更新</li><li><code>f06fab5</code> 新增備案區塊（早餐、Pokémon、Dib、午餐、咖啡）</li><li><code>2099c08</code> 12/09 午餐改為 Tonkin Annam（週三有開）</li><li><code>cec6fa1</code> 12/09：租泰服與妝髮都在 Tha Tien 側，14:45 兩組一起過河</li><li><code>8524ec7</code> 12/09：咖啡組在 ViVi 等泰服組妝髮</li><li><code>c54ef8b</code> 12/09：泰服組與咖啡組合併，全員到鄭王廟</li><li><code>290be02</code> 12/08 改成先 centralwOrld 再去 Dib；12/09 午餐移到 Tha Tien 側</li><li><code>130c305</code> 12/09 午餐改為 Shake Shack centralwOrld（移除 Emsphere）</li><li><code>d92e8a1</code> 12/09 早餐改為 CPS Coffee 旗艦店，Pokémon 備案上線</li><li><code>dc719bc</code> 更正 Pokémon Center 開幕日：撤回誤讀的 12/06</li><li><code>d292224</code> Pokémon Center：依 Andy 提供的 12/06 暫時標示（後已撤回）</li><li><code>72cf5bf</code> GalileOasis／Boyis. 移到 12/09 上午；泰服組提早半小時</li><li><code>efd9d3c</code> Dib：12/08 已確認可預約；加入 Straight Up 日落節目資料</li><li><code>ddbc2c6</code> 12/08 Dib 放到芭達雅回曼谷之後；12/09 Emsphere 提前</li></ul></div><div class="logday" id="log-2026-10-12-b"><h3>2026-10-12　<span>景點照片與營業時間核對（上午）</span></h3><ul><li><code>8aab119</code> Mamuang Shop 換用官方粉專照片（自存）</li><li><code>6f8451c</code> Mamuang Shop 暫用 Andy 提供的木雕照片（後已換）</li><li><code>aaa37a8</code> 老奶奶餐廳換食物照，營業時間改為約 17:00</li><li><code>4013677</code> After You、Shake Shack、Factory Coffee、邢泰記換食物照；Shake Shack 原圖縮為 154 KB 自存</li><li><code>65905f9</code> Boyis. 與 GalileOasis 週二公休（Google 地圖與官方 IG 確認）</li><li><code>fa00091</code> 更正 Boyis. 旗艦店資訊（同址 535 Phetchaburi Rd，10:00–18:00）</li><li><code>c073d27</code> 新增營業時間標記與泰國假日提醒（12/07 補假、12/10 憲法日）</li></ul></div><div class="logday" id="log-2026-10-11"><h3>2026-10-11　<span>初版建立與頁面改版</span></h3><ul><li><code>934031b</code> 手機版時間軸排版修正；Kope 環境照與 % Arabica 照片</li><li><code>130252a</code> 每個地點加 Google 地圖連結；移除三個待確認標籤</li><li><code>7e528ae</code> 加入 Kope、After You、Mamuang Shop、Shake Shack 照片</li><li><code>cae4cd1</code> 修正路線圖標籤被截斷</li><li><code>f32439a</code> 改版：照片主視覺、每天封面照、地點照片放大</li><li><code>11952fb</code> 加入深淺色切換；改名「君輔」；新增三張照片</li><li><code>1aad77a</code> 移除四張 logo、橫幅或有浮水印的照片</li><li><code>e8f7663</code> 依最佳化行程表重建；加入照片與電話路線清單</li><li><code>595b2b7</code> 加入 Wikimedia Commons 地標照片</li><li><code>02c8c4a</code> 建立曼谷 2026 行程頁</li></ul></div></div>
 
 <footer>資料來源：2026曼谷.xlsx。行程資料來源：2026曼谷芭達雅_最新優化行程表。營業時間為 2026-10-12 上網核對，多數來自 Wongnai、Time Out、Trip.com 等第三方，僅真理寺與 Factory Coffee 查到官網；預約方式與營業時間出發前請再看一次店家官方公告。圖片來源：Wikimedia Commons 與各店家公開頁面。</footer>
 </div>
