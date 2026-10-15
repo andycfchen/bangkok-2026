@@ -1,0 +1,45 @@
+/* 旅遊工具面板：右下角浮動按鈕＋底部面板。沿用頁面既有的色彩變數，不改原版面。 */
+#tfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;width:52px;height:52px;border-radius:50%;border:0;background:var(--taxi);color:var(--bg);font-size:22px;line-height:1;box-shadow:0 4px 14px rgba(0,0,0,.28);cursor:pointer}
+#tfab:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.tl-back{position:fixed;inset:0;z-index:60;background:rgba(8,16,28,.55);display:none}
+.tl-back.on{display:block}
+.tl-panel{box-sizing:border-box;position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:61;width:min(640px,100%);max-height:88vh;display:none;flex-direction:column;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+.tl-panel.on{display:flex}
+.tl-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px}
+.tl-head h2{margin:0;font-size:16px}
+.tl-x{border:0;background:var(--tint);color:var(--ink);width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer}
+.tl-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;border-bottom:1px solid var(--line)}
+.tl-tabs button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:13.5px;cursor:pointer;font-family:inherit}
+.tl-tabs button[aria-selected="true"]{background:var(--taxi);color:var(--bg);border-color:var(--taxi)}
+.tl-body{overflow:auto;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+.tl-sec{margin:0 0 14px}
+.tl-sec h3{margin:0 0 6px;font-size:14px;color:var(--taxi)}
+.tl-note{font-size:13px;color:var(--mute);line-height:1.55;margin:4px 0}
+.tl-big{font-size:28px;font-weight:700;font-family:var(--f-mono)}
+.tl-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+.tl-in,.tl-sel{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:7px 10px;font-size:14px;font-family:inherit;min-width:0}
+.tl-in.w{flex:1 1 140px}
+.tl-btn{border:1px solid var(--line);background:var(--tint);color:var(--ink);border-radius:8px;padding:7px 12px;font-size:13.5px;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.tl-btn.pri{background:var(--taxi);color:var(--bg);border-color:var(--taxi)}
+.tl-btn.warn{color:var(--warn);border-color:var(--warn);background:var(--warnbg)}
+.tl-chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.tl-chk input{margin-top:4px;flex:0 0 auto;width:18px;height:18px}
+.tl-chk.done .tl-t{text-decoration:line-through;color:var(--mute)}
+.tl-chk .tl-t{font-size:14px;font-weight:600}
+.tl-chk .tl-s{font-size:12.5px;color:var(--mute);line-height:1.5}
+.tl-res{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);padding:9px 2px;font-family:inherit;cursor:pointer}
+.tl-res b{font-family:var(--f-mono);font-size:12px;color:var(--taxi);margin-right:6px}
+.tl-res small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:var(--bg)}
+.tl-card p{margin:4px 0 8px;font-size:13px;color:var(--mute);line-height:1.55}
+.tl-panel table.tl-tbl{width:100%;min-width:0;table-layout:auto;border-collapse:collapse;font-size:13.5px}
+.tl-tbl td,.tl-tbl th{overflow-wrap:anywhere}
+.tl-tbl th,.tl-tbl td{text-align:left;padding:5px 4px;border-bottom:1px solid var(--line)}
+.tl-tbl td.n{text-align:right;font-family:var(--f-mono)}
+.tl-exp{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.tl-exp small{display:block;color:var(--mute);font-size:12.5px}
+.tl-pos{color:var(--teal)}
+.tl-neg{color:var(--warn)}
+.tl-flash{animation:tlflash 1.8s ease-out}
+@keyframes tlflash{0%{background:var(--warnbg);box-shadow:0 0 0 6px var(--warnbg)}100%{background:transparent;box-shadow:0 0 0 0 transparent}}
+@media print{#tfab,.tl-back,.tl-panel{display:none!important}}
