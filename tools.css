@@ -74,3 +74,10 @@
 @media print{#tfab,.tl-back,.tl-panel{display:none!important}}
 .tl-key,.tl-btn,.tl-keys{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .tl-cv{-webkit-user-select:text;user-select:text}
+.tl-panel.on{height:88vh;height:88dvh}
+.tl-body{flex:1 1 auto;min-height:0}
+.tl-panel>*{flex-shrink:0}
+.tl-panel>.tl-body{flex-shrink:1}
+.tl-tabs button{flex-shrink:0}
+.tl-chips,.tl-tabs{scrollbar-width:none}
+.tl-chips::-webkit-scrollbar,.tl-tabs::-webkit-scrollbar{display:none}
