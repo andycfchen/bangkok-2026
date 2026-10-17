@@ -56,13 +56,13 @@
     fab.id = 'tfab'; fab.type = 'button'; fab.setAttribute('aria-label', '旅遊工具'); fab.setAttribute('aria-expanded', 'false'); fab.textContent = '🧰';
     var back = document.createElement('div'); back.className = 'tl-back';
     var panel = document.createElement('div'); panel.className = 'tl-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.setAttribute('aria-label', '旅遊工具');
-    var TABS = [['count', '倒數'], ['todo', '待辦'], ['find', '探索'], ['fav', '收藏'], ['route', '路線'], ['calc', '換算'], ['money', '旅費']];
+    var TABS = [['money', '旅費'], ['count', '倒數'], ['todo', '待辦'], ['route', '路線'], ['calc', '換算']];
     panel.innerHTML = '<div class="tl-head"><h2>旅遊工具</h2><button type="button" class="tl-x" aria-label="關閉">✕</button></div>' +
       '<div class="tl-tabs" role="tablist">' + TABS.map(function (t) { return '<button type="button" role="tab" data-tab="' + t[0] + '" aria-selected="false">' + t[1] + '</button>'; }).join('') + '</div>' +
       '<div class="tl-body" id="tl-body"></div>';
     document.body.appendChild(fab); document.body.appendChild(back); document.body.appendChild(panel);
     var body = panel.querySelector('#tl-body');
-    var cur = 'count';
+    var cur = 'money';
 
     function open(tab) { back.classList.add('on'); panel.classList.add('on'); fab.setAttribute('aria-expanded', 'true'); show(tab || cur); }
     function close() { back.classList.remove('on'); panel.classList.remove('on'); fab.setAttribute('aria-expanded', 'false'); fab.focus(); }
