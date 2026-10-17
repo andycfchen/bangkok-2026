@@ -29,7 +29,7 @@
 /* 版面：頂部路線帶＋黏頂日期導覽＋每天一張時間軸卡片，最後是備選店單與待確認清單。配色取自曼谷粉紅計程車、河水青綠與寺廟金。 */
 :root{
   --bg:#F4F6F8; --surface:#FFFFFF; --ink:#1C2430; --mute:#5B6675; --line:#DDE2E8; --head:#1F2A37; --num:#9CC2EA;
-  --taxi:#2F5D8A; --teal:#2F5D8A; --gold:#8A96A6; --tint:#EBEFF4; --warn:#B4540A; --warnbg:#FDF0E1;
+  --mv:#7A4FB5; --taxi:#2F5D8A; --teal:#2F5D8A; --gold:#8A96A6; --tint:#EBEFF4; --warn:#B4540A; --warnbg:#FDF0E1;
   color-scheme:light;
   --f-display:'Noto Serif TC','Songti TC','PMingLiU',serif;
   --f-body:'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;
@@ -37,10 +37,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#11171E; --surface:#1A222C; --ink:#E6EAF0; --mute:#9AA6B5; --line:#2B3644; --head:#243242; --num:#9CC2EA;
-  --taxi:#7FB0E0; --teal:#7FB0E0; --gold:#8493A5; --tint:#222C38; --warn:#F3A35C; --warnbg:#2B2012; color-scheme:dark}}
+  --mv:#C4A5F0; --taxi:#7FB0E0; --teal:#7FB0E0; --gold:#8493A5; --tint:#222C38; --warn:#F3A35C; --warnbg:#2B2012; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#11171E; --surface:#1A222C; --ink:#E6EAF0; --mute:#9AA6B5; --line:#2B3644; --head:#243242; --num:#9CC2EA;
-  --taxi:#7FB0E0; --teal:#7FB0E0; --gold:#8493A5; --tint:#222C38; --warn:#F3A35C; --warnbg:#2B2012; color-scheme:dark}
+  --mv:#C4A5F0; --taxi:#7FB0E0; --teal:#7FB0E0; --gold:#8493A5; --tint:#222C38; --warn:#F3A35C; --warnbg:#2B2012; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);line-height:1.65;font-size:15px}
 .wrap{max-width:880px;margin-inline:auto;padding-inline:16px;padding-block:20px 56px}
 a{color:var(--teal);text-underline-offset:3px}
@@ -60,6 +60,10 @@ nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:v
 nav.days a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;text-align:center;font-size:13px;line-height:1.3}
 nav.days a b{display:block;font-family:var(--f-mono);font-weight:500;font-size:12px;color:var(--taxi)}
 nav.days a:focus-visible,nav.days a:hover{outline:2px solid var(--teal)}
+ol.tl li.mv{background:color-mix(in srgb,var(--mv) 9%,transparent)}
+ol.tl li.mv .t,ol.tl li.mv strong{color:var(--mv)}
+ol.tl li.mv .dot{background:var(--mv)}
+ol.tl li.mv .n{color:var(--mute)}
 nav.days a.cur{background:var(--teal);border-color:var(--teal);color:var(--bg);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 35%,transparent)}
 nav.days a.cur b{color:inherit}
 ol.tl li.cur{background:var(--tint);box-shadow:inset 3px 0 0 var(--teal);border-radius:8px;margin-inline:-12px;padding-inline:12px;transition:background .2s}
@@ -441,7 +445,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const nav=document.getElementById('nav'),host=document.getElementById('days');
 D.forEach(d=>{const city=cityOf(d.no);
  nav.insertAdjacentHTML('beforeend',`<a href="#day${d.no}"><b>${d.date}</b>Day ${d.no}</a>`);
- const li=d.items.map(([t,title,k,n,link,w],ix)=>`<li id="it-${d.no}-${ix}"><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}${hrsOf(title)}${tixOf(title)}${bkOf(title)}<div class="maps">${mapChips(title,d.no)}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`<a class="mapchip photo" href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div><div class="picbox">${picOf(title)}${extraPics(title)}</div></div></li>`).join('');
+ const li=d.items.map(([t,title,k,n,link,w],ix)=>`<li id="it-${d.no}-${ix}"${k==='move'?' class="mv"':''}><div class="t">${esc(t)}</div><div class="dot ${k||''}"></div><div class="what${k!=='move'&&picOf(title)?' hasp':''}"><div class="txt"><strong>${esc(title)}${w?` <span class="tag warn">待確認</span>`:''}</strong>${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}${hrsOf(title)}${tixOf(title)}${bkOf(title)}<div class="maps">${mapChips(title,d.no)}${(k==='eat'||k==='go')&&!NOPIC.test(title)?`<a class="mapchip photo" href="${esc(img(clean(title)+' '+city))}" target="_blank" rel="noopener">看照片</a>`:''}</div></div><div class="picbox">${k==='move'?'':picOf(title)+extraPics(title)}</div></div></li>`).join('');
  host.insertAdjacentHTML('beforeend',`<section class="day" id="day${d.no}"><div class="dayhead${DAYPIC[d.no]?' cover':''}"${DAYPIC[d.no]?` style="background-image:linear-gradient(90deg,rgba(8,16,28,.82),rgba(8,16,28,.25)),url('${DAYPIC[d.no]}')"`:''}><div class="no">${d.no}</div><div><div class="meta">${d.date}（${d.wd}）</div><h2>${esc(d.title)}</h2></div>${ICON[d.svg]}</div><div class="card"><div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="note">${esc(d.note)}</div>`:''}${HNOTE[d.no]?`<div class="hrsnote">📅 ${esc(HNOTE[d.no])}</div>`:''}<ol class="tl">${li}</ol></div></section>`);
 });
 document.getElementById('rows').innerHTML=RES.map(r=>`<tr><td><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}">${r[0]}</span></td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join('');
