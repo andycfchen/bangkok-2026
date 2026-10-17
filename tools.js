@@ -276,9 +276,14 @@
         });
       });
       draw();
-      if (!(parseFloat(st.rate) > 0) && !rCalc.tried) {
-        rCalc.tried = true;
-        updateRate(function (ok) { if (ok && body.contains(rate)) { rate.value = st.rate; rmsg.textContent = '已自動取得匯率：1 THB = ' + st.rate + ' TWD（open.er-api.com）。'; draw(); } });
+      if (Date.now() - (rCalc.last || 0) > 60000) {
+        rCalc.last = Date.now();
+        rmsg.textContent = '自動更新匯率中…';
+        updateRate(function (ok) {
+          if (!body.contains(rate)) return;
+          if (ok) { rate.value = st.rate; rmsg.textContent = '已自動更新：1 THB = ' + st.rate + ' TWD（open.er-api.com，約每日更新、中間價，實際以刷卡或換匯為準）。'; draw(); }
+          else rmsg.textContent = parseFloat(st.rate) > 0 ? '自動更新失敗，沿用上次匯率 ' + st.rate + '。' : '自動更新失敗（可能沒有網路），請手動輸入匯率。';
+        });
       }
     }
 
