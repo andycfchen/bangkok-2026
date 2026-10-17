@@ -246,7 +246,7 @@
       var thb = st.dir === 'thb';
       body.innerHTML = seg([['thb', '泰銖 → 台幣'], ['twd', '台幣 → 泰銖']], st.dir, 'dir') +
         '<div class="tl-calc"><div class="tl-cl">' + (thb ? '泰銖 THB' : '台幣 TWD') + '</div><div class="tl-cv" id="tl-cin">' + (thb ? '฿' : 'NT$') + esc(buf || '0') + '</div>' +
-        '<div class="tl-cl">約合' + (thb ? '台幣' : '泰銖') + '</div><div class="tl-cv big2" id="tl-cout"></div></div>' +
+        '<div class="tl-cl">約合' + (thb ? '台幣' : '泰銖') + '</div><div class="tl-cv big2" id="tl-cout"></div><div class="tl-cl" id="tl-rline"></div></div>' +
         '<div class="tl-keys">' + ['7', '8', '9', '4', '5', '6', '1', '2', '3', 'AC', '0', '.'].map(function (k) { return '<button type="button" class="tl-key" data-k="' + k + '">' + k + '</button>'; }).join('') + '</div>' +
         '<div class="tl-row" style="justify-content:flex-end"><button type="button" class="tl-btn" data-k="DEL">⌫ 刪除一位</button></div>' +
         '<div class="tl-sec"><h3>匯率</h3><div class="tl-row"><label class="tl-note">1 THB =</label><input class="tl-in" id="tl-rate" type="number" step="0.0001" min="0" style="width:100px" value="' + esc(st.rate) + '" placeholder="例如 0.95"><span class="tl-note">TWD</span><button type="button" class="tl-btn" id="tl-rup">更新匯率</button></div>' +
@@ -256,6 +256,7 @@
         var v = conv(), o = body.querySelector('#tl-cout');
         o.textContent = v === null ? '請先輸入匯率' : ((thb ? 'NT$' : '฿') + fmtN(v));
         o.classList.toggle('muted', v === null);
+        body.querySelector('#tl-rline').textContent = v === null ? '' : '匯率 1 THB = ' + st.rate + ' TWD';
       }
       body.querySelector('.tl-seg').addEventListener('click', function (e) { var b = e.target.closest('button[data-dir]'); if (!b) return; st.dir = b.getAttribute('data-dir'); save(); buf = ''; rCalc(); });
       body.querySelector('.tl-keys').addEventListener('click', function (e) {
@@ -275,6 +276,10 @@
         });
       });
       draw();
+      if (!(parseFloat(st.rate) > 0) && !rCalc.tried) {
+        rCalc.tried = true;
+        updateRate(function (ok) { if (ok && body.contains(rate)) { rate.value = st.rate; rmsg.textContent = '已自動取得匯率：1 THB = ' + st.rate + ' TWD（open.er-api.com）。'; draw(); } });
+      }
     }
 
     /* ---------- 7. 旅費：規劃預算／實際記帳 ---------- */
