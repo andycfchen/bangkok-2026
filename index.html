@@ -60,6 +60,10 @@ nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:v
 nav.days a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;text-align:center;font-size:13px;line-height:1.3}
 nav.days a b{display:block;font-family:var(--f-mono);font-weight:500;font-size:12px;color:var(--taxi)}
 nav.days a:focus-visible,nav.days a:hover{outline:2px solid var(--teal)}
+nav.days a.cur{background:var(--teal);border-color:var(--teal);color:var(--bg);box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 35%,transparent)}
+nav.days a.cur b{color:inherit}
+ol.tl li.cur{background:var(--tint);box-shadow:inset 4px 0 0 var(--teal);border-radius:8px;transition:background .2s}
+ol.tl li.cur .dot{box-shadow:0 0 0 4px color-mix(in srgb,var(--teal) 40%,transparent),0 0 12px var(--teal)}
 section.day{margin-top:30px;scroll-margin-top:84px}
 .dayhead{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--head);color:#fff;border-radius:16px 16px 0 0;padding:14px 18px;overflow:hidden}
 .dayhead .no{font-family:var(--f-display);font-weight:900;font-size:46px;line-height:1;color:var(--num)}
@@ -452,6 +456,22 @@ document.getElementById('altrows').innerHTML=ALT.map(r=>`<tr><td><strong>${esc(r
  function apply(){const r=document.documentElement;if(m==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',m);btn.textContent=label[m];}
  btn.onclick=()=>{m=order[(order.indexOf(m)+1)%3];try{localStorage.setItem('bkk-theme',m)}catch(e){}apply()};
  apply();
+})();
+(function(){
+ const links=[...document.querySelectorAll('nav.days a')],secs=[...document.querySelectorAll('section.day')],lis=[...document.querySelectorAll('section.day ol.tl li')];
+ if(!secs.length)return;
+ let curA=null,curL=null,tick=false;
+ function run(){tick=false;
+  const line=Math.min(innerHeight*0.4,320);let di=0;
+  secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<=line)di=i});
+  const a=links[di];
+  if(a!==curA){if(curA)curA.classList.remove('cur');curA=a;if(a){a.classList.add('cur');const n=a.parentElement;if(n.scrollWidth>n.clientWidth){n.scrollTo({left:a.offsetLeft-n.clientWidth/2+a.offsetWidth/2,behavior:'smooth'})}}}
+  let li=null;
+  if(secs[di].getBoundingClientRect().bottom>line)lis.forEach(l=>{const r=l.getBoundingClientRect();if(r.top<=line&&r.bottom>line)li=l});
+  if(li!==curL){if(curL)curL.classList.remove('cur');curL=li;if(li)li.classList.add('cur')}
+ }
+ addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(run)}},{passive:true});
+ addEventListener('resize',run);run();
 })();
 </script>
 
