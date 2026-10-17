@@ -22,20 +22,18 @@
     var KIND = { eat: '餐飲', go: '景點', move: '移動', rest: '休息' };
     var TODO = [
       { g: '要訂位／購票', items: [
-        ['dib', 'Dib Bangkok｜12/08 17:30', '官網預約，只收信用卡或轉帳；預約頁 12/08 有開放時段'],
+        ['dib', 'Dib Bangkok｜12/08 17:00', '官網預約 17:00 時段（沒有就 17:30），只收信用卡或轉帳，不可退款；預約頁 12/08 有開放時段'],
         ['su', 'Straight Up 日落節目｜12/08', '12 月場次尚未開放，開放後再訂；場次 18:00／18:20／18:35，每場限 10 人，250 THB'],
-        ['tonkin', 'Tonkin Annam｜12/09 12:15', '電話 +66 93 469 2969；其他訂位管道沒查到'],
-        ['rongros', 'RONGROS｜12/09 18:30（河景位）', '電話 +66 96 946 1785（Michelin、Time Out 一致），官網不能訂位'],
-        ['aether', 'AETHER｜12/09 夜間', '線上或電話，訂位規則未證實；入場費說法不一（600 THB 或免費）'],
-        ['abandoned', 'Abandoned Mansion｜12/08 19:45', '電話 02 259 7007；舞台前沙發區最低消費約 2,000 THB（待確認）'],
-        ['skygallery', 'The Sky Gallery｜12/07 18:00', '官方管道訂位，要靠海景位'],
+        ['rongros', 'RONGROS｜12/09 17:30（河景位）', '電話 +66 96 946 1785，官網不能訂位；訂不到改訂備案 Chom Arun +66 95 446 4199'],
+        ['aether', 'AETHER｜12/08 20:00 夜間', '線上或電話，訂位規則未證實；入場費說法不一（600 THB 或免費）'],
+        ['skygallery', 'The Sky Gallery｜12/07 18:00', '餐廳回覆：訂位費 1,500 THB 可全額抵餐飲，不退、不可取消，要提前 1–2 天付款並收到確認信；考慮中，尚未決定'],
         ['sanctuary', '真理寺｜12/07 10:00', 'Klook／KKday 購票；官網沒列票價']
       ] },
       { g: '出發前再確認', items: [
         ['shops', '12/03 前後：12/07、12/10 店家 IG／FB 特殊營業時間', '補假與憲法日，大多沒查到公告'],
         ['wat', '鄭王廟實際關門與最後入場時間', '來源矛盾：17:30 或 18:00 閉廟'],
         ['ferry', '過河渡船末班（現場問）', '約 05:00–19:00，末班出發時間未證實'],
-        ['costume', '泰服租借店位置與妝髮時長', '在 Tha Tien 側，預留 1 小時，位置未確認'],
+        ['costume', 'Summer Photo Studio 價格、妝髮時間、是否提供租借', '12/09 14:00 開始；地圖座標在臥佛寺附近（Maha Rat Rd），價格都還沒確認'],
         ['pokemon', 'Pokémon Center 開幕日', '官方只說 12 月開幕；12/08 前沒開就用備案'],
         ['nitan', 'Nitan 要去哪間分店', 'Pratumnak 或 Na Jomtien，營業時間不同'],
         ['khunya', '老奶奶餐廳正確店名與區域', '搜尋查不到營業資訊'],
@@ -49,9 +47,9 @@
       { id: 'p3', name: '過河渡船往返（約 5.5 × 2）', cat: '交通', pp: 11, cnt: 4, on: true },
       { id: 'p4', name: 'Straight Up 日落節目（備選，官網 250）', cat: '景點/門票', pp: 250, cnt: 4, on: false },
       { id: 'p5', name: 'AETHER 入場費（方案 A，來源不一，含 450 飲料抵用）', cat: '景點/門票', pp: 600, cnt: 4, on: false },
-      { id: 'p6', name: 'Abandoned Mansion 最低消費（約 2,000/桌，待確認）', cat: '餐飲/咖啡', pp: 500, cnt: 4, on: false }
-    ];
+          ];
     if (!st.plan) { st.plan = JSON.parse(JSON.stringify(PLAN0)); save(); }
+    else { var n0 = st.plan.length; st.plan = st.plan.filter(function (p) { return !(p.id === 'p6' && !p.on); }); if (st.plan.length !== n0) save(); }
 
     /* ---------- 面板骨架 ---------- */
     var fab = document.createElement('button');
