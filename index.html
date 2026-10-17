@@ -301,7 +301,9 @@ const D=[
  ['16:30–17:00','回 Tha Tien 側，還泰服','go','泰服組回 Summer Photo Studio 歸還泰服（位置未確認，請出發前問清楚；若在臥佛寺附近，這一步要改排路線）'],
  ['17:00–17:30','步行前往 RONGROS（Maha Rat Rd）','move',''],
  ['17:30–19:30','河畔夜景晚餐　RONGROS（榮泰）','eat','主選：RONGROS（榮泰），米其林推薦精緻泰菜。備案：Chom Arun（頂樓露台，正對鄭王廟，每天 11:00–21:30），RONGROS 訂不到河景位就改訂這間，電話 +66 95 446 4199。正對夜間點燈的鄭王廟，務必提早 1–2 個月預約河景第一排'],
- ['19:30','晚餐後搭車返回飯店休息','rest']]},
+ ['19:30–20:00','搭車前往 Chit Lom 的 Big C（Ratchadamri）','move','Grab 約 20–30 分（估計，未查證，晚上塞車會更久）'],
+ ['20:00–21:00','Big C Supercenter Ratchadamri 超市採買','go','Ratchadamri Rd 97/11，正對 centralwOrld，有天橋，最近 BTS Chit Lom。大賣場加美食街，買泰國零食與伴手禮。營業時間各來源不一，見上方提醒'],
+ ['21:00','搭車返回飯店休息','rest','Grab 約 15–20 分（估計，未查證）']]},
 {no:5,date:'12/10',wd:'四',title:'舊城文青＋嵩越路老街＋唐人街夜逛',svg:'cup',stay:['🏨 Sotetsu Grand Fresa Bangkok','🚕 返回相鐵飯店打包行李'],
  note:'早餐先喝咖啡再吃老字號早餐，現場候位即可。',
  items:[
@@ -392,6 +394,7 @@ const PL=[
 ['Nitan',['Nitan Coffee’s Tale Pattaya','VANVELA cafe & space']],
 ['The Sky Gallery',['The Sky Gallery','The Oxygen Beachfront Oasis','Fish Club Seafood Grill']],
 ['Big C Extra',['Big C Extra Central Pattaya']],
+['Big C Supercenter Ratchadamri',['Big C Supercenter Ratchadamri Bangkok']],
 ['抵達 Sotetsu',['Sotetsu Grand Fresa Bangkok']],
 ['centralwOrld 百貨',['centralwOrld']],
 ['Pokémon Center',['Pokémon Center BANGKOK']],
@@ -418,7 +421,7 @@ const PL=[
 ['BKK 機場',['Suvarnabhumi Airport']],
 ['抵達機場',['Suvarnabhumi Airport']]
 ];
-const HOURS=[["Lunar Beach House","ok","每天 08:00–21:00，08:00 開門即到。第三方來源，未與官方核對"],["Sanctuary of Truth","ok","日場 08:00–18:00、夜場 18:20–20:30，每天開放（官網）。最後入場時間各家說法不一，以官網購票頁為準"],["Khanom Sen Khun Ya","ok","營業到約 17:00（Google 地圖，Andy 確認；Wongnai 寫 17:30、Wanderlog 17:00、Trip.com 16:00）。有第三方寫週三公休，未能證實，12/07 是週一不受影響。訪客說午後可能賣完，建議提早到"],["Nitan","ok","Nitan 08:30 起（關門 17:00 或 22:00，兩說）；VANVELA 約 08:00–16:00，週四公休。Nitan 有兩間分店，先確認去哪間"],["The Sky Gallery","ok","10:00–22:00 或 11:00–23:00（兩說），最後點餐時間未能證實。備選：Oxygen 有來源寫 20:00 關門，Fish Club 週一 11:00–22:00"],["Big C Extra","warn","Central Pattaya（Big C Extra）：08:00–22:00（Visit Thailand Today，2026-10 更新，每天）；Wanderlog 寫 08:00–23:00（2025 年資料）。兩說都涵蓋 20:00–21:30，電話 +66 38 410 073。21:30 之前能進，但 22:00 關店前要結完帳"],["Pokémon Center","warn","官方只公布 12 月在 centralwOrld 6F 開幕（2026-09-16），沒有具體日期。官方商店頁寫每天 10:00–22:00（依 centralwOrld）。12/08 要在開幕日之後才去得成，請出發前看 Pokémon Thailand 官方公告"],["After You","ok","每天 10:00–22:00（單一來源）。centralwOrld 百貨本身 10:00–22:00"],["CPS Coffee","ok","多數來源（含 Apple Maps）寫每天 06:30–18:00，也有寫 07:00 或 07:30 開，各來源有出入；08:15 到場在範圍內，建議出發前用 Google 地圖確認。位於 63/1 Soi Sukhumvit 53（Thonglor）"],
+const HOURS=[["Big C Supercenter Ratchadamri","warn","各來源互相矛盾：較舊的寫每天 09:00–02:00，較新的一份寫 08:00–22:00；美食街一說 21:00 關。20:00–21:00 逛，兩種說法都在營業，但想逛到 21:00 以後要出發前確認。位置與地址來自第三方旅遊網站，沒有 Big C 官方頁面佐證"],["Lunar Beach House","ok","每天 08:00–21:00，08:00 開門即到。第三方來源，未與官方核對"],["Sanctuary of Truth","ok","日場 08:00–18:00、夜場 18:20–20:30，每天開放（官網）。最後入場時間各家說法不一，以官網購票頁為準"],["Khanom Sen Khun Ya","ok","營業到約 17:00（Google 地圖，Andy 確認；Wongnai 寫 17:30、Wanderlog 17:00、Trip.com 16:00）。有第三方寫週三公休，未能證實，12/07 是週一不受影響。訪客說午後可能賣完，建議提早到"],["Nitan","ok","Nitan 08:30 起（關門 17:00 或 22:00，兩說）；VANVELA 約 08:00–16:00，週四公休。Nitan 有兩間分店，先確認去哪間"],["The Sky Gallery","ok","10:00–22:00 或 11:00–23:00（兩說），最後點餐時間未能證實。備選：Oxygen 有來源寫 20:00 關門，Fish Club 週一 11:00–22:00"],["Big C Extra","warn","Central Pattaya（Big C Extra）：08:00–22:00（Visit Thailand Today，2026-10 更新，每天）；Wanderlog 寫 08:00–23:00（2025 年資料）。兩說都涵蓋 20:00–21:30，電話 +66 38 410 073。21:30 之前能進，但 22:00 關店前要結完帳"],["Pokémon Center","warn","官方只公布 12 月在 centralwOrld 6F 開幕（2026-09-16），沒有具體日期。官方商店頁寫每天 10:00–22:00（依 centralwOrld）。12/08 要在開幕日之後才去得成，請出發前看 Pokémon Thailand 官方公告"],["After You","ok","每天 10:00–22:00（單一來源）。centralwOrld 百貨本身 10:00–22:00"],["CPS Coffee","ok","多數來源（含 Apple Maps）寫每天 06:30–18:00，也有寫 07:00 或 07:30 開，各來源有出入；08:15 到場在範圍內，建議出發前用 Google 地圖確認。位於 63/1 Soi Sukhumvit 53（Thonglor）"],
 ["GalileOasis","warn","12/09 週三有開（週二休）。GalileOasis 官方 IG 寫 09:00–19:00，有旅遊指南寫 11:30–20:00；Boyis. 旗艦店（同址 535 Phetchaburi Rd）品牌頁寫 10:00–18:00（約 3 個月前）。各店時間不一，若 11:30 才開要順延"],
 ["Dib Bangkok（美術館）","ok","官網預約頁 12/08 有開放時段（Andy 查看）；官網寫週四至週二 10:00–19:00、週三公休，museum guide 與 Time Out 寫週二休，以預約頁為準。閉館前 15 分鐘停止入場，一般票 700 THB。Straight Up 日落節目另購 250 THB，入場 18:00–18:50"],["Shake Shack","ok","Shake Shack 泰國官網分店資料（檔案日期 2025-12-08）：centralwOrld 店每天 10:00–22:00，4, 5 Ratchadamri Rd，電話 081-104-5238。曼谷只有 centralwOrld、One Bangkok、Emsphere 三間，老城一帶沒有分店"],["Tonkin Annam","warn","Time Out（2017）寫週三至週一 10:00–22:00、週二休；Foodle 寫每天 11:00–21:00；Trip.com 寫 11:00–15:30、17:30–21:00 且最後點餐 14:30／20:00。12/09 週三有開，12:15–13:45 在午餐時段內。店家 FB 抓不到；訂位只有評論建議，店家沒說，last order 查不到。電話 093-469-2969，請出發前直接打確認營業、訂位與最後點餐。菜價 ฿160–250，每人實際花費可能超過 ฿250（我的估算）"],
 ["Tha Tien","warn","Tha Tien ↔ Wat Arun 過河渡船由泰國航運局經營，沒找到官方時刻表。兩個第三方來源一致：每天約 05:00–19:00、約每 10 分鐘一班（河川快船公告 2024-04-05；ThailandBoat 2026-06-22 更新），較舊來源寫 05:30–19:45；末班出發時間未能證實，只有一則約 4 年前的旅客留言說末班約 18:30。票價約 5.5 THB，只收現金（其他說法 5、6 THB）。Tha Tien 碼頭 2024 年已新型態重開，登船在碼頭左側；鄭王廟側從廟出來往左、最北邊的碼頭。建議 16:45 前回到 Tha Tien 側，離末班還有一小時以上緩衝"],["ViVi","warn","Wanderlog、Universal Traveller 寫每日 10:00–20:00，Trip.com 越南語頁寫 10:00–19:00，沒有一手來源可裁決，14:15–14:45 在範圍內，沒有歇業證據。位置在 Tha Tien 側，不是鄭王廟對岸；泰服租借與妝髮也在這側，咖啡組在這裡等泰服組，妝髮完成後一起過河"],
