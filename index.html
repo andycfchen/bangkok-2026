@@ -456,7 +456,7 @@ const TIX=[["Dib Bangkok（美術館）","門票（官網）：一般 700 THB、
 const tixOf=t=>{const h=TIX.find(r=>t.includes(r[0]));return h?`<div class="tix">🎫 ${esc(h[1])}</div>`:''};
 const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
 const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
-const EXTRA={'Bite and Bond':[['Bite and Bond 甜點','images/bitebond-dessert.jpg'],['Bite and Bond 店內','images/bitebond-interior.jpg']],'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"images/arabica-songwat.jpg"]]};
+const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"images/arabica-songwat.jpg"]]};
 const extraPics=t=>{const k=Object.keys(EXTRA).find(n=>t.includes(n));return k?EXTRA[k].map(([c,u])=>`<figure class="xpic"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${c}" src="${u}"><figcaption>${c}</figcaption></figure>`).join(''):''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
