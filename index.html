@@ -309,7 +309,7 @@ const D=[
  ['12:15–13:15','午餐　隨便找東西吃（碼頭附近）','eat','不訂位、不指定店，到碼頭附近現場挑。想吃越南菜可以去 Tonkin Annam，看下面的備案'],
  ['13:15–14:00','前往 Tha Tien 碼頭（Wat Pho 旁）','move','步行距離我沒查到來源，請預留時間'],
  ['14:00–15:15','泰服組租泰服、妝髮（約 1 小時）／咖啡組 ViVi 等候','go','📷 泰服組：到 Summer Photo Studio 租泰服並妝髮（價格與妝髮時間待確認；我查到的資料寫在臥佛寺附近，不是 Tha Tien 側，位置與是否提供租借待出發前確認）　☕ 咖啡組：在 Tha Tien 河畔的 ViVi The Coffee Place（第一排露台）等泰服組'],
- ['15:15–16:30','全員搭船到鄭王廟（Wat Arun）','go','妝髮完成後兩組一起搭船過河（泰服組穿著泰服上船），一起逛廟、拍夕陽。關廟與最後入場時間各來源矛盾（有寫 17:30 閉廟、有寫 18:00 關），建議 16:30 就離場（晚餐提前到 17:30）。外籍門票多寫 200 THB（現金），日落約 17:53'],
+ ['15:15–16:30','全員搭船到鄭王廟（Wat Arun）','move','妝髮完成後兩組一起搭船過河（泰服組穿著泰服上船），一起逛廟、拍夕陽。關廟與最後入場時間各來源矛盾（有寫 17:30 閉廟、有寫 18:00 關），建議 16:30 就離場（晚餐提前到 17:30）。外籍門票多寫 200 THB（現金），日落約 17:53'],
  ['16:30–17:00','回 Tha Tien 側，還泰服','go','泰服組回 Summer Photo Studio 歸還泰服（位置未確認，請出發前問清楚；若在臥佛寺附近，這一步要改排路線）'],
  ['17:00–17:30','步行前往 RONGROS（Maha Rat Rd）','move',''],
  ['17:30–19:30','河畔夜景晚餐　RONGROS（榮泰）','eat','主選：RONGROS（榮泰），米其林推薦精緻泰菜。備案：Chom Arun（頂樓露台，正對鄭王廟，每天 11:00–21:30），RONGROS 訂不到河景位就改訂這間，電話 +66 95 446 4199。正對夜間點燈的鄭王廟，務必提早 1–2 個月預約河景第一排'],
@@ -359,11 +359,12 @@ const cityOf=n=>n===2?'Pattaya':'Bangkok';
 const clean=t=>{t=t.replace(/[☕📷🍳🥭🎨🛍️✨🎷🍸]/gu,'').trim();if(t.includes('　'))t=t.split('　').pop();return t.split(/[（(]/)[0].replace(/「|」/g,'').trim()};
 const NORSV=[['The Lunar Beach House','現場入座・不用預約'],['Khanom Sen Khun Ya','現場入座・不用預約'],['Shake Shack','現場入座・不用預約'],['隨便找東西吃','不訂位'],['Rung Klan Nuea','現場排隊・未見預約'],['After You','現場抽號・未見預約']];
 const norOf=t=>{const k=NORSV.find(([n])=>t.includes(n));return k?` <span class="tag nor">${k[1]}</span>`:''};
-const PRICE=[['The Lunar Beach House','價格查不到（Wongnai 標 ฿฿ 中價位）'],['Khanom Sen Khun Ya','價格查不到（找不到菜單）'],['Nitan Coffee','價格查不到（Wongnai 標 ฿฿）'],['The Sky Gallery','約 400–1,800 THB（來源不一：Visit Thailand Today 400–1,200、Intravel 900–1,800）；訂位費 1,500 THB 可抵餐飲'],['Shake Shack','漢堡約 230–385 THB（ShackBurger 單 230／雙 340，SmokeShack 275／385），飲料薯條另計'],['After You','甜點約 205–295 THB（蜜糖吐司 225、芒果糯米刨冰 295，旅客評論），飲料約 100–150'],['CPS Coffee','價格沒查'],['RONGROS','約 500–900 THB（搜尋整理的估計，非官方）；有人說二樓每人低消 1,000。備案 Chom Arun 價格查不到'],['隨便找東西吃','視你選的店，沒有預估。備案 Tonkin Annam 單品 80–250 THB（2017 年）'],['Bite and Bond','約 150 THB（Trip.com 貼文，沒標幣別）；Wongnai 標 ฿฿'],['Rung Klan Nuea','約 150–250 THB（牛肉湯麵 150／250，皇帝牛肉麵 250，雞肉麵 95，Phuket101）'],['Lon Lon Local Diner','約 300–600 THB（我按單品價估：清蒸鱸魚 255、涼拌鯰魚 155、精釀啤酒 185 起，BK Magazine，非官方）']];
+const PRICE=[['The Lunar Beach House','價格查不到（Wongnai 標 ฿฿ 中價位）'],['Khanom Sen Khun Ya','價格查不到（找不到菜單）'],['Nitan Coffee','價格查不到（Wongnai 標 ฿฿）'],['The Sky Gallery','約 400–1,800 THB（來源不一：Visit Thailand Today 400–1,200、Intravel 900–1,800）；訂位費 1,500 THB 可抵餐飲'],['Shake Shack','漢堡約 230–385 THB（ShackBurger 單 230／雙 340，SmokeShack 275／385），飲料薯條另計'],['After You','甜點約 205–295 THB（蜜糖吐司 225、芒果糯米刨冰 295，旅客評論），飲料約 100–150'],['CPS Coffee','約 90–220 THB（單品價，2019–2024 舊資料：可頌 110–150、鹹口味可頌 200–220、濃縮咖啡 90、虹吸咖啡 200，沒有拿鐵價）'],['RONGROS','約 500–900 THB（搜尋整理的估計，非官方）；有人說二樓每人低消 1,000。備案 Chom Arun 價格查不到'],['隨便找東西吃','視你選的店，沒有預估。備案 Tonkin Annam 單品 80–250 THB（2017 年）'],['Bite and Bond','約 150 THB（Trip.com 貼文，沒標幣別）；Wongnai 標 ฿฿'],['Rung Klan Nuea','約 150–250 THB（牛肉湯麵 150／250，皇帝牛肉麵 250，雞肉麵 95，Phuket101）'],['Lon Lon Local Diner','約 300–600 THB（我按單品價估：清蒸鱸魚 255、涼拌鯰魚 155、精釀啤酒 185 起，BK Magazine，非官方）']];
 const priceOf=t=>{const k=PRICE.find(([n])=>t.includes(n));return k?`<div class="n price">每人均價：${esc(k[1])}</div>`:''};
 const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分流|二選一|泳池|Buffet|早餐$|夜間/;
 /* 貼圖：在下面填「店名（和頁面標題裡的名稱一致）: 圖片網址」，頁面就會顯示 */
 const PIC={
+"Bite and Bond":"images/bitebond.jpg",
 "Big C Supercenter Ratchadamri":"https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Big_C_Ratchadamri_%28I%29.jpg/960px-Big_C_Ratchadamri_%28I%29.jpg",
 "泰服組租泰服":"https://lh3.googleusercontent.com/grass-cs/AABkmLcVLFveA4Ug3xx8NZftaW9i2xuna3YKwYXvYmTlGYqtLL1LkrIH-tClTdmBXWXXqeytld1ysxHer1y12XqqEv9Xt-2W0BMviuwdqdpncIPWGG3pL0BWw0rrNUjBg-bsobD0kLMwLQLPETIt=w408-h544-k-no",
 "Mamuang Shop":"images/mamuang.jpg",
@@ -378,7 +379,7 @@ const PIC={
 "Abandoned Mansion":"https://media.timeout.com/images/106382960/image.jpg",
 "Pokémon Center":"https://media.timeout.com/images/106402082/image.jpg",
 "Dib Bangkok":"https://gorktksmwzabnzbhfrcx.supabase.co/storage/v1/object/public/locations/locations/ChIJuQxlKwCf4jARhBH0bCE0vDs/0.jpg",
-"RONGROS":"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Lunch_at_Rongros%2C_Bangkok_%28Jan_2021%29_-_img_03.jpg/960px-Lunch_at_Rongros%2C_Bangkok_%28Jan_2021%29_-_img_03.jpg",
+"RONGROS":"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Lunch_at_Rongros%2C_Bangkok_%28Jan_2021%29_-_img_08.jpg/960px-Lunch_at_Rongros%2C_Bangkok_%28Jan_2021%29_-_img_08.jpg",
 "AETHER":"https://static1.squarespace.com/static/69367a1de6f6ff071db009fe/t/6a476b0ef8f57e1a94684440/1783065358712/260419AETHER-92.jpg?format=1500w",
 "Factory Coffee":"https://factorybkk.com/cdn/shop/files/AW_Photo_Locations_Homepage-BKK.png?v=1783673561&width=1200",
 "Rung Klan Nuea":"https://media.timeout.com/images/106048021/750/422/image.jpg",
@@ -457,7 +458,7 @@ const TIX=[["Dib Bangkok（美術館）","門票（官網）：一般 700 THB、
 const tixOf=t=>{const h=TIX.find(r=>t.includes(r[0]));return h?`<div class="tix">🎫 ${esc(h[1])}</div>`:''};
 const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
 const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
-const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"https://thestandard.co/wp-content/uploads/2026/06/arabica-song-wat-chao-phraya-cafe-1.jpg"]]};
+const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"images/arabica-songwat.jpg"]]};
 const extraPics=t=>{const k=Object.keys(EXTRA).find(n=>t.includes(n));return k?EXTRA[k].map(([c,u])=>`<figure class="xpic"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${c}" src="${u}"><figcaption>${c}</figcaption></figure>`).join(''):''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
