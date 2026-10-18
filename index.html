@@ -364,7 +364,7 @@ const priceOf=t=>{const k=PRICE.find(([n])=>t.includes(n));return k?`<div class=
 const NOPIC=/整理|退房|出發|集合|抵達|入住|採買|自由|按摩|分流|二選一|泳池|Buffet|早餐$|夜間/;
 /* 貼圖：在下面填「店名（和頁面標題裡的名稱一致）: 圖片網址」，頁面就會顯示 */
 const PIC={
-"Bite and Bond":"images/bitebond.jpg",
+"Bite and Bond":"images/bitebond-food.jpg",
 "Big C Supercenter Ratchadamri":"https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Big_C_Ratchadamri_%28I%29.jpg/960px-Big_C_Ratchadamri_%28I%29.jpg",
 "泰服組租泰服":"https://lh3.googleusercontent.com/grass-cs/AABkmLcVLFveA4Ug3xx8NZftaW9i2xuna3YKwYXvYmTlGYqtLL1LkrIH-tClTdmBXWXXqeytld1ysxHer1y12XqqEv9Xt-2W0BMviuwdqdpncIPWGG3pL0BWw0rrNUjBg-bsobD0kLMwLQLPETIt=w408-h544-k-no",
 "Mamuang Shop":"images/mamuang.jpg",
@@ -458,7 +458,7 @@ const TIX=[["Dib Bangkok（美術館）","門票（官網）：一般 700 THB、
 const tixOf=t=>{const h=TIX.find(r=>t.includes(r[0]));return h?`<div class="tix">🎫 ${esc(h[1])}</div>`:''};
 const mapUrl=(name,no)=>MAPEX[name]||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(/Pattaya|Bangkok|Airport|曼谷/.test(name)?name:name+(no===2?' Pattaya':' Bangkok')));
 const mapChips=(title,no)=>{const h=PL.find(r=>title.includes(r[0]));return h?h[1].map(n=>`<a class="mapchip" href="${esc(mapUrl(n,no))}" target="_blank" rel="noopener">📍 ${esc(n)}</a>`).join(''):''};
-const EXTRA={'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"images/arabica-songwat.jpg"]]};
+const EXTRA={'Bite and Bond':[['Bite and Bond 甜點','images/bitebond-dessert.jpg'],['Bite and Bond 店內','images/bitebond-interior.jpg']],'Song Wat／嵩越路':[['% Arabica adidas Originals Store Song Wat',"images/arabica-songwat.jpg"]]};
 const extraPics=t=>{const k=Object.keys(EXTRA).find(n=>t.includes(n));return k?EXTRA[k].map(([c,u])=>`<figure class="xpic"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${c}" src="${u}"><figcaption>${c}</figcaption></figure>`).join(''):''};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nav=document.getElementById('nav'),host=document.getElementById('days');
