@@ -38,6 +38,15 @@ section.blk{margin-top:26px}
 .note{font-size:13px;color:var(--sub)}
 .posterwrap{margin-top:10px;border:2px dashed var(--line);border-radius:16px;overflow:hidden;background:var(--sea)}
 .posterwrap svg{display:block;width:100%;height:auto}
+.stk{width:48px;height:48px;flex:0 0 auto;overflow:visible;filter:drop-shadow(1px 2px 0 var(--shadow))}
+.hero{display:flex;align-items:center;justify-content:center;gap:6px}
+.hero h1{min-width:0}
+.hero .stk{width:clamp(38px,11vw,72px);height:clamp(38px,11vw,72px)}
+.hero .hl{transform:rotate(-8deg)}.hero .hr{transform:rotate(8deg)}
+.dcard .cs{position:absolute;top:-16px;right:-6px;width:42px;height:42px;transform:rotate(10deg);z-index:2}
+.stay .ds-s{margin-left:auto;width:46px;height:46px;margin-top:-18px;transform:rotate(6deg)}
+.fstk{display:flex;justify-content:center;gap:12px;margin-bottom:8px}
+.fstk .stk{width:40px;height:40px}.fstk .stk:nth-child(even){transform:rotate(-8deg)}.fstk .stk:nth-child(odd){transform:rotate(7deg)}
 .pw-m{display:none}
 @media(max-width:640px){.pw-d{display:none}.pw-m{display:block}}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:18px 14px;margin-top:20px}
@@ -122,6 +131,8 @@ th{background:var(--soft)}
 footer{margin-top:30px;font-size:12.5px;color:var(--sub);text-align:center;border-top:2px dashed var(--line);padding-top:14px}
 #err{display:none;background:#fde8e8;border:2px solid #b91c1c;border-radius:12px;padding:12px;margin-top:16px}
 @media(max-width:520px){
+ .hero h1{font-size:21px;white-space:nowrap}
+ .hero .stk{width:36px;height:36px}
  ol.tl li{grid-template-columns:54px 1fr;gap:0 28px}
  ol.tl:before{left:62px}
  ol.tl .t{font-size:10.5px;word-break:keep-all}
@@ -132,10 +143,17 @@ footer{margin-top:30px;font-size:12.5px;color:var(--sub);text-align:center;borde
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="stk-elephant" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="30" r="10" fill="#a3b3c9"/><circle cx="54" cy="30" r="10" fill="#a3b3c9"/><circle cx="32" cy="35" r="20" fill="#bccadb"/><path d="M26 16L32 6L38 16z" fill="#e0b44c"/><path d="M27 44q-3 14 8 14q7 0 4-8" fill="none" stroke-width="5" stroke="#3b2f1e"/><path d="M27 44q-3 14 8 14q7 0 4-8" fill="none" stroke-width="2" stroke="#bccadb"/></g><circle cx="24" cy="32" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="32" r="2.4" fill="#3b2f1e"/><ellipse cx="19" cy="40" rx="4" ry="2.6" fill="#ff9db8" opacity=".8"/><ellipse cx="45" cy="40" rx="4" ry="2.6" fill="#ff9db8" opacity=".8"/></symbol>
+<symbol id="stk-cat" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26L17 6L31 17z" fill="#fff1d6"/><path d="M50 26L47 6L33 17z" fill="#fff1d6"/><circle cx="32" cy="37" r="20" fill="#fff1d6"/><path d="M38 20q8 2 11 10q-8 2-13-4z" fill="#f5b25a" stroke-width="0"/></g><path d="M18 14l2 6l6-3z M46 14l-2 6l-6-3z" fill="#ff9db8"/><circle cx="24" cy="36" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="36" r="2.4" fill="#3b2f1e"/><path d="M30 41l2 2l2-2z" fill="#ff7a8a"/><path d="M32 43q-3 4-6 2M32 43q3 4 6 2" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/><path d="M14 40l-8-2M14 44l-8 3M50 40l8-2M50 44l8 3" stroke="#3b2f1e" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="19" cy="44" rx="3.6" ry="2.4" fill="#ff9db8" opacity=".7"/><ellipse cx="45" cy="44" rx="3.6" ry="2.4" fill="#ff9db8" opacity=".7"/></symbol>
+<symbol id="stk-mango" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="37" rx="19" ry="23" transform="rotate(18 32 37)" fill="#ffc233"/><path d="M34 14q12-8 19 2q-10 9-19-2z" fill="#4cb36a"/></g><circle cx="26" cy="36" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="36" r="2.4" fill="#3b2f1e"/><path d="M29 43q4 4 8 0" fill="none" stroke="#3b2f1e" stroke-width="2" stroke-linecap="round"/><ellipse cx="22" cy="42" rx="3.6" ry="2.4" fill="#ff8a65" opacity=".7"/><ellipse cx="44" cy="42" rx="3.6" ry="2.4" fill="#ff8a65" opacity=".7"/></symbol>
+<symbol id="stk-tea" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22L46 22L43 54Q32 58 21 54z" fill="#f08a3c"/><path d="M18.6 22L45.4 22L44.6 32L19.4 32z" fill="#fff3df" stroke-width="0"/><path d="M14 22H50" fill="none"/><path d="M36 22L42 6" fill="none" stroke-width="3"/></g><rect x="22" y="38" width="6" height="6" rx="1.5" fill="#fff" opacity=".6"/><circle cx="27" cy="46" r="2" fill="none"/><circle cx="27" cy="43" r="2.2" fill="#3b2f1e"/><circle cx="38" cy="43" r="2.2" fill="#3b2f1e"/><path d="M29 48q3 3 6 0" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="stk-tuktuk" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26Q32 8 54 26z" fill="#2fa58a"/><rect x="9" y="26" width="46" height="20" rx="5" fill="#ffd166"/><circle cx="20" cy="49" r="7" fill="#4b3a26"/><circle cx="46" cy="49" r="7" fill="#4b3a26"/></g><circle cx="20" cy="49" r="2.4" fill="#fff"/><circle cx="46" cy="49" r="2.4" fill="#fff"/><circle cx="25" cy="34" r="2.2" fill="#3b2f1e"/><circle cx="39" cy="34" r="2.2" fill="#3b2f1e"/><path d="M29 38q3 3 6 0" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</defs></svg>
 <div class="wrap">
 <header class="top">
  <a class="back" href="index.html">← 回主網頁（完整行程表）</a>
- <h1><span>🪷 2026 曼谷散步帖</span></h1>
+ <div class="hero"><svg class="stk hl" aria-hidden="true"><use href="#stk-elephant"/></svg><h1><span>🪷 2026 曼谷散步帖</span></h1><svg class="stk hr" aria-hidden="true"><use href="#stk-cat"/></svg></div>
  <div class="sub">12/06（日）– 12/11（五）・台北 → 曼谷 → 芭達雅 → 曼谷 → 台北・4 人同行 ✨</div>
  <div class="pills" role="group" aria-label="主題與時間">
   <button class="pill" data-th="gold" aria-pressed="true">🛕 金色寺廟</button>
@@ -148,6 +166,7 @@ footer{margin-top:30px;font-size:12.5px;color:var(--sub);text-align:center;borde
 <div id="err"></div>
 <main id="main"><p class="note" style="text-align:center;margin-top:30px">載入行程資料中…</p></main>
 <footer>
+ <div class="fstk"><svg class="stk " aria-hidden="true"><use href="#stk-elephant"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-mango"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-tuktuk"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-tea"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-cat"/></svg></div>
  ✦ 地圖皆為手帳示意插畫，不照比例；距離為概估，請以 Google 地圖連結核對。<br>
  行程資料即時讀取自 <a href="index.html">index.html</a>，主網頁更新後這頁會自動跟著變。營業時間、價格、預約規則都是第三方資料，出發前請再核對。<br>
  <a href="index.html">→ 回主網頁</a>
@@ -201,8 +220,9 @@ function build(X,ALT){
 
  /* 總覽 */
  const cityRow=d=>d.items.filter(i=>i[2]!=='move'&&!NOPIC.test(i[1])).slice(0,3).map(i=>nameOf(i)).join('・')||d.items.slice(0,2).map(i=>trunc(i[1],10)).join('・');
+ const STK=['cat','mango','elephant','tea','tuktuk','cat'];const stk=(n,c)=>`<svg class="stk ${c||''}" aria-hidden="true"><use href="#stk-${n}"/></svg>`;
  const cardsHtml=D.map(d=>{const p=DAYPIC[d.no];
-  return `<a class="dcard" href="#day${d.no}"><div class="ph"${p?` style="background-image:url('${esc(p)}')"`:''} data-ph>${p?'':ICON[d.svg]||''}</div><div class="dn">Day ${d.no}・${esc(d.date)}（${esc(d.wd)}）</div><div class="dt">${esc(d.title)}</div><div class="ds">${esc(cityRow(d))}</div></a>`}).join('');
+  return `<a class="dcard" href="#day${d.no}">${stk(STK[d.no-1],'cs')}<div class="ph"${p?` style="background-image:url('${esc(p)}')"`:''} data-ph>${p?'':ICON[d.svg]||''}</div><div class="dn">Day ${d.no}・${esc(d.date)}（${esc(d.wd)}）</div><div class="dt">${esc(d.title)}</div><div class="ds">${esc(cityRow(d))}</div></a>`}).join('');
  const poster=`<svg viewBox="0 0 720 400" role="img" aria-label="手繪示意地圖：台北、曼谷、芭達雅的往返路線">
  <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b2f1e"/></marker>
  <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b5cf6"/></marker></defs>
@@ -225,6 +245,7 @@ function build(X,ALT){
   <circle cx="255" cy="196" r="11" fill="#e0b44c" stroke="#3b2f1e" stroke-width="2.5"/><text x="200" y="186" text-anchor="middle">🛕 曼谷 BKK</text><text x="200" y="203" text-anchor="middle" font-size="11.5" font-weight="500">12/08–12/11 住相鐵</text>
   <circle cx="304" cy="258" r="9" fill="#2fa58a" stroke="#3b2f1e" stroke-width="2.5"/><text x="232" y="290" text-anchor="middle">🏖 芭達雅</text><text x="232" y="307" text-anchor="middle" font-size="11.5" font-weight="500">12/07 住 Ana Anan</text>
  </g>
+ <use href="#stk-elephant" x="116" y="206" width="50" height="50"/><use href="#stk-mango" x="172" y="262" width="42" height="42"/><use href="#stk-tuktuk" x="340" y="274" width="46" height="46"/><use href="#stk-cat" x="632" y="34" width="48" height="48"/><use href="#stk-tea" x="28" y="296" width="46" height="46"/>
  <g transform="translate(640 330)" fill="none" stroke="#3b2f1e" stroke-width="2"><circle r="22"/><path d="M0-20L5 0L0 20L-5 0z" fill="#ef7d57"/><text y="-27" text-anchor="middle" font-size="11" fill="#3b2f1e" stroke="none" font-weight="700">N</text></g>
  <g transform="translate(20 372)"><rect width="262" height="22" rx="11" fill="#fff" stroke="#3b2f1e" stroke-width="1.8"/><text x="131" y="15.5" text-anchor="middle" font-size="12" fill="#3b2f1e">✦ 手帳示意圖・不照比例・距離為概估</text></g>
  </svg>`;
@@ -250,6 +271,7 @@ function build(X,ALT){
   <circle cx="128" cy="198" r="11" fill="#e0b44c" stroke="#3b2f1e" stroke-width="2.5"/><text x="24" y="182">🛕 曼谷 BKK</text><text x="24" y="224" font-size="11.5" font-weight="500">12/08–12/11</text><text x="24" y="238" font-size="11.5" font-weight="500">住相鐵</text>
   <circle cx="148" cy="326" r="9" fill="#2fa58a" stroke="#3b2f1e" stroke-width="2.5"/><text x="30" y="354">🏖 芭達雅</text><text x="30" y="372" font-size="11.5" font-weight="500">12/07 住 Ana Anan</text>
  </g>
+ <use href="#stk-elephant" x="18" y="252" width="46" height="46"/><use href="#stk-mango" x="204" y="360" width="42" height="42"/><use href="#stk-tuktuk" x="190" y="398" width="44" height="44"/><use href="#stk-cat" x="196" y="6" width="40" height="40"/><use href="#stk-tea" x="16" y="392" width="40" height="40"/>
  <g transform="translate(320 400)" fill="none" stroke="#3b2f1e" stroke-width="2"><circle r="18"/><path d="M0-16L4 0L0 16L-4 0z" fill="#ef7d57"/></g>
  <g transform="translate(14 444)"><rect width="250" height="22" rx="11" fill="#fff" stroke="#3b2f1e" stroke-width="1.8"/><text x="125" y="15.5" text-anchor="middle" font-size="12" fill="#3b2f1e">✦ 手帳示意圖・不照比例・距離為概估</text></g>
  </svg>`;
@@ -277,7 +299,7 @@ function build(X,ALT){
    const left=i%2===0,tx=left?x+32:x-32,an=left?'start':'end';
    nodes+=`<g class="nd" data-i="${si}" tabindex="0" role="button" aria-label="${esc(it[0]+' '+it[1])}"><circle class="c" cx="${x}" cy="${y}" r="24" fill="${kcol[k]||kcol.rest}" stroke="#3b2f1e" stroke-width="3"/><text x="${x}" y="${y+7}" text-anchor="middle" font-size="20">${kindIcon(k,it[1])}</text><text x="${tx}" y="${y-3}" text-anchor="${an}" font-size="11.5" fill="#7a6a4f" font-weight="700">${esc(trunc(it[0],12))}</text><text x="${tx}" y="${y+14}" text-anchor="${an}" font-size="13" font-weight="800" fill="#3b2f1e">${esc(nameOf(it))}</text></g>`;
   });
-  const svg=`<svg viewBox="0 0 360 ${H}" role="img" aria-label="Day ${d.no} 示意路線圖">${path}${segs}${nodes}<g id="mk-${d.no}" class="mk" style="transition:transform .8s ease;transform:translate(${pos(0)[0]}px,${pos(0)[1]-38}px)"><text text-anchor="middle" font-size="22">🧳</text></g></svg>`;
+  const svg=`<svg viewBox="0 0 360 ${H}" role="img" aria-label="Day ${d.no} 示意路線圖">${path}${segs}${nodes}<g id="mk-${d.no}" class="mk" style="transition:transform .8s ease;transform:translate(${pos(0)[0]}px,${pos(0)[1]-38}px)"><use href="#stk-elephant" x="-18" y="-34" width="36" height="36"/></g></svg>`;
   // 整天 Google 地圖路線
   const names=[];d.items.forEach(it=>{if(it[2]==='move')return;const h=find(PL,it[1]);if(h&&h[1].length)names.push(h[1][0])});
   const uniq=names.filter((n,i)=>names.indexOf(n)===i);
@@ -297,8 +319,8 @@ function build(X,ALT){
    return `<li id="it-${d.no}-${ix}" class="${esc(k||'rest')}${mv?' mv':''}" data-i="${ix}"><div class="t">${esc(t)}</div><div class="what"><strong>${esc(title)}</strong>${nor?`<span class="tag nor">${esc(nor[1])}</span>`:''}${w?'<span class="tag warn">待確認</span>':''}${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}${(!mv&&pr)?`<div class="price">每人均價：${esc(pr[1])}</div>`:''}${tx?`<div class="tix">🎫 ${esc(tx[1])}</div>`:''}${hr?`<details class="hr ${esc(hr[1])}"><summary>🕘 ${esc(HLAB[hr[1]])}</summary><div>${esc(hr[2])}</div></details>`:''}${bk}${chips?`<div class="maps">${chips}</div>`:''}${pu?`<a href="${esc(pu)}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(title)}" src="${esc(pu)}"></a>`:''}${ex}</div></li>`}).join('');
   const cover=DAYPIC[d.no];
   return `<section class="blk day" id="day${d.no}" data-no="${d.no}"><div class="dayhead${cover?' cover':''}"${cover?` style="background-image:linear-gradient(90deg,rgba(20,14,4,.78),rgba(20,14,4,.2)),url('${esc(cover)}')"`:''}><div class="no">${d.no}</div><div><div class="meta">${esc(d.date)}（${esc(d.wd)}）</div><h2>${esc(d.title)}</h2></div><div class="ic">${ICON[d.svg]||''}</div></div>
-  <div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}</div>${d.note?`<div class="daynote">${esc(d.note)}</div>`:''}${HNOTE[d.no]?`<div class="hnote">📅 ${esc(HNOTE[d.no])}</div>`:''}
-  <div class="daygrid"><div class="mapcard"><div class="play"><button class="pbtn" data-play="${d.no}" aria-label="播放路線">▶</button><button class="pbtn" data-spd="${d.no}" aria-label="播放速度">×1</button><div class="cap" id="cap-${d.no}">按 ▶ 讓行李箱走一遍今天</div></div>${svg}<div id="legend"><i style="background:var(--eat)"></i>吃<i style="background:var(--go)"></i>逛<i style="background:var(--rest)"></i>休息<i style="background:var(--move)"></i>交通</div>${gm}<div class="note" style="margin-top:6px">✦ 地圖為示意圖，不照比例；交通距離、時間來自行程備註（多為估計）。</div></div>
+  <div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}${stk(['cat','mango','elephant','tea','tuktuk','cat'][d.no-1],'ds-s')}</div>${d.note?`<div class="daynote">${esc(d.note)}</div>`:''}${HNOTE[d.no]?`<div class="hnote">📅 ${esc(HNOTE[d.no])}</div>`:''}
+  <div class="daygrid"><div class="mapcard"><div class="play"><button class="pbtn" data-play="${d.no}" aria-label="播放路線">▶</button><button class="pbtn" data-spd="${d.no}" aria-label="播放速度">×1</button><div class="cap" id="cap-${d.no}">按 ▶ 讓小象走一遍今天</div></div>${svg}<div id="legend"><i style="background:var(--eat)"></i>吃<i style="background:var(--go)"></i>逛<i style="background:var(--rest)"></i>休息<i style="background:var(--move)"></i>交通</div>${gm}<div class="note" style="margin-top:6px">✦ 地圖為示意圖，不照比例；交通距離、時間來自行程備註（多為估計）。</div></div>
   <ol class="tl">${li}</ol></div></section>`;
  };
  html+=D.map(dayHtml).join('');
