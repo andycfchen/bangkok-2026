@@ -1,371 +1,977 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>2026 曼谷散步帖</title>
-<meta name="description" content="2026/12/06–12/11 曼谷＋芭達雅 手帳風行程頁（資料同步自 index.html）">
+<meta name="description" content="2026/12/06–12/11 曼谷＋芭達雅 手帳風互動行程頁（資料即時讀取自 index.html）">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
- --bg:#fff7e0;--paper:#fffdf5;--ink:#3b2f1e;--sub:#7a6a4f;--line:#e6d2a0;--accent:#c8922a;--accent2:#e0b44c;--soft:#fbe9b7;--tape:#f3d37a;--sea:#d8ecf2;--land:#f6e2b0;
- --eat:#ef7d57;--go:#2fa58a;--rest:#6d8bb8;--move:#8b5cf6;--warn:#c2410c;--okc:#2f7d55;--shadow:rgba(90,60,10,.18);
+  --bg:#FFF9F0; --paper:#FFFFFF; --land:#FFF6E8; --ink:#4A3A2A; --ink2:#7D6A55;
+  --tan:#FFF0D4; --tan-border:#E8CCA0;
+  --blob1:#FFF0C2; --blob2:#E2F4FC; --blob3:#FFE4EC; --blob4:#E4F7DF;
+  --red:#FF6B6B; --yellow:#FFD95A; --pink:#FF9EB5; --green:#7ED37E;
+  --line:rgba(74,58,42,.13); --water:#C9ECFA; --mt:#D5F0C5; --mt2:#B8E2A3; --park:#E4F7DC; --road:#F9EBC8; --team2:#38B27E;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
-:root[data-theme="siam"]{--bg:#ffeef3;--paper:#fffafc;--ink:#4a2a3a;--sub:#8b6275;--line:#f2c6d6;--accent:#e0679a;--accent2:#f7a8c4;--soft:#fde0ea;--tape:#f9c4d6;--sea:#e1f0fb;--land:#ffe3d3;--shadow:rgba(140,50,90,.16)}
-:root[data-theme="river"]{--bg:#e6f3f8;--paper:#fbfeff;--ink:#17384a;--sub:#4f7285;--line:#b9d9e6;--accent:#1f7aa8;--accent2:#6ab6d6;--soft:#cfe8f2;--tape:#9fd0e4;--sea:#c4e4f1;--land:#e8efd9;--shadow:rgba(20,70,100,.18)}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;overflow-x:hidden;
- background-image:radial-gradient(var(--line) 1px,transparent 1.2px);background-size:22px 22px}
+:root[data-theme="pink"]{
+  --bg:#FFF5F8; --paper:#FFFFFF; --land:#FFF0F5; --ink:#4A353B; --ink2:#85656E;
+  --tan:#FFE6EE; --tan-border:#F3C1CE;
+  --blob1:#FFE6EE; --blob2:#E8F4FF; --blob3:#FFF2C9; --blob4:#E6F8EE;
+  --red:#FF6584; --yellow:#FFE07D; --pink:#FF8FB1; --green:#7ED386;
+  --road:#FFEBF0;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Huninn","Zen Maru Gothic","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg fill='%23FFD166' opacity='.42'%3E%3Cpath d='M32 22l3.5 7.5 7.5 3.5-7.5 3.5-3.5 7.5-3.5-7.5-7.5-3.5 7.5-3.5z'/%3E%3Cpath d='M150 95l2.5 5.5 5.5 2.5-5.5 2.5-2.5 5.5-2.5-5.5-5.5-2.5 5.5-2.5z'/%3E%3Cpath d='M85 160l2 4 4 2-4 2-2 4-2-4-4-2 4-2z'/%3E%3Ccircle cx='110' cy='45' r='2.5'/%3E%3Ccircle cx='45' cy='135' r='2'/%3E%3C/g%3E%3Cg fill='%23FF9EB5' opacity='.38'%3E%3Ccircle cx='170' cy='35' r='3'/%3E%3Ccircle cx='25' cy='85' r='2.5'/%3E%3Cpath d='M165 165l2.5 5 5 2.5-5 2.5-2.5 5-2.5-5-5-2.5 5-2.5z'/%3E%3C/g%3E%3Cg fill='%2389CFF0' opacity='.35'%3E%3Ccircle cx='70' cy='25' r='2.2'/%3E%3Ccircle cx='130' cy='175' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+}
 a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:0 16px 40px}
-header.top{text-align:center;padding:22px 0 8px}
-header.top .back{font-size:13px;color:var(--sub);text-decoration:none;border-bottom:1px dashed var(--sub)}
-h1{margin:6px 0 2px;font-size:clamp(26px,6vw,40px);letter-spacing:.06em}
-h1 span{display:inline-block;transform:rotate(-2deg);background:linear-gradient(transparent 60%,var(--tape) 60%)}
-.sub{color:var(--sub);font-size:14px}
-.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 4px}
-.pill{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:5px 13px;font:inherit;font-size:13px;cursor:pointer;box-shadow:2px 2px 0 var(--shadow)}
-.pill[aria-pressed="true"]{background:var(--accent2);font-weight:700}
-.pill.clock{cursor:default;background:var(--soft);font-variant-numeric:tabular-nums}
-nav.tabs{scrollbar-width:none;position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0;margin:0 -16px;padding-left:16px;padding-right:16px;border-bottom:2px dashed var(--line);display:flex;gap:8px;overflow-x:auto}
-nav.tabs a{flex:0 0 auto;text-decoration:none;border:2px solid var(--ink);border-radius:14px;background:var(--paper);padding:3px 11px;font-size:13px;line-height:1.35;text-align:center;box-shadow:2px 2px 0 var(--shadow)}
-nav.tabs a b{display:block;font-size:14px}
-nav.tabs a.on{background:var(--accent2)}
-section.blk{margin-top:26px}
-.board{background:var(--paper);border:3px solid var(--ink);border-radius:22px 28px 20px 26px;padding:16px;box-shadow:4px 5px 0 var(--shadow);position:relative}
-.board h2{margin:0 0 4px;font-size:20px}
-.board h2 .tp{display:inline-block;background:var(--tape);padding:1px 10px;transform:rotate(-1.5deg);border-radius:3px}
-.note{font-size:13px;color:var(--sub)}
-.posterwrap{margin-top:10px;border:2px dashed var(--line);border-radius:16px;overflow:hidden;background:var(--sea)}
-.posterwrap svg{display:block;width:100%;height:auto}
-.stk{width:48px;height:48px;flex:0 0 auto;overflow:visible;filter:drop-shadow(1px 2px 0 var(--shadow))}
-.hero{display:flex;align-items:center;justify-content:center;gap:6px}
-.hero h1{min-width:0}
-.hero .stk{width:clamp(38px,11vw,72px);height:clamp(38px,11vw,72px)}
-.hero .hl{transform:rotate(-8deg)}.hero .hr{transform:rotate(8deg)}
-.dcard .cs{position:absolute;top:-16px;right:-6px;width:42px;height:42px;transform:rotate(10deg);z-index:2}
-.stay .ds-s{margin-left:auto;width:46px;height:46px;margin-top:-18px;transform:rotate(6deg)}
-.fstk{display:flex;justify-content:center;gap:12px;margin-bottom:8px}
-.fstk .stk{width:40px;height:40px}.fstk .stk:nth-child(even){transform:rotate(-8deg)}.fstk .stk:nth-child(odd){transform:rotate(7deg)}
-.pw-m{display:none}
-@media(max-width:640px){.pw-d{display:none}.pw-m{display:block}}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:18px 14px;margin-top:20px}
-.dcard{display:block;text-decoration:none;background:#fff;border:2px solid var(--ink);padding:8px 8px 10px;border-radius:6px;box-shadow:3px 4px 0 var(--shadow);position:relative;transition:transform .15s}
-.dcard:nth-child(odd){transform:rotate(-1.2deg)}.dcard:nth-child(even){transform:rotate(1deg)}
-.dcard:hover,.dcard:focus-visible{transform:rotate(0) translateY(-3px)}
-.dcard:before{content:"";position:absolute;top:-9px;left:50%;width:54px;height:16px;margin-left:-27px;background:var(--tape);opacity:.85;transform:rotate(-3deg)}
-.dcard .ph{height:92px;border-radius:4px;background:var(--accent) center/cover no-repeat;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.dcard .ph svg{width:70%;height:70%}
-.dcard .dn{font-weight:800;font-size:13px;margin-top:6px;color:var(--accent)}
-.dcard .dt{font-size:13px;line-height:1.4;font-weight:700;margin:2px 0 4px;min-height:36px}
-.dcard .ds{font-size:11.5px;color:var(--sub);line-height:1.4}
-.dayhead{display:flex;align-items:center;gap:12px;color:#fff;border:3px solid var(--ink);border-radius:20px 24px 18px 22px;padding:12px 14px;background:var(--accent) center/cover;box-shadow:4px 5px 0 var(--shadow);position:relative;overflow:hidden}
-.dayhead.cover{text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.dayhead .no{font:800 38px/1 system-ui;background:#fff;color:var(--ink);border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;border:3px solid var(--ink);text-shadow:none}
-.dayhead .meta{font-size:13px;opacity:.95}
-.dayhead h2{margin:0;font-size:clamp(16px,4.2vw,22px);line-height:1.35}
-.dayhead .ic{margin-left:auto;width:64px;flex:0 0 auto}
-.dayhead .ic svg{width:100%}
-.stay{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
-.stay span{background:var(--soft);border-radius:999px;padding:2px 11px;font-size:12.5px}
-.daynote{background:#fff8d6;border-left:5px solid var(--accent);padding:6px 10px;border-radius:6px;font-size:13.5px;margin:8px 0}
-:root[data-theme="siam"] .daynote{background:#fff0f5}:root[data-theme="river"] .daynote{background:#eaf6fb}
-.hnote{background:#fff0e3;border-left:5px solid var(--warn);padding:6px 10px;border-radius:6px;font-size:12.5px;margin:8px 0;color:#7a3410}
-.daygrid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:14px}
-@media(min-width:880px){.daygrid{grid-template-columns:400px 1fr;align-items:start}.mapcard{position:sticky;top:70px}}
-.mapcard{background:var(--paper);border:3px solid var(--ink);border-radius:20px;padding:10px;box-shadow:3px 4px 0 var(--shadow);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:24px 24px;background-color:var(--paper)}
-.mapcard svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto}
-.mapcard .play{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.mapcard .cap{flex:1 1 140px;min-width:0;font-size:13px;font-weight:700;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:2px 8px;min-height:30px;display:flex;align-items:center}
-.pbtn{border:2px solid var(--ink);background:var(--accent2);border-radius:999px;font:inherit;font-weight:800;font-size:13px;padding:2px 12px;cursor:pointer;box-shadow:2px 2px 0 var(--shadow);color:var(--ink)}
-.gm{display:inline-block;margin-top:8px;font-size:13px;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;background:var(--paper)}
-.nd circle{transition:r .2s,stroke-width .2s}
-.nd{cursor:pointer}
-.nd.cur circle.c{stroke-width:5;filter:drop-shadow(0 0 4px var(--accent))}
-.nd text{pointer-events:none}
-#legend{font-size:12px;color:var(--sub);margin-top:6px}
-#legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 8px;vertical-align:-1px}
-ol.tl{list-style:none;margin:0;padding:0;position:relative}
-ol.tl:before{content:"";position:absolute;left:72px;top:6px;bottom:6px;border-left:3px dashed var(--line)}
-ol.tl li{display:grid;grid-template-columns:62px 1fr;gap:0 30px;padding:7px 0;position:relative;scroll-margin-top:90px}
-ol.tl .t{font-size:12px;font-weight:700;text-align:right;padding-top:3px;color:var(--sub);line-height:1.3}
-ol.tl .what{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:7px 10px;position:relative;min-width:0;box-shadow:2px 2px 0 var(--shadow)}
-:root[data-theme="siam"] ol.tl .what,:root[data-theme="river"] ol.tl .what{background:#fff}
-ol.tl .what:before{content:"";position:absolute;left:-26px;top:9px;width:14px;height:14px;border-radius:50%;border:3px solid var(--ink);background:var(--rest)}
-li.eat .what:before{background:var(--eat)}li.go .what:before{background:var(--go)}li.rest .what:before{background:var(--rest)}li.move .what:before{background:var(--move)}
-li.mv .what{background:#f3edff;border-color:var(--move);box-shadow:none;padding:4px 10px}
-li.mv .what strong{color:#5b34c4;font-weight:600;font-size:14px}
-li.mv .t{color:#6d46d6}
-li.cur .what{outline:4px solid var(--accent2);outline-offset:1px}
-.what strong{font-size:15px;word-break:break-word}
-.what .n{font-size:13px;color:var(--sub);margin-top:2px;word-break:break-word}
-.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:0 8px;margin-left:5px;vertical-align:1px;border:1.5px solid currentColor}
-.tag.nor{color:var(--okc);background:#e5f6ec}
-.tag.warn{color:var(--warn);background:#fff0e3}
-.tag.must{color:#b91c1c;background:#fde8e8}
-.price{color:#8a5a00;background:#fff3cf;border-radius:8px;padding:1px 8px;display:inline-block;margin-top:4px}
-.tix{font-size:12.5px;margin-top:4px;background:#eef6ff;border-radius:8px;padding:2px 8px;color:#1f4d7a}
-details.hr,details.bk{margin-top:5px;font-size:12.5px}
-details summary{cursor:pointer;font-weight:700;color:var(--sub)}
-details.hr.warn summary{color:var(--warn)}details.hr.ok summary{color:var(--okc)}
-details>div{margin-top:3px;color:var(--ink);background:var(--bg);border-radius:8px;padding:5px 8px}
-.maps{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
-.maps:empty{display:none}
-.chip{font-size:12px;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:0 9px;background:var(--soft);line-height:1.7}
-.pic{display:block;max-width:100%;max-height:210px;border-radius:8px;margin-top:6px;border:2px solid var(--ink);object-fit:cover}
-figure.x{margin:6px 0 0}figure.x figcaption{font-size:11.5px;color:var(--sub)}
-.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:10px}
-.rc{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;box-shadow:2px 2px 0 var(--shadow);font-size:13.5px}
-.rc b{font-size:15px}.rc .d{color:var(--sub);font-size:12.5px}
-.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:10px}
-.tips ul{margin:4px 0 0;padding-left:20px;font-size:14px}
-.tips li{margin:3px 0}
-.chk{list-style:none;padding:0!important}
-.chk label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
-.chk input{margin-top:5px;accent-color:var(--accent);width:17px;height:17px;flex:0 0 auto}
-.chk input:checked+span{text-decoration:line-through;color:var(--sub)}
-.tbl{overflow-x:auto}
-table{border-collapse:collapse;font-size:12.5px;min-width:520px}
-th,td{border:1.5px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}
-th{background:var(--soft)}
-footer{margin-top:30px;font-size:12.5px;color:var(--sub);text-align:center;border-top:2px dashed var(--line);padding-top:14px}
-#err{display:none;background:#fde8e8;border:2px solid #b91c1c;border-radius:12px;padding:12px;margin-top:16px}
-@media(max-width:520px){
- .hero h1{font-size:21px;white-space:nowrap}
- .hero .stk{width:36px;height:36px}
- ol.tl li{grid-template-columns:54px 1fr;gap:0 28px}
- ol.tl:before{left:62px}
- ol.tl .t{font-size:10.5px;word-break:keep-all}
- .dayhead .ic{width:48px}
- .dayhead .no{width:44px;height:44px;font-size:28px}
+.wrap{max-width:1220px;margin:0 auto;padding:18px 16px 48px}
+
+/* header */
+header.top{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;
+  margin:4px 4px 16px;padding:14px 20px;
+  background:linear-gradient(135deg, var(--tan) 0%, #FFFDF9 100%);
+  border:2.5px solid var(--ink);border-radius:24px;
+  box-shadow:0 5px 0 rgba(74,58,42,.1);position:relative;overflow:hidden;
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dcard,.nd circle{transition:none}}
+.title{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.title-mascots{display:flex;align-items:center;margin-right:2px}
+.title-mascots svg{width:48px;height:48px;margin-right:-8px;filter:drop-shadow(0 2px 0 rgba(74,58,42,.12));transition:transform .2s}
+.title-mascots svg:hover{transform:translateY(-4px) rotate(-5deg)}
+.title h1{margin:0;font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:900;font-size:clamp(24px,4.2vw,38px);line-height:1.18;letter-spacing:.02em}
+.title p{margin:3px 0 0;color:var(--ink2);font-size:14.5px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 2px 0 rgba(74,58,42,.12);transition:transform .15s,background .15s}
+.chip:hover{background:var(--yellow);color:#4A3A2A;transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--red);border-color:var(--ink);color:#fff}
+#brandBtn{background:linear-gradient(135deg,#FFE4EE 0%,#E8F4FF 100%);color:#4A3A2A}
+#brandBtn:hover{background:linear-gradient(135deg,#FFD0E2 0%,#D5ECFF 100%)}
+#brandBtn[aria-pressed="true"]{background:linear-gradient(135deg,#FF5C8D 0%,#FF8FB1 100%);color:#fff}
+
+/* 角色貼紙立體白邊濾鏡 & 自訂圖檔彈窗 */
+.title-mascots svg, .ticket b svg, .day-head h2 svg, .pal-chip svg, .vig svg.pal, .tips-mascots svg, #map use {
+  filter: drop-shadow(0 1.5px 0 #FFFFFF) drop-shadow(0 -1.5px 0 #FFFFFF) drop-shadow(1.5px 0 0 #FFFFFF) drop-shadow(-1.5px 0 0 #FFFFFF) drop-shadow(0 3px 3px rgba(74,58,42,.18));
+}
+
+/* day tickets */
+nav.days{display:flex;gap:10px;overflow-x:auto;padding:4px 4px 14px;scrollbar-width:thin}
+.ticket{
+  flex:0 0 auto;position:relative;min-width:124px;padding:10px 16px 10px 16px;border:2.5px solid var(--ink);border-radius:14px;
+  background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer;
+  box-shadow:0 3px 0 rgba(74,58,42,.1);transition:transform .15s,background .15s;
+}
+.ticket:hover{transform:translateY(-2px);background:var(--blob1)}
+.ticket b{display:flex;align-items:center;gap:6px;font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:900;font-size:18px;line-height:1.15}
+.ticket b svg{width:26px;height:26px;flex:0 0 auto}
+.ticket span{display:block;font-size:12.5px;color:var(--ink2);margin-top:2px}
+.ticket[aria-selected="true"]{background:var(--yellow);color:#4A3A2A;transform:translateY(-2px)}
+.ticket[aria-selected="true"] span{color:#4A3A2A;font-weight:700}
+.ticket .today{position:absolute;top:-2px;right:10px;font-size:11px;font-style:normal;font-weight:700;background:var(--red);color:#fff;padding:1px 7px;border-radius:0 0 8px 8px;border:1.5px solid var(--ink);border-top:0}
+
+/* day page */
+.page{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:880px){.page{grid-template-columns:1fr}}
+.day-head{
+  grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;
+  padding:10px 16px;background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;
+  box-shadow:0 4px 0 rgba(74,58,42,.08);
+}
+.day-head h2{margin:0;display:flex;align-items:center;gap:8px;font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:900;font-size:clamp(20px,3vw,28px);line-height:1.25}
+.day-head h2 svg{width:38px;height:38px;flex:0 0 auto}
+.day-head .meta{color:var(--ink2);font-size:14.5px}
+.day-head .budget{margin-left:auto;font-size:14.5px;font-weight:700;background:var(--blob1);border:2px dashed var(--ink);border-radius:10px;padding:3px 12px}
+
+.mapcard{background:var(--paper);border:3px solid var(--ink);border-radius:24px;overflow:hidden;position:relative;box-shadow:0 6px 0 rgba(74,58,42,.1)}
+.mapcard svg#map{display:block;width:100%;height:auto;touch-action:manipulation}
+.clockbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 16px;border-top:3px solid var(--ink);background:var(--paper)}
+.clock{font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:900;font-size:30px;line-height:1;min-width:92px;font-variant-numeric:tabular-nums}
+.status{flex:1 1 200px;font-size:15px;color:var(--ink2);min-height:1.6em;font-weight:700}
+.ctrl{display:flex;align-items:center;gap:8px;width:100%}
+.play{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--ink);background:var(--red);color:#fff;font-size:18px;cursor:pointer;flex:0 0 auto;display:grid;place-items:center;box-shadow:0 2px 0 rgba(74,58,42,.2)}
+.play:hover{filter:brightness(1.06);transform:scale(1.04)}
+input[type=range]{flex:1;accent-color:var(--red);height:28px;cursor:pointer}
+.speed{border:2px solid var(--ink);background:var(--blob1);color:var(--ink);border-radius:999px;font:inherit;font-size:13px;font-weight:700;padding:4px 12px;cursor:pointer}
+.pals{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 16px 12px;font-size:13px;color:var(--ink2);border-top:2px dashed var(--line);background:var(--bg)}
+.pal-chip{display:inline-flex;align-items:center;gap:4px;background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:2px 9px 2px 4px;font-weight:700;color:var(--ink)}
+.pal-chip svg{width:24px;height:24px}
+.scale-note{font-size:12px;color:var(--ink2);padding:4px 16px 12px;background:var(--bg)}
+
+/* timeline */
+ol.stops{list-style:none;margin:0;padding:0;position:relative}
+ol.stops::before{content:"";position:absolute;left:60px;top:12px;bottom:12px;border-left:3px dotted var(--ink2);opacity:.55}
+.stop{position:relative;display:grid;grid-template-columns:72px 1fr;gap:10px;margin-bottom:11px}
+.stop .t{font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:700;font-size:15px;text-align:right;padding-top:12px;font-variant-numeric:tabular-nums;padding-right:26px}
+.stop .t::after{content:"";position:absolute;left:54px;top:17px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:3px solid var(--ink)}
+.stop.done .t::after{background:var(--ink2);border-color:var(--ink2)}
+.stop.now .t::after{background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px rgba(255,107,107,.28)}
+.card{width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--paper);border:2.5px solid var(--ink);border-radius:16px;padding:10px 14px;cursor:pointer;box-shadow:0 3px 0 rgba(74,58,42,.08);transition:transform .15s,background .15s}
+.card:hover{transform:translateY(-1px);background:var(--blob1)}
+.stop.now .card{background:var(--yellow);color:#4A3A2A;border-width:3px}
+.stop.now .card .note,.stop.now .card .sub{color:#4A3A2A}
+.card .name{font-size:16px;font-weight:700;display:flex;gap:8px;align-items:flex-start}
+.card .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+.card .note{font-size:13px;color:var(--ink2);margin-top:4px}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;margin:5px 4px 0 0;border:1.5px solid var(--ink);background:var(--blob1)}
+.tag.hot{background:var(--red);color:#fff;border-color:var(--ink)}
+.links{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.links a{font-size:13px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--pink)}
+.empty-row .card{border-style:dashed;cursor:default;background:var(--paper)}
+
+/* svg map */
+.m-land{fill:var(--land)}
+.m-water{fill:var(--water)}
+.m-grid{stroke:var(--line);stroke-width:1}
+.m-path{fill:none;stroke:var(--ink);stroke-width:3.2;stroke-dasharray:3 8;stroke-linecap:round;opacity:.55}
+.m-path.walked{stroke:var(--red);opacity:.95;stroke-width:4}
+.m-path.walked.t1{stroke:var(--team2)}
+.bg-sea{fill:var(--water)}
+.bg-wave{fill:none;stroke:var(--paper);stroke-width:3;stroke-linecap:round;opacity:.85}
+.bg-river{fill:none;stroke:var(--water);stroke-width:24;stroke-linecap:round}
+.bg-road{fill:none;stroke:var(--road);stroke-width:12;stroke-linecap:round}
+.bg-mt{fill:var(--mt);stroke:var(--mt2);stroke-width:3;stroke-linejoin:round}
+.bg-park{fill:var(--park)}
+.bg-island{fill:var(--land);stroke:var(--ink2);stroke-width:2;stroke-dasharray:4 5}
+.bg-lbl{font-size:16px;fill:var(--ink2);opacity:.85;font-style:normal;font-weight:700}
+.teams{display:flex;flex-wrap:wrap;gap:6px 16px}
+.team-tag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;margin:4px 4px 0 0;color:#fff;background:var(--red);border:1.5px solid var(--ink)}
+.team-tag.t1{background:var(--team2)}
+.m-dist{font-size:15px;font-weight:700;fill:var(--ink2);paint-order:stroke;stroke:var(--land);stroke-width:5px}
+.m-area{font-family:"Zen Maru Gothic","Huninn",sans-serif;font-weight:900;font-size:30px;fill:var(--ink);opacity:.13}
+.m-pin circle.base{fill:var(--paper);stroke:var(--ink);stroke-width:3}
+.m-pin.now circle.base{fill:var(--yellow)}
+.m-pin.done circle.base{fill:var(--land);stroke:var(--ink2)}
+.m-pin text.ic{font-size:22px;text-anchor:middle;dominant-baseline:central}
+.m-pin .lab rect{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+.m-pin .lab text{font-size:14.5px;font-weight:700;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.m-pin.now .lab rect{fill:var(--red);stroke:var(--ink)}
+.m-pin.now .lab text{fill:#fff}
+.m-pin{cursor:pointer}
+.m-pin:focus-visible circle.base{stroke:var(--red);stroke-width:5}
+.compass text{font-size:14px;fill:var(--ink2);text-anchor:middle;font-weight:700}
+
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+footer{margin-top:28px;text-align:center;font-size:13px;color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:14px;font-size:14px;font-weight:700;max-width:90vw;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.toast.show{opacity:1}
+
+/* ========== 手繪攻略地圖總覽 (#poster) ========== */
+.poster{
+  background:var(--paper);border:3px solid var(--ink);border-radius:28px;
+  padding:0 0 22px;position:relative;overflow:hidden;
+  box-shadow:0 8px 0 rgba(74,58,42,.09);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,217,90,.20) 0 42px, transparent 43px),
+    radial-gradient(circle at 86% 32%, rgba(255,158,181,.18) 0 48px, transparent 49px),
+    radial-gradient(circle at 38% 78%, rgba(201,236,250,.28) 0 52px, transparent 53px),
+    radial-gradient(circle at 72% 82%, rgba(126,211,126,.16) 0 44px, transparent 45px);
+}
+.poster-banner{
+  background:linear-gradient(180deg, var(--tan) 0%, #FFF9EC 100%);
+  border-bottom:2.5px solid var(--ink);
+  padding:16px 22px;
+  margin-bottom:20px;
+  position:relative;
+  text-align:center;
+}
+.poster-title{
+  margin:0;
+  font-family:"Zen Maru Gothic","Huninn",sans-serif;
+  font-weight:900;
+  font-size:clamp(20px,3.2vw,32px);
+  line-height:1.3;
+  color:var(--ink);
+}
+.poster-title small{font-size:.66em;font-weight:700;white-space:nowrap;color:var(--ink2)}
+.poster-scroll{overflow-x:auto;padding:4px 18px 10px}
+.poster-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(6,minmax(162px,1fr));
+  gap:20px;
+  min-width:1050px;
+  padding-bottom:8px;
+}
+.pcol{position:relative;z-index:1}
+.pcol h3{
+  margin:0 0 18px;
+  font-size:13.5px;
+  line-height:1.35;
+  text-align:center;
+  background:var(--tan);
+  border:2px solid var(--ink);
+  border-radius:16px;
+  padding:6px 10px;
+  box-shadow:0 3px 0 rgba(74,58,42,.1);
+}
+.pcol h3 .sub-date{font-weight:700;font-size:12px;color:var(--ink2)}
+.pitem{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  width:100%;margin:0 0 28px;padding:0;background:none;border:0;
+  font:inherit;color:inherit;cursor:pointer;position:relative;z-index:1;
+}
+.pitem:hover .vig{transform:rotate(-4deg) scale(1.06)}
+.vig{
+  position:relative;width:90px;height:84px;
+  display:grid;place-items:center;
+  border:2.2px solid var(--ink);
+  border-radius:46% 54% 50% 50%/55% 45% 55% 45%;
+  box-shadow:0 3px 0 rgba(74,58,42,.1);
+  transition:transform .2s;
+}
+.vig .emo{font-size:38px;line-height:1;filter:drop-shadow(0 2px 0 rgba(0,0,0,.08))}
+.vig svg.art{width:74px;height:74px}
+.vig svg.pal{position:absolute;width:44px;height:44px;right:-20px;bottom:-10px;filter:drop-shadow(0 2px 0 rgba(74,58,42,.14))}
+.vig svg.pal.left{right:auto;left:-20px}
+.pitem .nm,.pitem .tm,.pitem .ex{background:rgba(255,255,255,.92);border-radius:6px;padding:0 5px}
+.pitem .nm{font-weight:700;font-size:13.5px;line-height:1.35;margin-top:7px}
+.pitem .tm{font-size:12.5px;color:var(--ink2);font-weight:700}
+.pitem .ex{font-size:11.5px;color:var(--ink2);line-height:1.35;margin-top:2px;max-width:165px}
+.pitem .team-tag{margin:4px 0 0}
+svg.plinks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:0}
+.plink{fill:none;stroke:var(--ink2);stroke-width:2.2;stroke-dasharray:4 6;stroke-linecap:round}
+.pstar{fill:#F4B63F;opacity:.85}
+
+.poster-footer{
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+  gap:16px;padding:8px 22px 0;
+}
+.poster-hint{
+  font-size:13.5px;font-weight:700;color:var(--ink2);
+  background:var(--blob2);border:2px solid var(--ink);border-radius:14px;
+  padding:8px 14px;
+}
+.tips-wrap{
+  display:flex;align-items:flex-end;gap:10px;margin-left:auto;max-width:560px;
+}
+.tips-mascots{display:flex;flex:0 0 auto}
+.tips-mascots svg{width:58px;height:58px;margin-right:-10px;filter:drop-shadow(0 2px 0 rgba(74,58,42,.12))}
+.tips{
+  background:var(--blob1);border:2.5px dashed var(--ink);border-radius:20px;
+  padding:12px 18px;font-size:13.5px;box-shadow:0 4px 0 rgba(74,58,42,.08);
+}
+.tips b{display:block;margin-bottom:4px;font-size:15px}
+.tips ul{margin:0;padding-left:1.2em}
+.tips li{margin-bottom:2px}
+@media (prefers-reduced-motion:reduce){.vig{transition:none}}
+
+/* ================= 曼谷版追加 ================= */
+:root:not([data-theme]){--bg:#FFF7DC;--land:#FFF3D0;--tan:#FFEAB0;--tan-border:#E3C068;--blob1:#FFEFB8;--yellow:#FFD24D;--red:#E8782B;--pink:#F2A24A;--road:#F7E3B0}
+:root[data-theme="river"]{--bg:#EAF6FB;--paper:#FFFFFF;--land:#EAF5F7;--ink:#1E3A4C;--ink2:#587789;--tan:#D3ECF7;--tan-border:#9CCDE3;--blob1:#D9EEF8;--blob2:#E4F7DF;--blob3:#FFF2C9;--blob4:#FFE4EC;--red:#1F7AA8;--yellow:#8FD0EA;--pink:#5BB5D6;--road:#E3F0F5;--water:#B5E0F2}
+html{scroll-behavior:smooth}
+.top-actions .chip.link{text-decoration:none}
+#bkkNow{cursor:default;font-variant-numeric:tabular-nums;background:var(--blob1)}
+#bkkNow:hover{transform:none;background:var(--blob1)}
+.day-head .badge{font-size:13.5px;font-weight:700;background:var(--blob1);border:2px dashed var(--ink);border-radius:10px;padding:3px 12px}
+.day-head .badge:first-of-type{margin-left:auto}
+.day-head .dnote{flex-basis:100%;font-size:13.5px;background:var(--blob1);border-left:5px solid var(--red);border-radius:6px;padding:5px 10px}
+.day-head .dnote.warn{background:#FFF0E3;border-left-color:#C2410C;color:#7A3410}
+.stop .t small{display:block;font-weight:500;font-size:11.5px;color:var(--ink2);line-height:1.2}
+.stop .t.txt{font-size:12px;line-height:1.3}
+.stop.mv .card{background:#F3EDFF;border-color:#8B5CF6;box-shadow:0 3px 0 rgba(139,92,246,.18)}
+.stop.mv .card .name{color:#5B34C4;font-size:15px}
+.stop.mv .card .note{color:#6B54A8}
+.stop.mv .t{color:#6D46D6}
+.stop.mv .t small{color:#8B77C9}
+.stop.mv .t::after{border-color:#8B5CF6;background:#EDE5FF}
+.stop.now.mv .card{background:var(--yellow)}
+.stop.now.mv .card .name,.stop.now.mv .card .note{color:#4A3A2A}
+.m-pin.mvpin circle.base{stroke:#8B5CF6;fill:#F3EDFF}
+.m-pin.mvpin .lab rect{stroke:#8B5CF6;fill:#F3EDFF}
+.m-pin.mvpin .lab text{fill:#5B34C4}
+.m-pin.mvpin.now circle.base{fill:var(--yellow)}
+.m-pin.mvpin.now .lab rect{fill:var(--red)}.m-pin.mvpin.now .lab text{fill:#fff}
+.card .tag.nor{background:#E5F6EC;color:#2F7D55;border-color:#2F7D55}
+.card .tag.warn{background:#FFF0E3;color:#C2410C;border-color:#C2410C}
+.card .price{display:inline-block;margin-top:5px;font-size:12.5px;background:#FFF3CF;color:#8A5A00;border-radius:8px;padding:1px 9px}
+.card .tix{margin-top:5px;font-size:12.5px;background:#EEF6FF;color:#1F4D7A;border-radius:8px;padding:2px 9px}
+.card .warnline{font-size:12.5px;color:#C2410C;margin-top:4px}
+.card details{margin-top:6px;font-size:12.5px}
+.card details>summary{cursor:pointer;font-weight:700;color:var(--ink2)}
+.card details.warn>summary{color:#C2410C}.card details.ok>summary{color:#2F7D55}
+.card details>div{margin-top:3px;background:var(--bg);border-radius:8px;padding:5px 9px;color:var(--ink)}
+.card .maps{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.mchip{font-size:12.5px;font-weight:700;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:0 9px;background:var(--blob1);line-height:1.7}
+.card img.pic{display:block;max-width:100%;max-height:190px;border-radius:10px;margin-top:8px;border:2px solid var(--ink);object-fit:cover}
+.card figure.x{margin:6px 0 0}.card figure.x figcaption{font-size:11.5px;color:var(--ink2)}
+.gmrow{padding:0 16px 12px;background:var(--bg)}
+.gmrow a{display:inline-block;font-size:13px;font-weight:700;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;background:var(--paper)}
+.poster .items{display:block}
+.info{background:var(--paper);border:3px solid var(--ink);border-radius:28px;padding:0 0 22px;box-shadow:0 8px 0 rgba(74,58,42,.09);overflow:hidden}
+.info .sec{padding:0 22px;margin-top:18px}
+.info h3{margin:0 0 8px;font-family:"Zen Maru Gothic","Huninn",sans-serif;font-size:19px}
+.rescards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.rc{background:var(--bg);border:2px solid var(--ink);border-radius:14px;padding:8px 12px;font-size:13.5px;box-shadow:0 3px 0 rgba(74,58,42,.08)}
+.rc b{font-size:15px}.rc .d{color:var(--ink2);font-size:12.5px}
+.rc .tag{margin:0 6px 0 0}
+.tipsbig ul{margin:4px 0 0;padding-left:1.2em;font-size:14px}.tipsbig li{margin:3px 0}
+.chk{list-style:none;padding:0!important}
+.chk label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;margin:3px 0;font-size:14px}
+.chk input{margin-top:4px;accent-color:var(--red);width:17px;height:17px;flex:0 0 auto}
+.chk input:checked+span{text-decoration:line-through;color:var(--ink2)}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;font-size:12.5px;min-width:520px}
+.tbl th,.tbl td{border:1.5px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}.tbl th{background:var(--blob1)}
+footer .back{font-weight:700}
+footer{line-height:1.7}
+#err{display:none;background:#fde8e8;border:2px solid #b91c1c;border-radius:12px;padding:12px;margin:12px 4px}
+
+@media (max-width:700px){
+  .wrap{padding:12px 10px 40px}
+  header.top{padding:12px 14px;border-radius:20px}
+  .title-mascots svg{width:40px;height:40px}
+  .title h1{font-size:23px}
+  .title p{font-size:13px}
+  .chip{padding:6px 11px;font-size:13px}
+  .m-pin .lab text{font-size:17px}
+  .m-dist{font-size:18px}
+  .m-area{font-size:36px}
+  .clock{font-size:26px}
+  .stop{grid-template-columns:62px 1fr;gap:8px}
+  ol.stops::before{left:50px}
+  .stop .t{padding-right:22px;font-size:14px}
+  .stop .t::after{left:44px}
+  .card{padding:9px 11px}
+  .poster-banner{padding:12px 14px}
+  .poster-scroll{padding:4px 12px 6px;overflow:visible}
+  .poster-grid{display:block;min-width:0}
+  svg.plinks{display:none}
+  .pcol{margin-bottom:22px}
+  .poster .items{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+  .pitem{margin:0 0 20px}
+  .pitem .ex{max-width:none}
+  .poster-footer{padding:8px 14px 0}
+  .tips-wrap{max-width:none;margin-left:0;width:100%}
+  .info .sec{padding:0 14px}
+}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<symbol id="stk-elephant" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="30" r="10" fill="#a3b3c9"/><circle cx="54" cy="30" r="10" fill="#a3b3c9"/><circle cx="32" cy="35" r="20" fill="#bccadb"/><path d="M26 16L32 6L38 16z" fill="#e0b44c"/><path d="M27 44q-3 14 8 14q7 0 4-8" fill="none" stroke-width="5" stroke="#3b2f1e"/><path d="M27 44q-3 14 8 14q7 0 4-8" fill="none" stroke-width="2" stroke="#bccadb"/></g><circle cx="24" cy="32" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="32" r="2.4" fill="#3b2f1e"/><ellipse cx="19" cy="40" rx="4" ry="2.6" fill="#ff9db8" opacity=".8"/><ellipse cx="45" cy="40" rx="4" ry="2.6" fill="#ff9db8" opacity=".8"/></symbol>
-<symbol id="stk-cat" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26L17 6L31 17z" fill="#fff1d6"/><path d="M50 26L47 6L33 17z" fill="#fff1d6"/><circle cx="32" cy="37" r="20" fill="#fff1d6"/><path d="M38 20q8 2 11 10q-8 2-13-4z" fill="#f5b25a" stroke-width="0"/></g><path d="M18 14l2 6l6-3z M46 14l-2 6l-6-3z" fill="#ff9db8"/><circle cx="24" cy="36" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="36" r="2.4" fill="#3b2f1e"/><path d="M30 41l2 2l2-2z" fill="#ff7a8a"/><path d="M32 43q-3 4-6 2M32 43q3 4 6 2" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/><path d="M14 40l-8-2M14 44l-8 3M50 40l8-2M50 44l8 3" stroke="#3b2f1e" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="19" cy="44" rx="3.6" ry="2.4" fill="#ff9db8" opacity=".7"/><ellipse cx="45" cy="44" rx="3.6" ry="2.4" fill="#ff9db8" opacity=".7"/></symbol>
-<symbol id="stk-mango" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="37" rx="19" ry="23" transform="rotate(18 32 37)" fill="#ffc233"/><path d="M34 14q12-8 19 2q-10 9-19-2z" fill="#4cb36a"/></g><circle cx="26" cy="36" r="2.4" fill="#3b2f1e"/><circle cx="40" cy="36" r="2.4" fill="#3b2f1e"/><path d="M29 43q4 4 8 0" fill="none" stroke="#3b2f1e" stroke-width="2" stroke-linecap="round"/><ellipse cx="22" cy="42" rx="3.6" ry="2.4" fill="#ff8a65" opacity=".7"/><ellipse cx="44" cy="42" rx="3.6" ry="2.4" fill="#ff8a65" opacity=".7"/></symbol>
-<symbol id="stk-tea" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22L46 22L43 54Q32 58 21 54z" fill="#f08a3c"/><path d="M18.6 22L45.4 22L44.6 32L19.4 32z" fill="#fff3df" stroke-width="0"/><path d="M14 22H50" fill="none"/><path d="M36 22L42 6" fill="none" stroke-width="3"/></g><rect x="22" y="38" width="6" height="6" rx="1.5" fill="#fff" opacity=".6"/><circle cx="27" cy="46" r="2" fill="none"/><circle cx="27" cy="43" r="2.2" fill="#3b2f1e"/><circle cx="38" cy="43" r="2.2" fill="#3b2f1e"/><path d="M29 48q3 3 6 0" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/></symbol>
-<symbol id="stk-tuktuk" viewBox="0 0 64 64"><g stroke="#3b2f1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26Q32 8 54 26z" fill="#2fa58a"/><rect x="9" y="26" width="46" height="20" rx="5" fill="#ffd166"/><circle cx="20" cy="49" r="7" fill="#4b3a26"/><circle cx="46" cy="49" r="7" fill="#4b3a26"/></g><circle cx="20" cy="49" r="2.4" fill="#fff"/><circle cx="46" cy="49" r="2.4" fill="#fff"/><circle cx="25" cy="34" r="2.2" fill="#3b2f1e"/><circle cx="39" cy="34" r="2.2" fill="#3b2f1e"/><path d="M29 38q3 3 6 0" fill="none" stroke="#3b2f1e" stroke-width="1.8" stroke-linecap="round"/></symbol>
-</defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="charDefs"></defs></svg>
+
 <div class="wrap">
-<header class="top">
- <a class="back" href="index.html">← 回主網頁（完整行程表）</a>
- <div class="hero"><svg class="stk hl" aria-hidden="true"><use href="#stk-elephant"/></svg><h1><span>🪷 2026 曼谷散步帖</span></h1><svg class="stk hr" aria-hidden="true"><use href="#stk-cat"/></svg></div>
- <div class="sub">12/06（日）– 12/11（五）・台北 → 曼谷 → 芭達雅 → 曼谷 → 台北・4 人同行 ✨</div>
- <div class="pills" role="group" aria-label="主題與時間">
-  <button class="pill" data-th="gold" aria-pressed="true">🛕 金色寺廟</button>
-  <button class="pill" data-th="siam" aria-pressed="false">🌸 暹羅粉彩</button>
-  <button class="pill" data-th="river" aria-pressed="false">🌊 湄南河藍</button>
-  <span class="pill clock" id="clock" aria-live="off">🕒 曼谷 --:--</span>
- </div>
-</header>
-<nav class="tabs" id="tabs" aria-label="章節"><a href="#overview" class="on"><b>🗺 總覽</b>六天地圖</a></nav>
-<div id="err"></div>
-<main id="main"><p class="note" style="text-align:center;margin-top:30px">載入行程資料中…</p></main>
-<footer>
- <div class="fstk"><svg class="stk " aria-hidden="true"><use href="#stk-elephant"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-mango"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-tuktuk"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-tea"/></svg><svg class="stk " aria-hidden="true"><use href="#stk-cat"/></svg></div>
- ✦ 地圖皆為手帳示意插畫，不照比例；距離為概估，請以 Google 地圖連結核對。<br>
- 行程資料即時讀取自 <a href="index.html">index.html</a>，主網頁更新後這頁會自動跟著變。營業時間、價格、預約規則都是第三方資料，出發前請再核對。<br>
- <a href="index.html">→ 回主網頁</a>
-</footer>
+  <header class="top">
+    <div class="title">
+      <div class="title-mascots" id="titleMascots" aria-hidden="true"></div>
+      <div>
+        <h1>2026 曼谷散步帖</h1>
+        <p id="headerSub">12/06（日）– 12/11（五）・台北 → 曼谷 → 芭達雅 → 曼谷 → 台北・4 人同行 ✨</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="chip link" href="index.html">← 回主網頁</a>
+      <button class="chip" id="brandBtn" type="button" aria-pressed="false">🎀 切換三麗鷗版</button>
+      <button class="chip" id="themeBtn" type="button">🌸 切換暹羅粉彩</button>
+      <button class="chip" id="liveBtn" type="button" aria-pressed="false">🕒 對照曼谷現在時間</button>
+      <span class="chip" id="bkkNow" aria-label="曼谷當地時間">🕒 曼谷 --:--</span>
+    </div>
+  </header>
+
+  <div id="err"></div>
+  <nav class="days" id="days" role="tablist" aria-label="選擇天數"></nav>
+
+  <section class="poster" id="poster" hidden aria-label="六日攻略地圖總覽">
+    <div class="poster-banner">
+      <h2 class="poster-title" id="posterTitle">✨ 曼谷＋芭達雅六日攻略地圖 <small>(2026年12月6日 - 12月11日)</small> ✨</h2>
+    </div>
+    <div class="poster-scroll"><div class="poster-grid" id="pgrid"></div></div>
+    <div class="poster-footer">
+      <div class="poster-hint" id="posterHint">🐾 點擊任一景點插畫，即可跳轉至該日互動散步地圖與時間軸！</div>
+      <div class="tips-wrap">
+        <div class="tips-mascots" id="tipsMascots" aria-hidden="true"></div>
+        <div class="tips">
+          <b>💡 貼心提醒 (Tips) & 出發前清單</b>
+          <ul>
+            <li><b>出發前清單</b>：護照、機票、泰銖現金、eSIM、信用卡（Dib 只收信用卡）</li>
+            <li><b>寺廟穿著</b>：鄭王廟、真理寺要遮肩遮膝；渡船與廟門票多半只收現金</li>
+            <li><b>假日注意</b>：12/07 補假、12/10 憲法日，店家時間出發前再確認；傍晚塞車，車程都是估計</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info" id="info" hidden aria-label="預約與清單"></section>
+
+  <main class="page" id="page" hidden>
+    <div class="day-head" id="dayHead"></div>
+    <section class="mapcard" aria-label="當日小地圖">
+      <svg id="map" viewBox="0 0 1000 680" role="img" aria-label="行程路線示意圖"></svg>
+      <div class="clockbar">
+        <div class="clock" id="clock">--:--</div>
+        <div class="status" id="status" aria-live="polite"></div>
+        <div class="ctrl">
+          <button class="play" id="playBtn" type="button" aria-label="播放">▶</button>
+          <input type="range" id="slider" min="0" max="100" step="1" aria-label="時間軸">
+          <button class="speed" id="speedBtn" type="button" aria-label="播放速度">×1</button>
+        </div>
+      </div>
+      <div class="pals" id="pals"></div>
+      <div class="scale-note" id="scaleNote">✦ 地圖為手帳示意插畫，比例非實際距離；交通公里數與時間來自行程備註（多為估計）。</div>
+      <div class="gmrow" id="gmRow"></div>
+    </section>
+    <section aria-label="當日行程">
+      <ol class="stops" id="stops"></ol>
+    </section>
+  </main>
+  <footer id="footerText"></footer>
 </div>
+<div class="toast" id="toast" role="status"></div>
+
 <script>
-(function(){
-const $=s=>document.querySelector(s);
+const $=s=>document.getElementById(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CHIIKAWA_PALS=[
+  {id:"pal0",name:"吉依卡哇"},{id:"pal1",name:"小八"},{id:"pal2",name:"兔兔"},
+  {id:"pal3",name:"小桃"},{id:"pal4",name:"栗子饅頭"},{id:"pal5",name:"獅薩"}
+];
+const SANRIO_PALS=[
+  {id:"sanrio1",name:"Bonnie"},{id:"sanrio2",name:"酷洛米"},{id:"sanrio0",name:"大耳狗"},
+  {id:"sanrio3",name:"彼安諾"},{id:"sanrio4",name:"漢頓"},{id:"sanrio5",name:"酷企鵝"}
+];
+let brand="chiikawa";
+let PALS=CHIIKAWA_PALS;
+$("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>`<symbol id="${p.id}" viewBox="0 0 100 100"><image href="images/stickers/${p.id}.png" x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid meet"/></symbol>`).join("");
+$("titleMascots").innerHTML=[0,1,2].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
+$("tipsMascots").innerHTML=[1,0].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
 
-/* ---------- 主題 ---------- */
-const root=document.documentElement;
-function setTheme(t){
- if(t==='gold')root.removeAttribute('data-theme');else root.setAttribute('data-theme',t);
- document.querySelectorAll('[data-th]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.th===t)));
- try{localStorage.setItem('bkk-journal-theme',t)}catch(e){}
-}
-let th='gold';try{th=localStorage.getItem('bkk-journal-theme')||'gold'}catch(e){}
-if(!['gold','siam','river'].includes(th))th='gold';
-setTheme(th);
-document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>setTheme(b.dataset.th));
+const DOODLE={
+  castle:`<g><path d="M-30 30 L-24 6 H24 L30 30Z" fill="#D5C7B2" stroke="#4A3A2A" stroke-width="2.4"/>
+    <rect x="-18" y="-10" width="36" height="16" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2.4"/>
+    <path d="M-28 -8 Q0 -20 28 -8 L22 -14 H-22Z" fill="#5CA88A" stroke="#4A3A2A" stroke-width="2.4"/>
+    <rect x="-11" y="-28" width="22" height="14" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2.4"/>
+    <path d="M-19 -26 Q0 -38 19 -26 L13 -32 H-13Z" fill="#5CA88A" stroke="#4A3A2A" stroke-width="2.4"/>
+    <circle cx="0" cy="-37" r="3" fill="#FFD95A" stroke="#4A3A2A" stroke-width="1.5"/></g>`,
+  tower:`<g><path d="M-14 34 L-5 -22 H5 L14 34" fill="none" stroke="#FF6B6B" stroke-width="3.2"/>
+    <path d="M-11 18 H11 M-8 0 H8 M-12 26 L8 0 M12 26 L-8 0" stroke="#FF6B6B" stroke-width="2.2"/>
+    <rect x="-10" y="-34" width="20" height="14" rx="3" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2.5"/>
+    <path d="M0 -34 V-46" stroke="#4A3A2A" stroke-width="2.5"/></g>`,
+  ferris:`<g><path d="M-14 34 L0 0 L14 34" stroke="#4A3A2A" stroke-width="3" fill="none"/>
+    <circle r="28" fill="none" stroke="#FF6B6B" stroke-width="3.5"/>
+    <path d="M-28 0 H28 M0 -28 V28 M-20 -20 L20 20 M20 -20 L-20 20" stroke="#FF6B6B" stroke-width="1.5"/>
+    <g fill="#FFD95A" stroke="#4A3A2A" stroke-width="1.5"><circle cx="0" cy="-28" r="4"/><circle cx="28" cy="0" r="4"/><circle cx="-28" cy="0" r="4"/><circle cx="20" cy="20" r="4"/><circle cx="-20" cy="-20" r="4"/><circle cx="20" cy="-20" r="4"/><circle cx="-20" cy="20" r="4"/></g></g>`,
+  torii:`<g><path d="M-26 -22 Q0 -30 26 -22 L24 -15 Q0 -21 -24 -15Z" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2.2"/>
+    <rect x="-20" y="-11" width="40" height="5" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2"/><rect x="-17" y="-15" width="5.5" height="44" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2"/><rect x="11.5" y="-15" width="5.5" height="44" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2"/></g>`,
+  torii3:``,
+  plane:`<g transform="rotate(-16)"><path d="M-32 0 Q-32 -8 -20 -8 H24 Q36 -8 36 0 Q36 8 24 8 H-20 Q-32 8 -32 0Z" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2.5"/>
+    <path d="M-2 -7 L-14 -27 H-5 L12 -7Z M-2 7 L-14 27 H-5 L12 7Z M-26 -6 L-33 -17 H-26 L-18 -6Z" fill="#A9D4EF" stroke="#4A3A2A" stroke-width="2.2"/>
+    <circle cx="-8" cy="-1" r="2.2" fill="#6CAAD9"/><circle cx="2" cy="-1" r="2.2" fill="#6CAAD9"/><circle cx="12" cy="-1" r="2.2" fill="#6CAAD9"/></g>`,
+  bus:`<g><rect x="-28" y="-14" width="56" height="28" rx="7" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.5"/>
+    <rect x="-22" y="-9" width="13" height="11" rx="2" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2"/>
+    <rect x="-5" y="-9" width="13" height="11" rx="2" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2"/>
+    <rect x="12" y="-9" width="11" height="11" rx="2" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2"/>
+    <circle cx="-15" cy="15" r="5.5" fill="#4A3A2A"/><circle cx="15" cy="15" r="5.5" fill="#4A3A2A"/>
+    <circle cx="-15" cy="15" r="2" fill="#FFFDF7"/><circle cx="15" cy="15" r="2" fill="#FFFDF7"/></g>`,
+  hotel:`<g><rect x="-22" y="-24" width="44" height="50" rx="3" fill="#F5E1BE" stroke="#4A3A2A" stroke-width="2.5"/>
+    <rect x="-15" y="-31" width="30" height="8" rx="2" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2"/>
+    <g fill="#A9D4EF" stroke="#4A3A2A" stroke-width="1.8">
+      <rect x="-15" y="-17" width="8" height="8" rx="1"/><rect x="-4" y="-17" width="8" height="8" rx="1"/><rect x="7" y="-17" width="8" height="8" rx="1"/>
+      <rect x="-15" y="-4" width="8" height="8" rx="1"/><rect x="-4" y="-4" width="8" height="8" rx="1"/><rect x="7" y="-4" width="8" height="8" rx="1"/>
+    </g>
+    <rect x="-6" y="11" width="12" height="15" fill="#9E5727" stroke="#4A3A2A" stroke-width="2"/></g>`,
+  ship:`<g><path d="M-30 4 H30 L22 18 H-22Z" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2.4"/>
+    <rect x="-16" y="-10" width="30" height="14" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2.4"/>
+    <rect x="4" y="-22" width="8" height="12" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.4"/></g>`,
+  coaster:`<g><path d="M-48 20 Q-36 -30 -18 4 Q0 34 14 -14 Q26 -40 48 10" fill="none" stroke="#FF6B6B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-36 14 V30 M-18 6 V30 M0 20 V30 M14 -10 V30 M30 -20 V30" stroke="#4A3A2A" stroke-width="2"/>
+    <path d="M-52 30 H52" stroke="#4A3A2A" stroke-width="2.5"/></g>`,
+  pagoda:`<g><path d="M0 -44 V-34" stroke="#4A3A2A" stroke-width="2.5"/>
+    ${[0,1,2].map(i=>`<path d="M${-14-i*4} ${-30+i*18} Q0 ${-38+i*18} ${14+i*4} ${-30+i*18} L${10+i*3} ${-24+i*18} H${-10-i*3}Z" fill="#7B6756" stroke="#4A3A2A" stroke-width="2.2"/><rect x="${-8-i*2}" y="${-24+i*18}" width="${16+i*4}" height="12" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="1.8"/>`).join("")}</g>`,
+  tree:`<g><rect x="-2.5" y="4" width="5" height="12" fill="#8A6A48"/><circle r="12" fill="#8CC57A" stroke="#4A3A2A" stroke-width="2.2"/></g>`,
+  maple:`<g><rect x="-2.5" y="4" width="5" height="12" fill="#8A6A48"/><circle r="12" fill="#F08A3C" stroke="#4A3A2A" stroke-width="2.2"/><circle cx="7" cy="-6" r="5" fill="#FF6B6B"/></g>`,
+  bag:`<g><path d="M-18 -2 H2 L4 22 H-20Z" fill="#FF9EB5" stroke="#4A3A2A" stroke-width="2.2"/>
+    <path d="M-12 -2 Q-12 -12 -8 -12 Q-4 -12 -4 -2" fill="none" stroke="#4A3A2A" stroke-width="2.2"/>
+    <path d="M0 -6 H20 L22 20 H-2Z" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.2"/>
+    <path d="M6 -6 Q6 -16 10 -16 Q14 -16 14 -6" fill="none" stroke="#4A3A2A" stroke-width="2.2"/></g>`,
+  lantern:`<g><rect x="-11" y="-16" width="22" height="30" rx="9" fill="#FF6B6B" stroke="#4A3A2A" stroke-width="2.2"/><path d="M-11 -6 H11 M-11 4 H11" stroke="#4A3A2A" stroke-width="1.8"/><rect x="-6" y="-20" width="12" height="4" fill="#4A3A2A"/><rect x="-6" y="14" width="12" height="4" fill="#4A3A2A"/></g>`,
+  cloud:`<g opacity=".92"><path d="M-30 8 Q-32 -6 -18 -6 Q-14 -20 2 -16 Q12 -24 22 -12 Q34 -12 32 2 Q34 10 24 10 H-24 Q-32 10 -30 8Z" fill="#FFFFFF" stroke="#C5B49E" stroke-width="2"/></g>`,
+  sparkle:`<g fill="#F4B63F"><path d="M0 -9 L2.2 -2.2 L9 0 L2.2 2.2 L0 9 L-2.2 2.2 L-9 0 L-2.2 -2.2 Z"/></g>`
+};
+DOODLE.torii3=`<g>${[0,1,2].map(i=>`<g transform="translate(${-26+i*20},${i*-6}) scale(${.6+i*.12})">${DOODLE.torii}</g>`).join("")}</g>`;
 
-/* ---------- 曼谷時間 UTC+7 ---------- */
-const fmt=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Bangkok',hour12:false,month:'numeric',day:'numeric',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});
-function tick(){const p={};fmt.formatToParts(new Date()).forEach(x=>p[x.type]=x.value);
- $('#clock').textContent=`🕒 曼谷 ${p.month}/${p.day}（${p.weekday.replace('週','')}）${p.hour==='24'?'00':p.hour}:${p.minute}:${p.second}`}
-tick();setInterval(tick,1000);
+const waves=(pts)=>pts.map(([x,y])=>`<path class="bg-wave" d="M${x} ${y} q8 -7 16 0 t16 0"/>`).join("");
+const mts=(list)=>list.map(([x,y,w,h])=>`<path class="bg-mt" d="M${x-w/2} ${y} Q${x-w/5} ${y-h*.9} ${x} ${y-h} Q${x+w/5} ${y-h*.9} ${x+w/2} ${y}Z"/>`).join("");
+const dood=(list)=>list.map(([t,x,y,sc=1])=>`<g transform="translate(${x},${y}) scale(${sc})">${DOODLE[t]}</g>`).join("");
+const lbls=(list)=>list.map(([t,x,y])=>`<text class="bg-lbl" x="${x}" y="${y}" text-anchor="middle">${t}</text>`).join("");
+const area=(list)=>list.map(([t,x,y])=>`<text class="m-area" x="${x}" y="${y}" text-anchor="middle">${t}</text>`).join("");
+Object.assign(DOODLE,{
+  prang:`<g><path d="M0 -46 V-38" stroke="#4A3A2A" stroke-width="2.5"/><path d="M0 -38 L7 -22 L12 -22 L10 -8 L16 -8 L20 30 H-20 L-16 -8 L-10 -8 L-12 -22 L-7 -22Z" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.4" stroke-linejoin="round"/><path d="M-8 30 V13 Q0 3 8 13 V30" fill="#FFFDF7" stroke="#4A3A2A" stroke-width="2"/></g>`,
+  tuktuk:`<g><path d="M-26 -4 Q0 -26 26 -4Z" fill="#38B27E" stroke="#4A3A2A" stroke-width="2.4"/><rect x="-27" y="-4" width="54" height="20" rx="5" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.4"/><circle cx="-14" cy="19" r="6" fill="#4A3A2A"/><circle cx="14" cy="19" r="6" fill="#4A3A2A"/><circle cx="-14" cy="19" r="2" fill="#FFFDF7"/><circle cx="14" cy="19" r="2" fill="#FFFDF7"/></g>`,
+  palm:`<g><path d="M0 30 Q-4 6 4 -14" stroke="#8A6A48" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M4 -14 Q-14 -26 -26 -12 M4 -14 Q-6 -34 -20 -30 M4 -14 Q14 -34 28 -26 M4 -14 Q22 -22 30 -8" fill="none" stroke="#4CAF6A" stroke-width="6" stroke-linecap="round"/></g>`,
+  boat:`<g><path d="M-34 6 Q0 18 34 0 L30 -4 Q0 8 -30 0Z" fill="#9E5727" stroke="#4A3A2A" stroke-width="2.4" stroke-linejoin="round"/><path d="M30 -2 L46 -10" stroke="#4A3A2A" stroke-width="3" stroke-linecap="round"/><path d="M-8 -2 V-16 H10 V0" fill="#FFD95A" stroke="#4A3A2A" stroke-width="2.2"/></g>`,
+  lotus:`<g><path d="M-4 14 Q-26 6 -26 -10 Q-8 -8 -4 14Z" fill="#FFC2D2" stroke="#4A3A2A" stroke-width="2"/><path d="M4 14 Q26 6 26 -10 Q8 -8 4 14Z" fill="#FFC2D2" stroke="#4A3A2A" stroke-width="2"/><path d="M0 14 Q-14 -2 0 -24 Q14 -2 0 14Z" fill="#FF9EB5" stroke="#4A3A2A" stroke-width="2.2"/></g>`,
+  mango:`<g><ellipse rx="14" ry="19" transform="rotate(20)" fill="#FFC233" stroke="#4A3A2A" stroke-width="2.3"/><path d="M2 -17 q10 -8 17 0 q-9 8 -17 0z" fill="#4CAF6A" stroke="#4A3A2A" stroke-width="2"/></g>`
+});
 
 /* ---------- 讀 index.html 的資料（唯讀） ---------- */
-function fail(msg){const e=$('#err');e.style.display='block';e.innerHTML=msg+'　<a href="index.html">先看主網頁行程表</a>';$('#main').innerHTML=''}
-fetch('index.html',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(html=>{
- const a=html.indexOf('const D=[');const b=html.indexOf("const nav=document",a);
- if(a<0||b<0)throw new Error('找不到資料區段（index.html 結構可能改了）');
- const names='D,RES,PIC,DAYPIC,ICON,PL,MAPEX,HOURS,HLAB,HNOTE,NORSV,PRICE,NOPIC,BACKUP,BKPLACE,BKIMG,TIX,EXTRA,mapUrl,clean,img';
- const data=new Function(html.slice(a,b)+';\nreturn {'+names+'}')();
- const alt=(function(){const i=html.indexOf('const ALT=[');if(i<0)return [];const j=html.indexOf('\n',i);try{return new Function(html.slice(i,j)+';return ALT')()}catch(e){return []}})();
- build(data,alt);
-}).catch(e=>fail('讀不到行程資料（'+esc(e.message)+'）。若是直接用檔案開啟請改用網址，或確認 index.html 在同一個資料夾。'));
+let DAYS=[],X=null,ALTROWS=[];
+const mq=matchMedia("(max-width:700px)");
+let W=1000,H=680;
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NS="http://www.w3.org/2000/svg";
+const el=(tag,attrs={},parent)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e};
+const toMin=t=>{const [h,m]=t.split(":").map(Number);return h*60+m};
+const fmt=m=>{m=Math.max(0,Math.round(m));return String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+const trunc=(s,n)=>{const max=n*2;let u=0,o="";for(const ch of String(s)){const w=ch.charCodeAt(0)>255?2:1;if(u+w>max)return o.trimEnd()+"…";u+=w;o+=ch}return o};
+const AREA={1:"台北 → 曼谷",2:"芭達雅",3:"芭達雅 → 曼谷",4:"曼谷・河畔",5:"曼谷・老城",6:"曼谷 → 台北"};
 
-function build(X,ALT){
- const {D,RES,PIC,DAYPIC,ICON,PL,HOURS,HLAB,HNOTE,NORSV,PRICE,NOPIC,BACKUP,BKPLACE,BKIMG,TIX,EXTRA,mapUrl,clean}=X;
- const find=(arr,t)=>arr.find(r=>t.includes(r[0]));
- const picOf=t=>{const k=Object.keys(PIC).find(n=>t.includes(n));return k?PIC[k]:''};
- const tabs=$('#tabs');
- D.forEach(d=>tabs.insertAdjacentHTML('beforeend',`<a href="#day${d.no}"><b>Day ${d.no}</b>${esc(d.date)}</a>`));
- const kindIcon=(k,t)=>/起飛|機場|報到/.test(t)?'✈️':k==='eat'?'🍴':k==='go'?'⭐':k==='rest'?'🛏️':'🚐';
- const kcol={eat:'var(--eat)',go:'var(--go)',rest:'var(--rest)',move:'var(--move)'};
- const trunc=(s,n)=>{const max=n*2;let u=0,o='';for(const ch of s){const w=ch.charCodeAt(0)>255?2:1;if(u+w>max)return o.trimEnd()+'…';u+=w;o+=ch}return o};
- const stopsOf=d=>{const idx=d.items.map((_,i)=>i).filter(i=>d.items[i][2]!=='move');return idx.length>=3?idx:d.items.map((_,i)=>i)};
- const nameOf=it=>trunc(it[2]==='move'?it[1]:(clean(it[1])||it[1]),it[2]==='move'?15:15);
+function fail(msg){const e=$("err");e.style.display="block";e.innerHTML=msg+'　<a href="index.html">先看主網頁行程表</a>'}
+fetch("index.html",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.text()}).then(html=>{
+  const a=html.indexOf("const D=[");const b=html.indexOf("const nav=document",a);
+  if(a<0||b<0)throw new Error("找不到資料區段（index.html 結構可能改了）");
+  const names="D,RES,PIC,DAYPIC,PL,HOURS,HLAB,HNOTE,NORSV,PRICE,NOPIC,BACKUP,BKPLACE,BKIMG,TIX,EXTRA,mapUrl,clean";
+  X=new Function(html.slice(a,b)+";\nreturn {"+names+"}")();
+  const i=html.indexOf("const ALT=[");
+  if(i>=0){try{ALTROWS=new Function(html.slice(i,html.indexOf("\n",i))+";return ALT")()}catch(e){ALTROWS=[]}}
+  init();
+}).catch(e=>fail("讀不到行程資料（"+esc(e.message)+"）。若是直接用檔案開啟請改用網址，或確認 index.html 在同一個資料夾。"));
 
- /* 總覽 */
- const cityRow=d=>d.items.filter(i=>i[2]!=='move'&&!NOPIC.test(i[1])).slice(0,3).map(i=>nameOf(i)).join('・')||d.items.slice(0,2).map(i=>trunc(i[1],10)).join('・');
- const STK=['cat','mango','elephant','tea','tuktuk','cat'];const stk=(n,c)=>`<svg class="stk ${c||''}" aria-hidden="true"><use href="#stk-${n}"/></svg>`;
- const cardsHtml=D.map(d=>{const p=DAYPIC[d.no];
-  return `<a class="dcard" href="#day${d.no}">${stk(STK[d.no-1],'cs')}<div class="ph"${p?` style="background-image:url('${esc(p)}')"`:''} data-ph>${p?'':ICON[d.svg]||''}</div><div class="dn">Day ${d.no}・${esc(d.date)}（${esc(d.wd)}）</div><div class="dt">${esc(d.title)}</div><div class="ds">${esc(cityRow(d))}</div></a>`}).join('');
- const poster=`<svg viewBox="0 0 720 400" role="img" aria-label="手繪示意地圖：台北、曼谷、芭達雅的往返路線">
- <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b2f1e"/></marker>
- <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b5cf6"/></marker></defs>
- <g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"><path d="M20 40q15-10 30 0t30 0"/><path d="M470 340q15-10 30 0t30 0"/><path d="M610 210q15-10 30 0t30 0"/><path d="M380 120q15-10 30 0t30 0"/></g>
- <path d="M575 28q22-14 38 4q14 24 2 52q-16 26-34 10q-16-24-6-66z" fill="var(--land)" stroke="#3b2f1e" stroke-width="2.5" stroke-linejoin="round"/>
- <path d="M70 120C120 80 250 90 300 135C340 175 300 220 322 262C336 300 318 346 284 336C252 322 226 290 204 262C176 232 150 214 112 196C80 178 56 144 70 120z" fill="var(--land)" stroke="#3b2f1e" stroke-width="2.5" stroke-linejoin="round"/>
- <text x="150" y="150" font-size="13" fill="#7a6a4f" transform="rotate(-8 150 150)">THAILAND</text>
- <text x="385" y="300" font-size="12.5" fill="#4f7285" font-style="italic" transform="rotate(-6 385 300)">Gulf of Thailand</text>
- <path d="M606 68C520 30 400 90 262 188" fill="none" stroke="#3b2f1e" stroke-width="2.6" stroke-dasharray="7 7" marker-end="url(#ah)"/>
- <path d="M268 204C380 270 520 190 600 84" fill="none" stroke="#3b2f1e" stroke-width="2.6" stroke-dasharray="7 7" marker-end="url(#ah)"/>
- <path d="M262 208C272 224 284 236 296 248" fill="none" stroke="#8b5cf6" stroke-width="3.2" stroke-dasharray="5 6" marker-end="url(#ah2)"/>
- <path d="M246 212C252 232 262 250 276 266" fill="none" stroke="#8b5cf6" stroke-width="3.2" stroke-dasharray="5 6" marker-start="url(#ah2)" opacity=".75"/>
- <g font-size="13" font-weight="700" fill="#3b2f1e">
-  <g transform="translate(400 52) rotate(-9)"><rect x="-8" y="-17" width="196" height="40" rx="9" fill="#fff" stroke="#3b2f1e" stroke-width="2"/><text x="2" y="-1">✈️ 12/06 夜班機 CI837</text><text x="2" y="16" font-size="12" font-weight="500">約 2,500 km・飛行約 3.5 小時</text></g>
-  <g transform="translate(396 214) rotate(-12)"><rect x="-8" y="-17" width="196" height="40" rx="9" fill="#fff" stroke="#3b2f1e" stroke-width="2"/><text x="2" y="-1">✈️ 12/11 返程 CI832</text><text x="2" y="16" font-size="12" font-weight="500">約 2,500 km・飛行約 3.5 小時</text></g>
-  <g transform="translate(330 232)"><rect x="-6" y="-17" width="178" height="52" rx="9" fill="#fff" stroke="#8b5cf6" stroke-width="2"/><text x="4" y="-1" fill="#5b34c4">🚐 12/07 去・12/08 回</text><text x="4" y="16" font-size="12" font-weight="500" fill="#5b34c4">約 120–150 km（概估）</text><text x="4" y="30" font-size="12" font-weight="500" fill="#5b34c4">私人車約 2 小時</text></g>
- </g>
- <g font-size="14" font-weight="800" fill="#3b2f1e">
-  <circle cx="606" cy="70" r="9" fill="#ef7d57" stroke="#3b2f1e" stroke-width="2.5"/><text x="560" y="116" text-anchor="middle">🏙 台北 TPE</text>
-  <circle cx="255" cy="196" r="11" fill="#e0b44c" stroke="#3b2f1e" stroke-width="2.5"/><text x="200" y="186" text-anchor="middle">🛕 曼谷 BKK</text><text x="200" y="203" text-anchor="middle" font-size="11.5" font-weight="500">12/08–12/11 住相鐵</text>
-  <circle cx="304" cy="258" r="9" fill="#2fa58a" stroke="#3b2f1e" stroke-width="2.5"/><text x="232" y="290" text-anchor="middle">🏖 芭達雅</text><text x="232" y="307" text-anchor="middle" font-size="11.5" font-weight="500">12/07 住 Ana Anan</text>
- </g>
- <use href="#stk-elephant" x="116" y="206" width="50" height="50"/><use href="#stk-mango" x="172" y="262" width="42" height="42"/><use href="#stk-tuktuk" x="340" y="274" width="46" height="46"/><use href="#stk-cat" x="632" y="34" width="48" height="48"/><use href="#stk-tea" x="28" y="296" width="46" height="46"/>
- <g transform="translate(640 330)" fill="none" stroke="#3b2f1e" stroke-width="2"><circle r="22"/><path d="M0-20L5 0L0 20L-5 0z" fill="#ef7d57"/><text y="-27" text-anchor="middle" font-size="11" fill="#3b2f1e" stroke="none" font-weight="700">N</text></g>
- <g transform="translate(20 372)"><rect width="262" height="22" rx="11" fill="#fff" stroke="#3b2f1e" stroke-width="1.8"/><text x="131" y="15.5" text-anchor="middle" font-size="12" fill="#3b2f1e">✦ 手帳示意圖・不照比例・距離為概估</text></g>
- </svg>`;
- const posterM=`<svg viewBox="0 0 360 470" role="img" aria-label="手繪示意地圖：台北、曼谷、芭達雅的往返路線">
- <defs><marker id="ahm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b2f1e"/></marker>
- <marker id="ahm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b5cf6"/></marker></defs>
- <g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"><path d="M200 400q12-8 24 0t24 0"/><path d="M290 280q12-8 24 0t24 0"/><path d="M200 20q12-8 24 0t24 0"/></g>
- <path d="M268 30q20-14 34 4q12 24 2 48q-14 22-30 8q-14-22-6-60z" fill="var(--land)" stroke="#3b2f1e" stroke-width="2.5" stroke-linejoin="round"/>
- <path d="M10 130C30 105 120 110 150 140C175 165 150 200 168 235C180 265 190 300 188 340C186 385 170 420 140 410C110 400 96 360 80 330C60 295 20 270 10 230z" fill="var(--land)" stroke="#3b2f1e" stroke-width="2.5" stroke-linejoin="round"/>
- <text x="24" y="150" font-size="12" fill="#7a6a4f">THAILAND</text>
- <text x="230" y="440" font-size="12" fill="#4f7285" font-style="italic">Gulf of Thailand</text>
- <path d="M284 62C230 56 160 100 128 190" fill="none" stroke="#3b2f1e" stroke-width="2.6" stroke-dasharray="7 7" marker-end="url(#ahm)"/>
- <path d="M138 204C200 250 296 190 296 86" fill="none" stroke="#3b2f1e" stroke-width="2.6" stroke-dasharray="7 7" marker-end="url(#ahm)"/>
- <path d="M122 208C126 250 142 285 150 316" fill="none" stroke="#8b5cf6" stroke-width="3.2" stroke-dasharray="5 6" marker-end="url(#ahm2)"/>
- <path d="M108 206C106 250 124 288 138 320" fill="none" stroke="#8b5cf6" stroke-width="3.2" stroke-dasharray="5 6" marker-start="url(#ahm2)" opacity=".7"/>
- <g font-size="13" font-weight="700" fill="#3b2f1e">
-  <rect x="172" y="104" width="178" height="42" rx="9" fill="#fff" stroke="#3b2f1e" stroke-width="2"/><text x="180" y="122">✈️ 12/06 夜班機 CI837</text><text x="180" y="138" font-size="12" font-weight="500">約 2,500 km・約 3.5 小時</text>
-  <rect x="190" y="218" width="160" height="42" rx="9" fill="#fff" stroke="#3b2f1e" stroke-width="2"/><text x="198" y="236">✈️ 12/11 返程 CI832</text><text x="198" y="252" font-size="12" font-weight="500">約 2,500 km・約 3.5 小時</text>
-  <rect x="196" y="292" width="154" height="58" rx="9" fill="#fff" stroke="#8b5cf6" stroke-width="2"/><text x="204" y="310" fill="#5b34c4">🚐 12/07 去・12/08 回</text><text x="204" y="327" font-size="12" font-weight="500" fill="#5b34c4">約 120–150 km（概估）</text><text x="204" y="342" font-size="12" font-weight="500" fill="#5b34c4">私人車約 2 小時</text>
- </g>
- <g font-size="14" font-weight="800" fill="#3b2f1e">
-  <circle cx="290" cy="74" r="9" fill="#ef7d57" stroke="#3b2f1e" stroke-width="2.5"/><text x="296" y="26" text-anchor="middle">🏙 台北 TPE</text>
-  <circle cx="128" cy="198" r="11" fill="#e0b44c" stroke="#3b2f1e" stroke-width="2.5"/><text x="24" y="182">🛕 曼谷 BKK</text><text x="24" y="224" font-size="11.5" font-weight="500">12/08–12/11</text><text x="24" y="238" font-size="11.5" font-weight="500">住相鐵</text>
-  <circle cx="148" cy="326" r="9" fill="#2fa58a" stroke="#3b2f1e" stroke-width="2.5"/><text x="30" y="354">🏖 芭達雅</text><text x="30" y="372" font-size="11.5" font-weight="500">12/07 住 Ana Anan</text>
- </g>
- <use href="#stk-elephant" x="18" y="252" width="46" height="46"/><use href="#stk-mango" x="204" y="360" width="42" height="42"/><use href="#stk-tuktuk" x="190" y="398" width="44" height="44"/><use href="#stk-cat" x="196" y="6" width="40" height="40"/><use href="#stk-tea" x="16" y="392" width="40" height="40"/>
- <g transform="translate(320 400)" fill="none" stroke="#3b2f1e" stroke-width="2"><circle r="18"/><path d="M0-16L4 0L0 16L-4 0z" fill="#ef7d57"/></g>
- <g transform="translate(14 444)"><rect width="250" height="22" rx="11" fill="#fff" stroke="#3b2f1e" stroke-width="1.8"/><text x="125" y="15.5" text-anchor="middle" font-size="12" fill="#3b2f1e">✦ 手帳示意圖・不照比例・距離為概估</text></g>
- </svg>`;
- let html=`<section class="blk" id="overview"><div class="board"><h2><span class="tp">🗺 六天總覽</span></h2><div class="note">12/06–12/11・點下面的卡片跳到那天的地圖與時間軸</div><div class="posterwrap"><div class="pw-d">${poster}</div><div class="pw-m">${posterM}</div></div><div class="cards">${cardsHtml}</div></div></section>`;
-
- /* 每日 */
- const dayHtml=d=>{
-  const stops=stopsOf(d);
-  const N=stops.length,H=60+N*84;
-  const pos=i=>[i%2?270:90,50+i*84];
-  const segLabel=i=>{ // 兩個站之間的交通
-   const a=stops[i],b=stops[i+1];if(b-a<2)return '';
-   const mv=d.items.slice(a+1,b).filter(x=>x[2]==='move');if(!mv.length)return '';
-   const txt=mv.map(x=>(x[3]||'')+' '+x[1]).join(' ');
-   const km=txt.match(/約 ?(\d+(?:\.\d+)?) ?公里/),mn=txt.match(/約 ?(\d+(?:[–-]\d+)?) ?分/),hr=txt.match(/約 ?(\d+(?:[–-]\d+)?) ?小時/);
-   const parts=[];if(km)parts.push('約 '+km[1]+' km');if(mn)parts.push(mn[1]+' 分');else if(hr)parts.push(hr[1]+' 小時');
-   return parts.length?parts.join('・'):'車程';
-  };
-  let path='',segs='',nodes='';
-  stops.forEach((si,i)=>{
-   const it=d.items[si],[x,y]=pos(i),k=it[2]||'rest';
-   if(i<N-1){const [x2,y2]=pos(i+1);
-    path+=`<path d="M${x} ${y}C${x} ${y+44} ${x2} ${y2-44} ${x2} ${y2}" fill="none" stroke="#8b5cf6" stroke-width="3.2" stroke-dasharray="7 6" stroke-linecap="round"/>`;
-    const lb=segLabel(i);if(lb){const mx=(x+x2)/2,my=(y+y2)/2,w=lb.length*7.2+16;segs+=`<g><rect x="${mx-w/2}" y="${my-11}" width="${w}" height="22" rx="11" fill="#f3edff" stroke="#8b5cf6" stroke-width="1.8"/><text x="${mx}" y="${my+4.5}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#5b34c4">🚐 ${esc(lb)}</text></g>`}}
-   const left=i%2===0,tx=left?x+32:x-32,an=left?'start':'end';
-   nodes+=`<g class="nd" data-i="${si}" tabindex="0" role="button" aria-label="${esc(it[0]+' '+it[1])}"><circle class="c" cx="${x}" cy="${y}" r="24" fill="${kcol[k]||kcol.rest}" stroke="#3b2f1e" stroke-width="3"/><text x="${x}" y="${y+7}" text-anchor="middle" font-size="20">${kindIcon(k,it[1])}</text><text x="${tx}" y="${y-3}" text-anchor="${an}" font-size="11.5" fill="#7a6a4f" font-weight="700">${esc(trunc(it[0],12))}</text><text x="${tx}" y="${y+14}" text-anchor="${an}" font-size="13" font-weight="800" fill="#3b2f1e">${esc(nameOf(it))}</text></g>`;
-  });
-  const svg=`<svg viewBox="0 0 360 ${H}" role="img" aria-label="Day ${d.no} 示意路線圖">${path}${segs}${nodes}<g id="mk-${d.no}" class="mk" style="transition:transform .8s ease;transform:translate(${pos(0)[0]}px,${pos(0)[1]-38}px)"><use href="#stk-elephant" x="-18" y="-34" width="36" height="36"/></g></svg>`;
-  // 整天 Google 地圖路線
-  const names=[];d.items.forEach(it=>{if(it[2]==='move')return;const h=find(PL,it[1]);if(h&&h[1].length)names.push(h[1][0])});
-  const uniq=names.filter((n,i)=>names.indexOf(n)===i);
-  const city=d.no===2?' Pattaya':' Bangkok';
-  const q=n=>mapUrl(n,d.no).split('query=')[1]||encodeURIComponent(n+city);
-  let gm='';
-  if(uniq.length>=2){const w=uniq.slice(1,-1).slice(0,9).map(q).join('%7C');
-   gm=`<a class="gm" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=${q(uniq[0])}&destination=${q(uniq[uniq.length-1])}${w?'&waypoints='+w:''}&travelmode=driving">📍 整天路線（Google 地圖）</a>`}
-  const li=d.items.map(([t,title,k,n,link,w],ix)=>{
-   const mv=k==='move';
-   const chips=(()=>{const h=find(PL,title);if(h)return h[1].map(nm=>`<a class="chip" href="${esc(mapUrl(nm,d.no))}" target="_blank" rel="noopener">📍 ${esc(nm)}</a>`).join('');
-     return link?`<a class="chip" href="${esc(link)}" target="_blank" rel="noopener">📍 Google 地圖</a>`:''})();
-   const nor=find(NORSV,title),pr=find(PRICE,title),hr=find(HOURS,title),tx=find(TIX,title);
-   const bkk=Object.keys(BACKUP).find(x=>title.includes(x));
-   const bk=bkk?`<details class="bk"><summary>備案（${BACKUP[bkk].length}）</summary>${(BKIMG[bkk]?`<figure class="x"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(BKIMG[bkk].cap)}" src="${esc(BKIMG[bkk].src)}"><figcaption>${esc(BKIMG[bkk].cap)}</figcaption></figure>`:'')}${BACKUP[bkk].map((x,i)=>`<div>${esc(x)}${((BKPLACE[bkk]||[])[i]||[]).length?`<div class="maps">${BKPLACE[bkk][i].map(nm=>`<a class="chip" href="${esc(mapUrl(nm,0))}" target="_blank" rel="noopener">📍 ${esc(nm)}</a>`).join('')}</div>`:''}</div>`).join('')}</details>`:'';
-   const pu=mv?'':picOf(title),ex=mv?'':(()=>{const k2=Object.keys(EXTRA).find(x=>title.includes(x));return k2?EXTRA[k2].map(([c,u])=>`<figure class="x"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(c)}" src="${esc(u)}"><figcaption>${esc(c)}</figcaption></figure>`).join(''):''})();
-   return `<li id="it-${d.no}-${ix}" class="${esc(k||'rest')}${mv?' mv':''}" data-i="${ix}"><div class="t">${esc(t)}</div><div class="what"><strong>${esc(title)}</strong>${nor?`<span class="tag nor">${esc(nor[1])}</span>`:''}${w?'<span class="tag warn">待確認</span>':''}${n?`<div class="n">${esc(n)}</div>`:''}${w?`<div class="n" style="color:var(--warn)">${esc(w)}</div>`:''}${(!mv&&pr)?`<div class="price">每人均價：${esc(pr[1])}</div>`:''}${tx?`<div class="tix">🎫 ${esc(tx[1])}</div>`:''}${hr?`<details class="hr ${esc(hr[1])}"><summary>🕘 ${esc(HLAB[hr[1]])}</summary><div>${esc(hr[2])}</div></details>`:''}${bk}${chips?`<div class="maps">${chips}</div>`:''}${pu?`<a href="${esc(pu)}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(title)}" src="${esc(pu)}"></a>`:''}${ex}</div></li>`}).join('');
-  const cover=DAYPIC[d.no];
-  return `<section class="blk day" id="day${d.no}" data-no="${d.no}"><div class="dayhead${cover?' cover':''}"${cover?` style="background-image:linear-gradient(90deg,rgba(20,14,4,.78),rgba(20,14,4,.2)),url('${esc(cover)}')"`:''}><div class="no">${d.no}</div><div><div class="meta">${esc(d.date)}（${esc(d.wd)}）</div><h2>${esc(d.title)}</h2></div><div class="ic">${ICON[d.svg]||''}</div></div>
-  <div class="stay">${d.stay.map(s=>`<span>${esc(s)}</span>`).join('')}${stk(['cat','mango','elephant','tea','tuktuk','cat'][d.no-1],'ds-s')}</div>${d.note?`<div class="daynote">${esc(d.note)}</div>`:''}${HNOTE[d.no]?`<div class="hnote">📅 ${esc(HNOTE[d.no])}</div>`:''}
-  <div class="daygrid"><div class="mapcard"><div class="play"><button class="pbtn" data-play="${d.no}" aria-label="播放路線">▶</button><button class="pbtn" data-spd="${d.no}" aria-label="播放速度">×1</button><div class="cap" id="cap-${d.no}">按 ▶ 讓小象走一遍今天</div></div>${svg}<div id="legend"><i style="background:var(--eat)"></i>吃<i style="background:var(--go)"></i>逛<i style="background:var(--rest)"></i>休息<i style="background:var(--move)"></i>交通</div>${gm}<div class="note" style="margin-top:6px">✦ 地圖為示意圖，不照比例；交通距離、時間來自行程備註（多為估計）。</div></div>
-  <ol class="tl">${li}</ol></div></section>`;
- };
- html+=D.map(dayHtml).join('');
-
- /* 重點預約 + 貼心提醒 + 清單 */
- html+=`<section class="blk" id="tips"><div class="board"><h2><span class="tp">📌 重點預約</span></h2><div class="note">同步自主網頁的預約清單，不能預約的店已在每天時間軸標「不訂位」。</div><div class="res">${RES.map(r=>`<div class="rc"><span class="tag ${r[0]==='極高'?'must':r[0]==='高'?'warn':''}" style="margin:0 6px 0 0">${esc(r[0])}</span><b>${esc(r[1])}</b><div class="d">${esc(r[2])}</div><div>${esc(r[3])}</div><div class="d">${esc(r[4])}</div></div>`).join('')}</div></div></section>`;
- const flights=D.filter(d=>d.stay&&d.stay[0]&&/^✈/.test(d.stay[0])).map(d=>d.stay[0].replace(/^✈\s*/,'')).join('；');
- const tipsL=['12/07 是泰國補假日、12/10 是憲法日，政府機關與銀行休息，店家營業時間出發前一週再看 IG／Google 地圖。','鄭王廟、真理寺要遮肩遮膝；渡船與廟門票多半只收現金，小鈔零錢要帶。','Dib Bangkok 只收信用卡或轉帳；RONGROS、Dib 預約要提早。','市區移動以 Grab／私人車為主，傍晚塞車，行程裡的車程多為估計，請多留緩衝。','機場接送、飯店與預約資訊在主網頁每天的卡片裡。'];
- const chk=['護照（確認效期）與入境規定，請查官方最新公告','機票／登機資訊：'+(flights||'CI837、CI832'),'泰銖現金（含小鈔）、可用的信用卡','網路：eSIM 或漫遊','Grab、Google 地圖離線地圖','轉接插頭、行動電源（隨身行李）','防曬、遮肩遮膝的衣物（寺廟用）','雨具與好走的鞋','旅平險、緊急聯絡資料備份','出發前確認所有預約（見上方「重點預約」）','12/09 泰服店位置與價格確認','Pokémon Center 開幕日出發前再查'];
- let saved={};try{saved=JSON.parse(localStorage.getItem('bkk-journal-chk')||'{}')}catch(e){}
- html+=`<section class="blk" id="prep"><div class="board"><h2><span class="tp">💡 貼心提醒 (Tips)＆出發前清單</span></h2><div class="tips"><div><b>貼心提醒</b><ul>${tipsL.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><b>出發前清單</b>（勾選會存在這台裝置）<ul class="chk">${chk.map((x,i)=>`<li><label><input type="checkbox" data-c="${i}"${saved[i]?' checked':''}><span>${esc(x)}</span></label></li>`).join('')}</ul></div></div></div></section>`;
- if(ALT&&ALT.length)html+=`<section class="blk"><div class="board"><details><summary style="font-size:16px">🧭 備選地點（原行程表有、目前沒排）</summary><div class="tbl" style="margin-top:8px"><table><thead><tr><th>地點</th><th>位置</th><th>營業時間</th><th>備註</th></tr></thead><tbody>${ALT.map(r=>`<tr>${r.map((c,i)=>`<td>${i?'':'<strong>'}${esc(c)}${i?'':'</strong>'}</td>`).join('')}</tr>`).join('')}</tbody></table></div></details></div></section>`;
- $('#main').innerHTML=html;
-
- /* 卡片圖片載入失敗就回到插圖底色 */
- document.querySelectorAll('.pic').forEach(im=>im.addEventListener('error',()=>{im.style.display='none'}));
- document.querySelectorAll('[data-c]').forEach(c=>c.onchange=()=>{saved[c.dataset.c]=c.checked;try{localStorage.setItem('bkk-journal-chk',JSON.stringify(saved))}catch(e){}});
-
- /* 播放 */
- const speeds=[1,2,4];const st={};
- D.forEach(d=>{
-  const stops=stopsOf(d);const no=d.no;st[no]={spd:0,timer:null,cur:-1};
-  const mk=$('#mk-'+no),cap=$('#cap-'+no),sec=$('#day'+no);
-  const posOf=i=>[i%2?270:90,50+i*84];
-  const show=n=>{const s=st[no];s.cur=n;const si=stops[n],it=d.items[si],[x,y]=posOf(n);
-   mk.style.transform=`translate(${x}px,${y-38}px)`;
-   sec.querySelectorAll('.nd').forEach(e=>e.classList.toggle('cur',+e.dataset.i===si));
-   sec.querySelectorAll('ol.tl li').forEach(e=>e.classList.toggle('cur',+e.dataset.i===si));
-   cap.textContent=`${it[0]}　${it[1]}`};
-  const stop=()=>{clearInterval(st[no].timer);st[no].timer=null;sec.querySelector('[data-play]').textContent='▶'};
-  const step=()=>{let n=st[no].cur+1;if(n>=stops.length){stop();return}show(n)};
-  const start=()=>{if(st[no].cur>=stops.length-1)st[no].cur=-1;step();clearInterval(st[no].timer);st[no].timer=setInterval(step,2000/speeds[st[no].spd]);sec.querySelector('[data-play]').textContent='⏸'};
-  sec.querySelector('[data-play]').onclick=()=>st[no].timer?stop():start();
-  sec.querySelector('[data-spd]').onclick=e=>{const s=st[no];s.spd=(s.spd+1)%3;e.target.textContent='×'+speeds[s.spd];if(s.timer){clearInterval(s.timer);s.timer=setInterval(step,2000/speeds[s.spd])}};
-  sec.querySelectorAll('.nd').forEach(e=>{const go=()=>{const si=+e.dataset.i;stop();const n=stops.indexOf(si);show(n);const li=document.getElementById(`it-${no}-${si}`);if(li)li.scrollIntoView({block:'center',behavior:'smooth'})};e.onclick=go;e.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}}});
- });
-
- /* 導覽列高亮 */
- const links=[...tabs.querySelectorAll('a')];
- const secs=[$('#overview'),...document.querySelectorAll('.day')];
- const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(a=>{const on=a.getAttribute('href')===id;a.classList.toggle('on',on);if(on)tabs.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})})}})},{rootMargin:'-30% 0px -60% 0px'});
- secs.forEach(s=>s&&io.observe(s));
- if(location.hash){const t=document.getElementById(location.hash.slice(1));if(t)setTimeout(()=>t.scrollIntoView(),50)}
+/* ---------- 把 D 轉成範例的資料格式 ---------- */
+const find=(arr,t)=>arr.find(r=>t.includes(r[0]));
+function iconOf(k,t){
+  if(k==="move")return /起飛|機場|報到|入境/.test(t)?"✈️":/渡|搭船|船/.test(t)?"⛴️":"🚐";
+  if(/飯店|入住|寄放行李|Ana Anan 飯店|退房/.test(t)&&k!=="eat")return "🏨";
+  if(/泳池/.test(t))return "🏊";
+  if(/真理寺|鄭王廟|Wat Arun|寺/.test(t))return "🛕";
+  if(/泰服/.test(t))return "👘";
+  if(/美術館|Dib/.test(t))return "🎨";
+  if(/AETHER|酒吧|夜間/.test(t))return "🍸";
+  if(/按摩/.test(t))return "💆";
+  if(/Big C|採買|超市|百貨|centralwOrld|逛街|Pokémon|GalileOasis|Song Wat|嵩越/.test(t))return "🛍️";
+  if(/咖啡|Coffee|Cafe|Bite and Bond/i.test(t)&&k==="eat")return "☕";
+  if(k==="eat")return "🍴";
+  if(k==="rest")return "🛏️";
+  return "⭐";
 }
+function buildDays(){
+  const {D,RES,NORSV}=X;
+  return D.map(d=>{
+    let last=null,lastEnd=0;
+    const stops=d.items.map(([tstr,title,k,n,link,w])=>{
+      k=k||"rest";
+      const ts=[...String(tstr).matchAll(/(\d{1,2}):(\d{2})/g)].map(m=>+m[1]*60+ +m[2]);
+      let m,e=null;
+      if(ts.length){m=ts[0];if(/^至/.test(tstr))m-=45;if(ts[1]!=null)e=ts[1]}
+      else m=/深夜/.test(tstr)?lastEnd+60:/晚上/.test(tstr)?Math.max(lastEnd+30,22*60):lastEnd+30;
+      if(last!=null&&m<last){m=(last-m>600)?m+1440:last}
+      if(e!=null){while(e<m)e+=1440}
+      last=m;lastEnd=e!=null?e:m;
+      const c=X.clean(title)||title;
+      const nor=find(NORSV,title);
+      const res=RES.find(r=>{const base=r[1].split("（")[0].trim().split(/\s+/).slice(0,2).join(" ");return title.includes(base)});
+      return {t:fmt(m),t2:e!=null?fmt(e):"",tstr:String(tstr),m,endm:e,icon:iconOf(k,title),name:title,short:trunc(c.split(/[，、]/)[0],10),kind:k,mv:k==="move",note:n||"",link:link||"",warn:w||"",nor:nor?nor[1]:"",res:res?res[0]:""};
+    });
+    stops.forEach((s,i)=>{
+      if(s.mv)return;
+      let sum=0,j=i-1,km=0;
+      while(j>=0&&stops[j].mv){
+        const t=stops[j].note, mn=t.match(/約 ?(\d+)(?:[–-](\d+))? ?分/), hr=t.match(/約 ?(\d+) ?小時/), kk=t.match(/約 ?(\d+(?:\.\d+)?) ?公里/);
+        sum+=mn?+(mn[2]||mn[1]):hr?+hr[1]*60:(stops[j].endm!=null?stops[j].endm-stops[j].m:0);
+        if(kk&&!km)km=+kk[1];
+        j--;
+      }
+      if(sum>0)s.travel=sum;
+      if(km)s.km=km;
+    });
+    const nodeIdx=(()=>{const r=stops.map((s,i)=>i).filter(i=>!stops[i].mv);return r.length>=3?r:stops.map((s,i)=>i)})();
+    return {no:d.no,date:"2026-"+d.date.replace("/","-"),dstr:d.date,wd:d.wd,title:d.title,area:AREA[d.no]||d.title,stay:d.stay||[],note:d.note||"",hnote:X.HNOTE[d.no]||"",stops,_nodeIdx:nodeIdx,_src:d};
+  });
+}
+function assignP(d){
+  const idx=d._nodeIdx,N=idx.length,port=mq.matches;
+  const rows=port?Math.ceil(N/2):Math.max(2,Math.ceil(N/4)),cols=port?2:Math.ceil(N/rows);
+  if(port){W=520;H=Math.max(560,240+(rows-1)*140)}else{W=1000;H=680}
+  const x0=port?130:170,x1=W-x0,y0=port?120:150,y1=H-y0;
+  idx.forEach((si,k)=>{
+    const r=Math.floor(k/cols),c0=k%cols,c=r%2?cols-1-c0:c0;
+    const x=cols>1?x0+(x1-x0)*c/(cols-1):W/2,y=rows>1?y0+(y1-y0)*r/(rows-1):H/2;
+    d.stops[si].p=[Math.round(x+((k*37)%11-5)*3),Math.round(y+((k*53)%9-4)*3)];
+  });
+  d.stops.forEach((s,i)=>{if(!idx.includes(i))delete s.p});
+}
+
+/* ---------- 每天的手繪背景 ---------- */
+function scene(no){
+  const D2=list=>dood(list.map(([t,x,y,sc])=>[t,Math.round(x*W),Math.round(y*H),sc||1]));
+  const parts=(AREA[no]||"").split(" → ");
+  const ar=area(parts.length>1?[[parts[0],W*.24,H*.2],[parts[1],W*.76,H*.9]]:[[parts[0],W*.5,H*.12]]);
+  if(no===1||no===6)return `<path class="bg-road" d="M0 ${H*.55} Q${W*.5} ${H*.3} ${W} ${H*.5}"/>${D2([["plane",.1,.08],["cloud",.45,.05,.9],["cloud",.86,.1,.8],["plane",.9,.94,.75],["cloud",.2,.94,.7],["sparkle",.5,.94],["sparkle",.06,.5],["sparkle",.94,.5],["hotel",.06,.9,.8]])}${ar}`;
+  if(no===2)return `<path class="bg-sea" d="M${W} 0 L${W*.84} 0 Q${W*.7} ${H*.3} ${W*.8} ${H*.5} Q${W*.7} ${H*.8} ${W*.78} ${H} L${W} ${H}Z"/>${waves([[W*.9,H*.2],[W*.88,H*.5],[W*.9,H*.78]].map(a=>a.map(Math.round)))}<path class="bg-road" d="M0 ${H*.35} Q${W*.4} ${H*.5} ${W*.7} ${H*.3}"/>${D2([["palm",.06,.1],["palm",.11,.9],["prang",.5,.07,.9],["boat",.93,.14,.8],["ship",.93,.92,.8],["hotel",.06,.5,.75],["cloud",.3,.05,.7],["sparkle",.4,.93],["sparkle",.93,.5]])}${ar}`;
+  if(no===3)return `<path class="bg-road" d="M0 ${H*.8} Q${W*.5} ${H*.2} ${W} ${H*.35}"/><path class="bg-river" d="M${W*.7} 0 Q${W*.6} ${H*.5} ${W*.75} ${H}"/>${D2([["bus",.07,.08],["hotel",.93,.09,.9],["bag",.5,.05],["tuktuk",.93,.93],["palm",.07,.92],["cloud",.3,.05,.7],["sparkle",.5,.95],["sparkle",.06,.5]])}${ar}`;
+  return `<path class="bg-river" d="M0 ${H*.3} Q${W*.35} ${H*.1} ${W*.6} ${H*.33} T${W} ${H*.3}"/><path class="bg-road" d="M${W*.2} ${H} Q${W*.4} ${H*.6} ${W*.9} ${H*.75}"/>${D2([["prang",.07,.08,.9],["boat",.9,.08,.8],["tuktuk",.93,.93],["bag",.07,.93],["lotus",.5,.05],["palm",.5,.95],["cloud",.3,.06,.7],["sparkle",.06,.5],["sparkle",.94,.5]])}${ar}`;
+}
+
+/* ---------- 地圖／時間軸（範例邏輯） ---------- */
+function layout(day){
+  const nodes=new Map();
+  day.stops.forEach(s=>{delete s.node;if(s.p){const k=s.p.join(",");if(!nodes.has(k))nodes.set(k,{x:s.p[0],y:s.p[1],stops:[]});s.node=nodes.get(k);s.node.stops.push(s)}});
+  day._nodes=[...nodes.values()];
+  day._teams=[{id:null,name:"",pals:[0,1,2,3]}].map((tm,ti)=>{
+    const stops=day.stops;
+    let last=null;const refs=stops.map(s=>{if(s.node)last=s.node;return last});
+    for(let i=0;i<refs.length;i++)if(!refs[i])refs[i]=stops.find(s=>s.node).node;
+    const segs=[];
+    for(let i=1;i<stops.length;i++){
+      const a=refs[i-1],b=refs[i];
+      if(a===b){segs.push(null);continue}
+      const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y,sg=(i+ti)%2?1:-1;
+      segs.push({a,b,c:{x:mx-dy*0.16*sg,y:my+dx*0.16*sg},km:stops[i].km});
+    }
+    return {...tm,ti,stops,refs,segs};
+  });
+  day._start=day.stops[0].m-20;day._end=Math.max(...day.stops.map(s=>s.m))+60;
+}
+const bez=(s,t)=>{const u=1-t;return {x:u*u*s.a.x+2*u*t*s.c.x+t*t*s.b.x,y:u*u*s.a.y+2*u*t*s.c.y+t*t*s.b.y}};
+function stateAt(tm,m){
+  const S=tm.stops,R=tm.refs;
+  if(m<=S[0].m)return {p:R[0],idx:0,moving:false};
+  for(let i=0;i<S.length-1;i++){
+    const a=S[i],b=S[i+1];
+    if(m<b.m){
+      const seg=tm.segs[i];
+      if(!seg)return {p:R[i],idx:i,moving:false};
+      const gap=b.m-a.m,tr=Math.max(1,Math.min(b.travel||Math.min(30,gap),gap)),dep=b.m-tr;
+      if(m<dep)return {p:R[i],idx:i,moving:false};
+      const f=(m-dep)/tr,e=f<.5?2*f*f:1-((-2*f+2)**2)/2;
+      return {p:bez(seg,e),idx:i,moving:true,next:i+1,f:e};
+    }
+  }
+  return {p:R[S.length-1],idx:S.length-1,moving:false};
+}
+
+let dayIdx=0,cur=0,playing=false,speed=1,live=false,lastTs=0,palEls=[],pathEls=[],pinEls=[],posterOn=false,infoOn=false;
+const SPEEDS=[1,2,4];
+const bkkNow=()=>{
+  const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Bangkok",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).formatToParts(new Date());
+  const g=t=>p.find(x=>x.type===t).value;
+  return {date:`${g("year")}-${g("month")}-${g("day")}`,min:(+g("hour")%24)*60+ +g("minute")+ +g("second")/60,hms:`${String(+g("hour")%24).padStart(2,"0")}:${g("minute")}:${g("second")}`,md:`${+g("month")}/${+g("day")}`};
+};
+function tickClock(){const n=bkkNow();$("bkkNow").textContent=`🕒 曼谷 ${n.md} ${n.hms}`}
+
+function setAria(sel){document.querySelectorAll(".ticket").forEach(t=>t.setAttribute("aria-selected",t.id===sel?"true":"false"))}
+function renderTabs(){
+  const nav=$("days");nav.innerHTML="";
+  const today=bkkNow().date;
+  const mk=(id,html,fn)=>{const b=document.createElement("button");b.type="button";b.className="ticket";b.id=id;b.setAttribute("role","tab");b.innerHTML=html;b.onclick=fn;nav.appendChild(b);return b};
+  mk("tabAll",`<b>🗺️ 總覽</b><span>${brand==="sanrio"?"三麗鷗":"吉依卡哇"}六日地圖</span>`,showPoster);
+  DAYS.forEach((d,i)=>{
+    const [mo,da]=d.dstr.split("/");
+    mk("tab"+i,`<b><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[i%6].id}"/></svg>Day ${d.no}</b><span>${+mo}/${+da}（${d.wd}）${d.area.split(" ")[0]}</span>`+(d.date===today?`<i class="today">今天</i>`:""),()=>{setLive(false);selectDay(i)});
+  });
+  mk("tabInfo",`<b>📋 預約・清單</b><span>重點預約與出發前清單</span>`,showInfo);
+  setAria(infoOn?"tabInfo":posterOn?"tabAll":"tab"+dayIdx);
+}
+function hideAll(){$("poster").hidden=true;$("info").hidden=true;$("page").hidden=true;posterOn=false;infoOn=false}
+
+function selectDay(i,keepTime){
+  dayIdx=i;pause();hideAll();$("page").hidden=false;setAria("tab"+i);
+  const d=DAYS[i];assignP(d);layout(d);
+  if(!keepTime)cur=d.stops[0].m;
+  const [mo,da]=d.dstr.split("/");
+  $("dayHead").innerHTML=`<h2><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[i%6].id}"/></svg>Day ${d.no}：${esc(d.title)}</h2><span class="meta">${d.dstr}（${d.wd}）・${esc(d.area)}</span>${d.stay.map(s=>`<span class="badge">${esc(s)}</span>`).join("")}${d.note?`<div class="dnote">${esc(d.note)}</div>`:""}${d.hnote?`<div class="dnote warn">📅 ${esc(d.hnote)}</div>`:""}`;
+  renderMap(d,i);renderList(d);
+  const sl=$("slider");sl.min=d._start;sl.max=d._end;sl.value=cur;
+  update();
+}
+
+function renderMap(d,i){
+  const svg=$("map");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  svg.innerHTML=`<rect x="0" y="0" width="${W}" height="${H}" class="m-land"/>${scene(d.no)}
+    <g class="compass" transform="translate(40,${H-40})"><circle r="20" fill="var(--paper)" stroke="var(--ink2)" stroke-opacity=".4"/><path d="M0 -14 L5 2 L0 -2 L-5 2Z" fill="var(--red)"/><text y="14" style="font-size:11px">北</text></g>`;
+  pathEls=[];
+  d._teams.forEach(tm=>{
+    tm.segs.forEach((s,k)=>{
+      if(!s){pathEls.push(null);return}
+      const dd=`M${s.a.x} ${s.a.y} Q${s.c.x} ${s.c.y} ${s.b.x} ${s.b.y}`;
+      el("path",{d:dd,class:"m-path"},svg);
+      const walked=el("path",{d:dd,class:"m-path walked"+(tm.ti?" t1":"")},svg);
+      let len=300;try{len=walked.getTotalLength()||300}catch(e){len=300}
+      pathEls.push({walked,len,tm,k});
+      if(s.km){const mp=bez(s,.5);const t=el("text",{x:mp.x,y:mp.y-12,class:"m-dist","text-anchor":"middle"},svg);t.textContent=`約 ${s.km} km`}
+    });
+  });
+  pinEls=[];
+  d._nodes.forEach(n=>{
+    const s0=n.stops[0];
+    const gp=el("g",{class:"m-pin"+(n.stops.every(s=>s.mv)?" mvpin":""),transform:`translate(${n.x},${n.y})`,tabindex:0,role:"button","aria-label":n.stops.map(s=>s.t+" "+s.short).join("、")},svg);
+    el("circle",{r:24,class:"base"},gp);
+    const ic=el("text",{class:"ic",y:1},gp);ic.textContent=s0.icon;
+    const label=n.stops.map(s=>s.short).filter((v,idx,a)=>a.indexOf(v)===idx).join("・");
+    let txt=`${s0.t} ${label}`;if(txt.length>17)txt=txt.slice(0,16)+"…";
+    const lab=el("g",{class:"lab",transform:"translate(0,44)"},gp);
+    const fs=W<700?17:14.5;
+    const tw=[...txt].reduce((a,ch)=>a+(ch.charCodeAt(0)>255?fs:fs*.56),0)+22;
+    el("rect",{x:-tw/2,y:-13,width:tw,height:26,rx:13},lab);
+    el("text",{},lab).textContent=txt;
+    const go=()=>{setLive(false);pause();cur=s0.m;update();scrollToStop(s0)};
+    gp.addEventListener("click",go);gp.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
+    pinEls.push({n,g:gp});
+  });
+  palEls=[];
+  d._teams.forEach(tm=>tm.pals.forEach((pi,k)=>{
+    const u=el("use",{href:"#"+PALS[pi].id,width:50,height:50,x:-25,y:-44},svg);
+    palEls.push({u,tm,k,n:tm.pals.length});
+  }));
+  palEls.slice().reverse().forEach(p=>svg.appendChild(p.u));
+}
+function scrollToStop(s){
+  const d=DAYS[dayIdx];const li=document.querySelector(`.stop[data-i="${d.stops.indexOf(s)}"]`);
+  if(li&&!mq.matches)li.scrollIntoView({block:"center",behavior:reduced?"auto":"smooth"});
+}
+
+function renderList(d){
+  const {HOURS,HLAB,TIX,PRICE,BACKUP,BKPLACE,BKIMG,EXTRA,PL,PIC,mapUrl}=X;
+  const ol=$("stops");ol.innerHTML="";
+  d.stops.forEach((s,i)=>{
+    const li=document.createElement("li");li.className="stop"+(s.mv?" mv":"");li.dataset.i=i;
+    const title=s.name;
+    const tags=(s.res?`<span class="tag hot">需預約・${esc(s.res)}</span>`:"")+(s.nor?`<span class="tag nor">${esc(s.nor)}</span>`:"")+(s.warn?`<span class="tag warn">待確認</span>`:"");
+    const pr=s.mv?null:find(PRICE,title),hr=find(HOURS,title),tx=find(TIX,title);
+    const bkk=Object.keys(BACKUP).find(x=>title.includes(x));
+    const chips=(()=>{const h=find(PL,title);if(h)return h[1].map(nm=>`<a class="mchip" href="${esc(mapUrl(nm,d.no))}" target="_blank" rel="noopener">📍 ${esc(nm)}</a>`).join("");
+      return s.link?`<a class="mchip" href="${esc(s.link)}" target="_blank" rel="noopener">📍 Google 地圖</a>`:""})();
+    const bk=bkk?`<details><summary>備案（${BACKUP[bkk].length}）</summary>${BKIMG[bkk]?`<figure class="x"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(BKIMG[bkk].cap)}" src="${esc(BKIMG[bkk].src)}"><figcaption>${esc(BKIMG[bkk].cap)}</figcaption></figure>`:""}${BACKUP[bkk].map((x,k)=>`<div>${esc(x)}${((BKPLACE[bkk]||[])[k]||[]).length?`<div class="maps">${BKPLACE[bkk][k].map(nm=>`<a class="mchip" href="${esc(mapUrl(nm,0))}" target="_blank" rel="noopener">📍 ${esc(nm)}</a>`).join("")}</div>`:""}</div>`).join("")}</details>`:"";
+    const pk=s.mv?"":Object.keys(PIC).find(n=>title.includes(n));
+    const pic=pk?`<a href="${esc(PIC[pk])}" target="_blank" rel="noopener"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(pk)}" src="${esc(PIC[pk])}"></a>`:"";
+    const ek=s.mv?"":Object.keys(EXTRA).find(n=>title.includes(n));
+    const ex=ek?EXTRA[ek].map(([c,u])=>`<figure class="x"><img class="pic" loading="lazy" referrerpolicy="no-referrer" alt="${esc(c)}" src="${esc(u)}"><figcaption>${esc(c)}</figcaption></figure>`).join(""):"";
+    const tHtml=(/\d:\d\d/.test(s.tstr)?`${s.t}${s.t2?`<small>–${s.t2}</small>`:""}`:`<span class="txt">${esc(s.tstr)}</span>`);
+    li.innerHTML=`<div class="t">${tHtml}</div><div><div class="card" role="button" tabindex="0">
+      <div class="name"><span aria-hidden="true">${s.icon}</span><span>${esc(title)}</span></div>
+      ${s.note?`<div class="note">${esc(s.note)}</div>`:""}${tags}
+      ${s.warn?`<div class="warnline">${esc(s.warn)}</div>`:""}
+      ${pr?`<div class="price">每人均價：${esc(pr[1])}</div>`:""}${tx?`<div class="tix">🎫 ${esc(tx[1])}</div>`:""}
+      ${hr?`<details class="${esc(hr[1])}"><summary>🕘 ${esc(HLAB[hr[1]])}</summary><div>${esc(hr[2])}</div></details>`:""}${bk}
+      ${chips?`<div class="maps">${chips}</div>`:""}${pic}${ex}
+    </div></div>`;
+    const card=li.querySelector(".card");
+    const go=e=>{if(e.target.closest("a,summary,details"))return;setLive(false);pause();cur=s.m;update()};
+    card.addEventListener("click",go);card.addEventListener("keydown",e=>{if(e.target!==card)return;if(e.key==="Enter"||e.key===" "){e.preventDefault();go(e)}});
+    ol.appendChild(li);
+  });
+  const chip=pi=>`<span class="pal-chip"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[pi].id}"/></svg>${PALS[pi].name}</span>`;
+  $("pals").innerHTML="<b>今日同行夥伴（4 人）：</b>"+[0,1,2,3].map(chip).join("");
+  // 整天路線
+  const names=[];d._src.items.forEach(it=>{if(it[2]==="move")return;const h=find(PL,it[1]);if(h&&h[1].length)names.push(h[1][0])});
+  const u=names.filter((n,k)=>names.indexOf(n)===k);
+  const q=n=>{const m=mapUrl(n,d.no);return m.indexOf("query=")>=0?m.split("query=")[1]:encodeURIComponent(n)};
+  $("gmRow").innerHTML=u.length>=2?`<a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=${q(u[0])}&destination=${q(u[u.length-1])}${u.length>2?"&waypoints="+u.slice(1,-1).slice(0,9).map(q).join("%7C"):""}&travelmode=driving">📍 整天路線（Google 地圖）</a>`:"";
+}
+
+function update(now=performance.now()){
+  const d=DAYS[dayIdx];
+  if(!d||!d._teams||$("page").hidden)return;
+  cur=Math.max(d._start,Math.min(d._end,cur));
+  $("clock").textContent=fmt(cur);$("slider").value=cur;
+  const states=d._teams.map(tm=>({tm,st:stateAt(tm,cur)}));
+  $("status").textContent=states.map(({tm,st})=>{
+    const S=tm.stops;let msg;
+    if(cur<S[0].m)msg=`準備出發：${S[0].name}`;
+    else if(st.moving)msg=`🐾 前往 ${S[st.next].short}`;
+    else{const s=S[st.idx];msg=`${s.icon} ${s.name}`}
+    return msg;
+  }).join("｜")+(cur>=d._end-1?"・今天辛苦了！":"");
+  const nowSet=new Set();states.forEach(({tm,st})=>{if(!st.moving&&cur>=tm.stops[0].m)nowSet.add(tm.stops[st.idx])});
+  document.querySelectorAll(".stop[data-i]").forEach(li=>{const s=d.stops[+li.dataset.i];
+    li.classList.toggle("now",nowSet.has(s));li.classList.toggle("done",s.m<=cur&&!nowSet.has(s))});
+  const nowNodes=new Set([...nowSet].map(s=>s.node||null));
+  states.forEach(({tm,st})=>{if(!st.moving&&cur>=tm.stops[0].m)nowNodes.add(tm.refs[st.idx])});
+  pinEls.forEach(({n,g})=>{const done=n.stops.some(s=>s.m<=cur);g.classList.toggle("now",nowNodes.has(n));g.classList.toggle("done",done&&!nowNodes.has(n))});
+  pathEls.forEach(p=>{if(!p)return;
+    const found=states.find(x=>x.tm===p.tm);if(!found)return;
+    const st=found.st;
+    let f=0;if(st.idx>p.k)f=1;else if(st.moving&&st.idx===p.k)f=st.f;
+    p.walked.style.opacity=f>0?.95:0;
+    p.walked.style.strokeDasharray=f>0?dashUpTo(p.len*f,p.len):`0 ${p.len}`;
+  });
+  palEls.forEach(({u,tm,k,n},gi)=>{
+    const tk=cur-k*2.4,s=stateAt(tm,tk),s2=stateAt(tm,tk-0.6);
+    const ang=k/n*Math.PI*2-Math.PI/2+tm.ti*0.6,rad=s.moving?18:46;
+    const x=s.p.x+Math.cos(ang)*rad,y=s.p.y+Math.sin(ang)*rad*0.8-6;
+    let bob=0;
+    if(!reduced){bob=s.moving?-Math.abs(Math.sin(now/110+gi*.9))*7:Math.sin(now/420+gi)*1.8}
+    const dir=s.moving&&(s.p.x-s2.p.x)<-0.05?-1:1;
+    u.setAttribute("transform",`translate(${x.toFixed(1)},${(y+bob).toFixed(1)}) scale(${dir},1)`);
+  });
+}
+function dashUpTo(vis,len){let a=[],acc=0;while(acc+11<=vis){a.push(3,8);acc+=11}a.push(Math.min(3,vis-acc),len);return a.join(" ")}
+
+function loop(ts){
+  if(!lastTs)lastTs=ts;const dt=Math.min(100,ts-lastTs);lastTs=ts;
+  if(playing){cur+=dt/1000*12*speed;if(cur>=DAYS[dayIdx]._end){cur=DAYS[dayIdx]._end;pause()}}
+  update(ts);requestAnimationFrame(loop);
+}
+function play(){const d=DAYS[dayIdx];if(cur>=d._end)cur=d._start;playing=true;$("playBtn").textContent="❚❚";$("playBtn").setAttribute("aria-label","暫停")}
+function pause(){playing=false;$("playBtn").textContent="▶";$("playBtn").setAttribute("aria-label","播放")}
+$("playBtn").onclick=()=>{setLive(false);playing?pause():play()};
+$("slider").oninput=e=>{setLive(false);pause();cur=+e.target.value;update()};
+$("speedBtn").onclick=()=>{speed=SPEEDS[(SPEEDS.indexOf(speed)+1)%SPEEDS.length];$("speedBtn").textContent="×"+speed};
+
+let liveTimer=null;
+function setLive(on){
+  live=on;$("liveBtn").setAttribute("aria-pressed",on?"true":"false");
+  clearInterval(liveTimer);
+  if(on){
+    const n=bkkNow();const i=DAYS.findIndex(d=>d.date===n.date);
+    if(i<0){live=false;$("liveBtn").setAttribute("aria-pressed","false");
+      toast(`現在曼谷時間 ${n.md} ${fmt(n.min)}，旅程期間（12/06–12/11）才會即時對照；先按 ▶ 模擬播放吧 ✨`);return}
+    if(i!==dayIdx||posterOn||infoOn)selectDay(i,true);
+    const tick=()=>{cur=bkkNow().min;update()};tick();liveTimer=setInterval(tick,15000);
+    toast(`已對照曼谷時間 ${fmt(cur)}`);
+  }
+}
+$("liveBtn").onclick=()=>setLive(!live);
+
+/* ---------- 角色品牌切換：吉依卡哇 ⇄ 三麗鷗 ---------- */
+function setBrand(next){
+  brand=next;const isS=brand==="sanrio";
+  PALS=isS?SANRIO_PALS:CHIIKAWA_PALS;
+  $("brandBtn").setAttribute("aria-pressed",isS?"true":"false");
+  $("brandBtn").textContent=isS?"🐾 切換吉依卡哇版":"🎀 切換三麗鷗版";
+  $("titleMascots").innerHTML=[0,1,2].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
+  $("tipsMascots").innerHTML=[1,0].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
+  $("headerSub").textContent=`12/06（日）– 12/11（五）・台北 → 曼谷 → 芭達雅 → 曼谷 → 台北・4 人同行・${isS?"三麗鷗大明星陪你走完每一天 🎀":"吉依卡哇與夥伴們陪你走完每一天 ✨"}`;
+  $("posterTitle").innerHTML=isS?`🎀 三麗鷗帶你遊！曼谷＋芭達雅六日攻略地圖 <small>(2026年12月6日 - 12月11日)</small> 🎀`:`✨ 吉依卡哇帶你遊！曼谷＋芭達雅六日攻略地圖 <small>(2026年12月6日 - 12月11日)</small> ✨`;
+  $("footerText").innerHTML=footerHtml();
+  try{localStorage.setItem("bkk-journal-brand",brand)}catch(e){}
+  if(!DAYS.length)return;
+  renderTabs();renderPoster();
+  if(posterOn)showPoster();else if(infoOn)showInfo();else selectDay(dayIdx,true);
+}
+$("brandBtn").onclick=()=>{
+  const next=brand==="chiikawa"?"sanrio":"chiikawa";
+  if(next==="sanrio"&&document.documentElement.getAttribute("data-theme")!=="pink")setTheme("pink");
+  setBrand(next);
+  toast(next==="sanrio"?"🎀 已切換為三麗鷗（Bonnie・酷洛米・大耳狗・彼安諾・漢頓・酷企鵝）！":"🐾 已切換為吉依卡哇（吉依卡哇・小八・兔兔・小桃・栗子饅頭・獅薩）！");
+};
+const THEMES=[[null,"🛕 金色寺廟"],["pink","🌸 暹羅粉彩"],["river","🌊 湄南河藍"]];
+function setTheme(t){
+  const root=document.documentElement;if(t)root.setAttribute("data-theme",t);else root.removeAttribute("data-theme");
+  const i=THEMES.findIndex(x=>x[0]===(t||null));const nx=THEMES[(i+1)%THEMES.length];
+  $("themeBtn").textContent="切換"+nx[1];
+  try{localStorage.setItem("bkk-journal-theme",t||"gold")}catch(e){}
+}
+$("themeBtn").onclick=()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const i=THEMES.findIndex(x=>x[0]===(cur||null));const nx=THEMES[(i+1)%THEMES.length];
+  setTheme(nx[0]);toast("已切換為「"+nx[1]+"」配色！");
+};
+let toastT;function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("show"),3800)}
+const footerHtml=()=>`✨ 手帳版・地圖與座標皆為示意（不照比例），出發前請以 Google 地圖連結為準 ✨<br>行程資料即時讀取自 <a href="index.html">index.html</a>，主網頁更新後這頁會自動跟著變；營業時間、價格、預約規則都是第三方資料，出發前請再核對。<br>貼圖角色版權屬原權利人，這頁僅作個人旅遊手帳使用。<br><a class="back" href="index.html">→ 回主網頁</a>`;
+
+/* ---------- 攻略地圖總覽 ---------- */
+const ART={"✈️":"plane","🛕":"prang","🏨":"hotel","🚐":"bus","🛍️":"bag","⛴️":"boat","🍴":"mango","🛺":"tuktuk"};
+const BLOBS=["var(--blob1)","var(--blob2)","var(--blob3)","var(--blob4)"];
+function renderPoster(){
+  const g=$("pgrid");g.innerHTML='<svg class="plinks" id="plinks" aria-hidden="true"></svg>';
+  let palI=0,blobI=0;
+  DAYS.forEach((d,di)=>{
+    assignP(d);layout(d);
+    const col=document.createElement("div");col.className="pcol";
+    const [mo,da]=d.dstr.split("/");
+    col.innerHTML=`<h3>Day ${d.no} : ${esc(trunc(d.title,13))}<br><span class="sub-date">${+mo}/${+da}（${d.wd}）</span></h3><div class="items"></div>`;
+    const box=col.querySelector(".items");
+    d.stops.filter(s=>s.p&&!/出發前往/.test(s.name)).forEach((s,k)=>{
+      const b=document.createElement("button");b.type="button";b.className="pitem";
+      const art=ART[s.icon];
+      const vis=art?`<svg class="art" viewBox="-50 -50 100 100" aria-hidden="true">${DOODLE[art]}</svg>`:`<span class="emo" aria-hidden="true">${s.icon}</span>`;
+      const showPal=(k%2===0);
+      const palSide=(k%3===1)?" left":"";
+      const pal=showPal?`<svg class="pal${palSide}" viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[(palI++)%6].id}"/></svg>`:"";
+      const extra=[s.res?"需預約":"",s.nor?"不訂位":""].filter(Boolean).join("・");
+      b.innerHTML=`<span class="vig" style="background:${BLOBS[blobI++%4]}">${vis}${pal}</span>
+        <span class="nm">${esc(trunc(X.clean(s.name)||s.name,9))}</span><span class="tm">(${s.t})</span>
+        ${extra?`<span class="ex">${esc(extra)}</span>`:""}`;
+      b.onclick=()=>{setLive(false);selectDay(di);cur=s.m;update();window.scrollTo({top:$("days").offsetTop-10,behavior:reduced?"auto":"smooth"})};
+      box.appendChild(b);
+    });
+    g.appendChild(col);
+  });
+  drawLinks();
+}
+function drawLinks(){
+  const g=$("pgrid"),svg=$("plinks");if(!svg||!posterOn||mq.matches)return;
+  const R=g.getBoundingClientRect();
+  if(!R.width||!R.height)return;
+  const cols=[...g.querySelectorAll(".pcol")];
+  let out="";
+  const v=e=>{const r=e.querySelector(".vig").getBoundingClientRect();return {cx:r.left+r.width/2-R.left,top:r.top-R.top,bot:r.bottom-R.top,l:r.left-R.left,r:r.right-R.left,cy:r.top+r.height/2-R.top}};
+  const head=(x,y,a)=>`<path class="plink" style="stroke-dasharray:none" d="M${x-7*Math.cos(a-0.5)} ${y-7*Math.sin(a-0.5)} L${x} ${y} L${x-7*Math.cos(a+0.5)} ${y-7*Math.sin(a+0.5)}"/>`;
+  const star=(x,y)=>`<path class="pstar" transform="translate(${x},${y}) scale(0.75)" d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2 Z"/>`;
+  cols.forEach((c,ci)=>{
+    const items=[...c.querySelectorAll(".pitem")].map(v);
+    for(let i=1;i<items.length;i++){const a=items[i-1],b=items[i];
+      const x1=a.cx+(i%2?26:-26),y1=a.bot-4,x2=b.cx+(i%2?-20:20),y2=b.top+2;
+      const cx=(x1+x2)/2+(i%2?40:-40),cy=(y1+y2)/2;
+      out+=`<path class="plink" d="M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}"/>`+head(x2,y2,Math.atan2(y2-cy,x2-cx))+star(cx+(i%2?10:-10),cy);
+    }
+    if(ci<cols.length-1&&items.length){
+      const a=items[items.length-1],nb=[...cols[ci+1].querySelectorAll(".pitem")].map(v)[0];if(!nb)return;
+      const x1=a.r+4,y1=a.cy,x2=nb.l-4,y2=nb.cy,mx=(x1+x2)/2;
+      out+=`<path class="plink" d="M${x1} ${y1} C${mx+30} ${y1} ${mx-30} ${y2} ${x2} ${y2}"/>`+head(x2,y2,0);
+    }
+  });
+  svg.innerHTML=out;
+}
+if(typeof ResizeObserver!=="undefined")new ResizeObserver(()=>requestAnimationFrame(drawLinks)).observe($("pgrid"));
+window.addEventListener("resize",()=>requestAnimationFrame(drawLinks));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(drawLinks));
+
+function showPoster(){
+  pause();setLive(false);hideAll();posterOn=true;
+  $("poster").hidden=false;setAria("tabAll");
+  requestAnimationFrame(drawLinks);
+}
+
+/* ---------- 預約・清單 ---------- */
+function showInfo(){
+  pause();setLive(false);hideAll();infoOn=true;
+  const {RES,D}=X;
+  const flights=D.filter(d=>d.stay&&d.stay[0]&&/^✈/.test(d.stay[0])).map(d=>d.stay[0].replace(/^✈\s*/,"")).join("；");
+  const tipsL=["12/07 是泰國補假日、12/10 是憲法日，政府機關與銀行休息，店家營業時間出發前一週再看 IG／Google 地圖。","鄭王廟、真理寺要遮肩遮膝；渡船與廟門票多半只收現金，小鈔零錢要帶。","Dib Bangkok 只收信用卡或轉帳；RONGROS、Dib 預約要提早。","市區移動以 Grab／私人車為主，傍晚塞車，行程裡的車程多為估計，請多留緩衝。"];
+  const chk=["護照（確認效期）與入境規定，請查官方最新公告","機票／登機資訊："+(flights||"CI837、CI832"),"泰銖現金（含小鈔）、可用的信用卡","網路：eSIM 或漫遊","Grab、Google 地圖離線地圖","轉接插頭、行動電源（隨身行李）","防曬、遮肩遮膝的衣物（寺廟用）","雨具與好走的鞋","旅平險、緊急聯絡資料備份","出發前確認所有預約（見上方「重點預約」）","12/09 泰服店位置與價格確認","Pokémon Center 開幕日出發前再查"];
+  let saved={};try{saved=JSON.parse(localStorage.getItem("bkk-journal-chk")||"{}")}catch(e){}
+  $("info").innerHTML=`<div class="poster-banner"><h2 class="poster-title">📋 預約・提醒・出發前清單</h2></div>
+   <div class="sec"><h3>📌 重點預約</h3><div class="rescards">${RES.map(r=>`<div class="rc"><span class="tag ${r[0]==="極高"?"hot":""}">${esc(r[0])}</span><b>${esc(r[1])}</b><div class="d">${esc(r[2])}</div><div>${esc(r[3])}</div><div class="d">${esc(r[4])}</div></div>`).join("")}</div></div>
+   <div class="sec tipsbig"><h3>💡 貼心提醒 (Tips)</h3><ul>${tipsL.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+   <div class="sec"><h3>🧳 出發前清單 <small style="font-weight:500;color:var(--ink2)">（勾選會存在這台裝置）</small></h3><ul class="chk">${chk.map((x,i)=>`<li><label><input type="checkbox" data-c="${i}"${saved[i]?" checked":""}><span>${esc(x)}</span></label></li>`).join("")}</ul></div>
+   ${ALTROWS.length?`<div class="sec"><details><summary style="cursor:pointer;font-weight:700;font-size:16px">🧭 備選地點（原行程表有、目前沒排）</summary><div class="tbl" style="margin-top:8px"><table><thead><tr><th>地點</th><th>位置</th><th>營業時間</th><th>備註</th></tr></thead><tbody>${ALTROWS.map(r=>`<tr>${r.map((c,i)=>`<td>${i?"":"<strong>"}${esc(c)}${i?"":"</strong>"}</td>`).join("")}</tr>`).join("")}</tbody></table></div></details></div>`:""}`;
+  $("info").querySelectorAll("[data-c]").forEach(c=>c.onchange=()=>{saved[c.dataset.c]=c.checked;try{localStorage.setItem("bkk-journal-chk",JSON.stringify(saved))}catch(e){}});
+  $("info").hidden=false;setAria("tabInfo");
+}
+
+document.addEventListener("error",e=>{const t=e.target;if(t&&t.classList&&t.classList.contains("pic"))t.style.display="none"},true);
+mq.addEventListener&&mq.addEventListener("change",()=>{if(DAYS.length&&!$("page").hidden)selectDay(dayIdx,true);else if(DAYS.length)renderPoster()});
+
+/* ---------- 啟動 ---------- */
+$("footerText").innerHTML=footerHtml();
+tickClock();setInterval(tickClock,1000);
+(function(){
+  let t="gold",b="chiikawa";try{t=localStorage.getItem("bkk-journal-theme")||"gold";b=localStorage.getItem("bkk-journal-brand")||"chiikawa"}catch(e){}
+  setTheme(t==="pink"||t==="river"?t:null);
+  if(b==="sanrio")setBrand("sanrio");
 })();
+function init(){
+  DAYS=buildDays();
+  renderTabs();renderPoster();
+  const n0=bkkNow();const ti=DAYS.findIndex(d=>d.date===n0.date);
+  if(ti>=0){selectDay(ti);setLive(true)}else showPoster();
+  if(location.hash==="#info")showInfo();
+  const m=location.hash.match(/^#day(\d)$/);if(m&&DAYS[+m[1]-1])selectDay(+m[1]-1);
+  requestAnimationFrame(loop);
+}
 </script>
 </body>
 </html>
