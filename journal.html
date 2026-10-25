@@ -311,6 +311,11 @@ html{scroll-behavior:smooth}
 .gmrow{padding:0 16px 12px;background:var(--bg)}
 .gmrow a{display:inline-block;font-size:13px;font-weight:700;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;background:var(--paper)}
 .poster .items{display:block}
+.pjump{display:none;gap:6px;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none}
+.pjump button{flex:0 0 auto;font:inherit;font-size:13px;font-weight:700;border:2px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);padding:2px 12px;cursor:pointer;box-shadow:0 2px 0 rgba(74,58,42,.12)}
+.pjump button.on{background:var(--yellow)}
+.pswipe{display:none;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink2);padding:0 14px 6px}
+@media (max-width:700px){.pswipe{display:block}}
 .info{background:var(--paper);border:3px solid var(--ink);border-radius:28px;padding:0 0 22px;box-shadow:0 8px 0 rgba(74,58,42,.09);overflow:hidden}
 .info .sec{padding:0 22px;margin-top:18px}
 .info h3{margin:0 0 8px;font-family:"Zen Maru Gothic","Huninn",sans-serif;font-size:19px}
@@ -363,13 +368,10 @@ svg[viewBox="0 0 64 64"]{overflow:visible}
   .stop .t::after{left:44px}
   .card{padding:9px 11px}
   .poster-banner{padding:12px 14px}
-  .poster-scroll{padding:4px 12px 6px;overflow:visible}
-  .poster-grid{display:block;min-width:0}
-  svg.plinks{display:none}
-  .pcol{margin-bottom:22px}
-  .poster .items{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
-  .pitem{margin:0 0 20px}
-  .pitem .ex{max-width:none}
+  .poster-scroll{padding:4px 0 10px;scroll-snap-type:x mandatory;scroll-padding-left:14px;-webkit-overflow-scrolling:touch}
+  .poster-grid{grid-template-columns:repeat(6,min(66vw,250px));width:max-content;min-width:0;gap:16px;padding:0 14px 8px}
+  .pcol{scroll-snap-align:start}
+  .pjump{display:flex}
   .poster-footer{padding:8px 14px 0}
   .tips-wrap{max-width:none;margin-left:0;width:100%}
   .info .sec{padding:0 14px}
@@ -404,7 +406,9 @@ svg[viewBox="0 0 64 64"]{overflow:visible}
     <div class="poster-banner">
       <h2 class="poster-title" id="posterTitle">✨ 曼谷＋芭達雅六日攻略地圖 <small>(2026年12月6日 - 12月11日)</small> ✨</h2>
     </div>
-    <div class="poster-scroll"><div class="poster-grid" id="pgrid"></div></div>
+    <div class="pswipe">👈 左右滑動看每一天 👉</div>
+    <div class="pjump" id="pjump" aria-label="跳到某一天"></div>
+    <div class="poster-scroll" id="pscroll"><div class="poster-grid" id="pgrid"></div></div>
     <div class="poster-footer">
       <div class="poster-hint" id="posterHint">🐾 點擊任一景點插畫，即可跳轉至該日互動散步地圖與時間軸！</div>
       <div class="tips-wrap">
@@ -452,7 +456,7 @@ svg[viewBox="0 0 64 64"]{overflow:visible}
 const $=s=>document.getElementById(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const CHIIKAWA_PALS=[
-  {id:"pal0",name:"吉依卡哇"},{id:"pal1",name:"小八"},{id:"pal2",name:"兔兔"},
+  {id:"pal0",name:"吉依卡哇"},{id:"pal1",name:"小八"},{id:"pal2",name:"烏薩奇"},
   {id:"pal3",name:"小桃"},{id:"pal4",name:"栗子饅頭"},{id:"pal5",name:"獅薩"}
 ];
 const SANRIO_PALS=[
@@ -461,7 +465,7 @@ const SANRIO_PALS=[
 ];
 let brand="chiikawa";
 let PALS=CHIIKAWA_PALS;
-/* 依臉的大小對齊：兔兔臉在原圖較小（寬 150px，吉依卡哇 205、小八 216），放大 1.36 倍、腳踩同一條線，耳朵會超出框上緣 */
+/* 依臉的大小對齊：烏薩奇臉在原圖較小（寬 150px，吉依卡哇 205、小八 216），放大 1.36 倍、腳踩同一條線，耳朵會超出框上緣 */
 const PALBOX={pal2:[-16,-30.7,130.6]};
 $("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>{const [x,y,w]=PALBOX[p.id]||[2,2,96];return `<symbol id="${p.id}" viewBox="0 0 100 100" overflow="visible"><image href="images/stickers/${p.id}.png" x="${x}" y="${y}" width="${w}" height="${w}" preserveAspectRatio="xMidYMid meet"/></symbol>`}).join("");
 $("titleMascots").innerHTML=[0,1,2].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
@@ -898,7 +902,7 @@ $("brandBtn").onclick=()=>{
   const next=brand==="chiikawa"?"sanrio":"chiikawa";
   if(next==="sanrio"&&document.documentElement.getAttribute("data-theme")!=="pink")setTheme("pink");
   setBrand(next);
-  toast(next==="sanrio"?"🎀 已切換為三麗鷗（Bonnie・酷洛米・大耳狗・彼安諾・漢頓・酷企鵝）！":"🐾 已切換為吉依卡哇（吉依卡哇・小八・兔兔・小桃・栗子饅頭・獅薩）！");
+  toast(next==="sanrio"?"🎀 已切換為三麗鷗（Bonnie・酷洛米・大耳狗・彼安諾・漢頓・酷企鵝）！":"🐾 已切換為吉依卡哇（吉依卡哇・小八・烏薩奇・小桃・栗子饅頭・獅薩）！");
 };
 const THEMES=[[null,"🛕 金色寺廟"],["pink","🌸 暹羅粉彩"],["river","🌊 湄南河藍"]];
 function setTheme(t){
@@ -942,10 +946,15 @@ function renderPoster(){
     });
     g.appendChild(col);
   });
+  const pj=$("pjump");pj.innerHTML=DAYS.map((d,i)=>`<button type="button" data-i="${i}">Day ${d.no}</button>`).join("");
+  const cols=[...g.querySelectorAll(".pcol")],sc=$("pscroll");
+  const mark=()=>{const x=sc.scrollLeft+14;let k=0;cols.forEach((c,i)=>{if(c.offsetLeft<=x+20)k=i});pj.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===k))};
+  pj.querySelectorAll("button").forEach(b=>b.onclick=()=>{sc.scrollTo({left:cols[+b.dataset.i].offsetLeft-14,behavior:reduced?"auto":"smooth"})});
+  sc.onscroll=()=>requestAnimationFrame(mark);mark();
   drawLinks();
 }
 function drawLinks(){
-  const g=$("pgrid"),svg=$("plinks");if(!svg||!posterOn||mq.matches)return;
+  const g=$("pgrid"),svg=$("plinks");if(!svg||!posterOn)return;
   const R=g.getBoundingClientRect();
   if(!R.width||!R.height)return;
   const cols=[...g.querySelectorAll(".pcol")];
