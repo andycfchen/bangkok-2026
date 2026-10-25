@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root{
   --bg:#FFF9F0; --paper:#FFFFFF; --land:#FFF6E8; --ink:#4A3A2A; --ink2:#7D6A55;
@@ -325,6 +327,22 @@ html{scroll-behavior:smooth}
 .tbl th,.tbl td{border:1.5px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}.tbl th{background:var(--blob1)}
 footer .back{font-weight:700}
 footer{line-height:1.7}
+#map{height:480px;background:var(--water);font:inherit;z-index:0}
+#map .leaflet-tile-pane{filter:saturate(.9) sepia(.08)}
+.toast{z-index:2000}
+.lpin,.lpal,.lkm{background:none;border:0}
+.lp{position:relative;width:44px;height:44px}
+.lp-c{width:38px;height:38px;margin:3px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);display:grid;place-items:center;font-size:19px;line-height:1;box-shadow:0 2px 0 rgba(74,58,42,.2);transition:transform .15s}
+.lp.done .lp-c{background:var(--land);border-color:var(--ink2)}
+.lp.now .lp-c{background:var(--yellow);transform:scale(1.15)}
+.lp.mvpin .lp-c{border-color:#8B5CF6;background:#F3EDFF}
+.lp.mvpin.now .lp-c{background:var(--yellow)}
+.lp-l{position:absolute;left:50%;top:46px;transform:translateX(-50%);white-space:nowrap;background:var(--paper);border:2px solid var(--ink);border-radius:13px;padding:1px 10px;font-weight:700;font-size:13px;color:var(--ink);display:none;pointer-events:none}
+.lp.now .lp-l,.lpin:hover .lp-l,.lpin:focus .lp-l{display:block}
+.lp.now .lp-l{background:var(--red);color:#fff}
+.lpal svg{width:50px;height:50px;display:block;filter:drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff) drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff) drop-shadow(0 3px 3px rgba(74,58,42,.18))}
+.lkm span{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:13px;font-weight:700;color:var(--ink2);background:rgba(255,255,255,.88);border:1.5px solid var(--ink2);border-radius:999px;padding:0 8px}
+@media (max-width:700px){#map{height:400px}}
 #err{display:none;background:#fde8e8;border:2px solid #b91c1c;border-radius:12px;padding:12px;margin:12px 4px}
 
 @media (max-width:700px){
@@ -407,7 +425,7 @@ footer{line-height:1.7}
   <main class="page" id="page" hidden>
     <div class="day-head" id="dayHead"></div>
     <section class="mapcard" aria-label="當日小地圖">
-      <svg id="map" viewBox="0 0 1000 680" role="img" aria-label="行程路線示意圖"></svg>
+      <div id="map" role="region" aria-label="當日地圖"></div>
       <div class="clockbar">
         <div class="clock" id="clock">--:--</div>
         <div class="status" id="status" aria-live="polite"></div>
@@ -418,7 +436,7 @@ footer{line-height:1.7}
         </div>
       </div>
       <div class="pals" id="pals"></div>
-      <div class="scale-note" id="scaleNote">✦ 地圖為手帳示意插畫，比例非實際距離；交通公里數與時間來自行程備註（多為估計）。</div>
+      <div class="scale-note" id="scaleNote">✦ 底圖：OpenStreetMap。點位為大致位置（部分店家以所在路段或附近地標代替），連線是直線示意、不是實際行車路線；公里數為直線距離。可以雙指縮放地圖。</div>
       <div class="gmrow" id="gmRow"></div>
     </section>
     <section aria-label="當日行程">
@@ -585,32 +603,49 @@ function buildDays(){
       if(km)s.km=km;
     });
     const nodeIdx=(()=>{const r=stops.map((s,i)=>i).filter(i=>!stops[i].mv);return r.length>=3?r:stops.map((s,i)=>i)})();
+    nodeIdx.forEach(i=>{const s=stops[i],ll=locOf(s.name,d.no,s.m);if(ll)s.p=[ll[1],ll[0]]});
     return {no:d.no,date:"2026-"+d.date.replace("/","-"),dstr:d.date,wd:d.wd,title:d.title,area:AREA[d.no]||d.title,stay:d.stay||[],note:d.note||"",hnote:X.HNOTE[d.no]||"",stops,_nodeIdx:nodeIdx,_src:d};
   });
 }
-function assignP(d){
-  const idx=d._nodeIdx,N=idx.length,port=mq.matches;
-  const rows=port?Math.ceil(N/2):Math.max(2,Math.ceil(N/4)),cols=port?2:Math.ceil(N/rows);
-  if(port){W=520;H=Math.max(560,240+(rows-1)*140)}else{W=1000;H=680}
-  const x0=port?130:170,x1=W-x0,y0=port?120:150,y1=H-y0;
-  idx.forEach((si,k)=>{
-    const r=Math.floor(k/cols),c0=k%cols,c=r%2?cols-1-c0:c0;
-    const x=cols>1?x0+(x1-x0)*c/(cols-1):W/2,y=rows>1?y0+(y1-y0)*r/(rows-1):H/2;
-    d.stops[si].p=[Math.round(x+((k*37)%11-5)*3),Math.round(y+((k*53)%9-4)*3)];
-  });
-  d.stops.forEach((s,i)=>{if(!idx.includes(i))delete s.p});
+/* ---------- 真實座標 [緯度, 經度]：Google 地圖短連結或 OpenStreetMap 查得；Big C Extra、Lon Lon、牛面王是依地址路段估的大致位置 ---------- */
+const LOC={tpe:[25.0793,121.2346],bkk:[13.6819,100.7486],ana:[12.84006,100.90712],sotetsu:[13.73603,100.56341]};
+const PLACES=[
+  [/桃園|起飛，台北/,LOC.tpe],
+  [/起飛|BKK|機場|托運|出境/,LOC.bkk],
+  [/Lunar Beach/,[12.91931,100.85793]],
+  [/Sanctuary of Truth|真理寺/,[12.97278,100.88915]],
+  [/Khanom Sen|老奶奶/,[12.95996,100.91078]],
+  [/Nitan/,[12.84804,100.90988]],
+  [/VANVELA/,[12.97449,100.94467]],
+  [/Sky Gallery/,[12.92155,100.85945]],
+  [/Big C Extra/,[12.9300,100.9010]],
+  [/Big C Supercenter Ratchadamri|Ratchadamri/,[13.74703,100.54077]],
+  [/centralwOrld|Shake Shack|After You|Pokémon/,[13.74658,100.53904]],
+  [/CPS|C\.P\.S/,[13.72608,100.57782]],
+  [/GalileOasis|Boyis/,[13.75114,100.53340]],
+  [/Dib/,[13.71806,100.58070]],
+  [/AETHER|Dusit Central Park/,[13.72832,100.53781]],
+  [/泰服/,[13.74680,100.49180]],
+  [/隨便找東西吃|Tonkin/,[13.74557,100.49115]],
+  [/ViVi/,[13.74366,100.49206]],
+  [/鄭王廟|Wat Arun/,[13.74390,100.48851]],
+  [/RONGROS/,[13.74531,100.49086]],
+  [/Tha Tien/,[13.74579,100.49040]],
+  [/Bite and Bond/,[13.75213,100.50485]],
+  [/Mamuang/,[13.75659,100.51617]],
+  [/Rung Klan|牛面王/,[13.73750,100.50950]],
+  [/Song Wat|嵩越/,[13.73636,100.51134]],
+  [/Lon Lon/,[13.72300,100.53000]],
+  [/Factory Coffee/,[13.75988,100.53577]],
+  [/Emsphere/,[13.73251,100.56608]]
+];
+function locOf(title,no,m){
+  if(/飯店|退房|Ana Anan|相鐵|Sotetsu|大廳集合/.test(title)&&(!/機場|BKK/.test(title)||/^飯店出發/.test(title)))return (no===2||(no===3&&m<13*60))?LOC.ana:LOC.sotetsu;
+  const h=PLACES.find(r=>r[0].test(title));return h?h[1]:null;
 }
-
-/* ---------- 每天的手繪背景 ---------- */
-function scene(no){
-  const D2=list=>dood(list.map(([t,x,y,sc])=>[t,Math.round(x*W),Math.round(y*H),sc||1]));
-  const parts=(AREA[no]||"").split(" → ");
-  const ar=area(parts.length>1?[[parts[0],W*.24,H*.2],[parts[1],W*.76,H*.9]]:[[parts[0],W*.5,H*.12]]);
-  if(no===1||no===6)return `<path class="bg-road" d="M0 ${H*.55} Q${W*.5} ${H*.3} ${W} ${H*.5}"/>${D2([["plane",.1,.08],["cloud",.45,.05,.9],["cloud",.86,.1,.8],["plane",.9,.94,.75],["cloud",.2,.94,.7],["sparkle",.5,.94],["sparkle",.06,.5],["sparkle",.94,.5],["hotel",.06,.9,.8]])}${ar}`;
-  if(no===2)return `<path class="bg-sea" d="M${W} 0 L${W*.84} 0 Q${W*.7} ${H*.3} ${W*.8} ${H*.5} Q${W*.7} ${H*.8} ${W*.78} ${H} L${W} ${H}Z"/>${waves([[W*.9,H*.2],[W*.88,H*.5],[W*.9,H*.78]].map(a=>a.map(Math.round)))}<path class="bg-road" d="M0 ${H*.35} Q${W*.4} ${H*.5} ${W*.7} ${H*.3}"/>${D2([["palm",.06,.1],["palm",.11,.9],["prang",.5,.07,.9],["boat",.93,.14,.8],["ship",.93,.92,.8],["hotel",.06,.5,.75],["cloud",.3,.05,.7],["sparkle",.4,.93],["sparkle",.93,.5]])}${ar}`;
-  if(no===3)return `<path class="bg-road" d="M0 ${H*.8} Q${W*.5} ${H*.2} ${W} ${H*.35}"/><path class="bg-river" d="M${W*.7} 0 Q${W*.6} ${H*.5} ${W*.75} ${H}"/>${D2([["bus",.07,.08],["hotel",.93,.09,.9],["bag",.5,.05],["tuktuk",.93,.93],["palm",.07,.92],["cloud",.3,.05,.7],["sparkle",.5,.95],["sparkle",.06,.5]])}${ar}`;
-  return `<path class="bg-river" d="M0 ${H*.3} Q${W*.35} ${H*.1} ${W*.6} ${H*.33} T${W} ${H*.3}"/><path class="bg-road" d="M${W*.2} ${H} Q${W*.4} ${H*.6} ${W*.9} ${H*.75}"/>${D2([["prang",.07,.08,.9],["boat",.9,.08,.8],["tuktuk",.93,.93],["bag",.07,.93],["lotus",.5,.05],["palm",.5,.95],["cloud",.3,.06,.7],["sparkle",.06,.5],["sparkle",.94,.5]])}${ar}`;
-}
+const LL=p=>L.latLng(p.y,p.x);
+const hav=(a,b)=>{const t=Math.PI/180,dl=(b.y-a.y)*t,dg=(b.x-a.x)*t,h=Math.sin(dl/2)**2+Math.cos(a.y*t)*Math.cos(b.y*t)*Math.sin(dg/2)**2;return 2*6371*Math.asin(Math.sqrt(h))};
+const cssVar=(n,f)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim()||f;
 
 /* ---------- 地圖／時間軸（範例邏輯） ---------- */
 function layout(day){
@@ -676,7 +711,7 @@ function hideAll(){$("poster").hidden=true;$("info").hidden=true;$("page").hidde
 
 function selectDay(i,keepTime){
   dayIdx=i;pause();hideAll();$("page").hidden=false;setAria("tab"+i);
-  const d=DAYS[i];assignP(d);layout(d);
+  const d=DAYS[i];layout(d);
   if(!keepTime)cur=d.stops[0].m;
   const [mo,da]=d.dstr.split("/");
   $("dayHead").innerHTML=`<h2><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[i%6].id}"/></svg>Day ${d.no}：${esc(d.title)}</h2><span class="meta">${d.dstr}（${d.wd}）・${esc(d.area)}</span>${d.stay.map(s=>`<span class="badge">${esc(s)}</span>`).join("")}${d.note?`<div class="dnote">${esc(d.note)}</div>`:""}${d.hnote?`<div class="dnote warn">📅 ${esc(d.hnote)}</div>`:""}`;
@@ -685,46 +720,45 @@ function selectDay(i,keepTime){
   update();
 }
 
+let lmap=null,lLayer=null;
+function ensureMap(){
+  if(lmap)return;
+  lmap=L.map("map",{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false,zoomSnap:.5});
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者'}).addTo(lmap);
+  lLayer=L.layerGroup().addTo(lmap);
+}
 function renderMap(d,i){
-  const svg=$("map");
-  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
-  svg.innerHTML=`<rect x="0" y="0" width="${W}" height="${H}" class="m-land"/>${scene(d.no)}
-    <g class="compass" transform="translate(40,${H-40})"><circle r="20" fill="var(--paper)" stroke="var(--ink2)" stroke-opacity=".4"/><path d="M0 -14 L5 2 L0 -2 L-5 2Z" fill="var(--red)"/><text y="14" style="font-size:11px">北</text></g>`;
+  ensureMap();lLayer.clearLayers();lmap.invalidateSize();
+  const red=cssVar("--red","#E8782B");
   pathEls=[];
   d._teams.forEach(tm=>{
     tm.segs.forEach((s,k)=>{
       if(!s){pathEls.push(null);return}
-      const dd=`M${s.a.x} ${s.a.y} Q${s.c.x} ${s.c.y} ${s.b.x} ${s.b.y}`;
-      el("path",{d:dd,class:"m-path"},svg);
-      const walked=el("path",{d:dd,class:"m-path walked"+(tm.ti?" t1":"")},svg);
-      let len=300;try{len=walked.getTotalLength()||300}catch(e){len=300}
-      pathEls.push({walked,len,tm,k});
-      if(s.km){const mp=bez(s,.5);const t=el("text",{x:mp.x,y:mp.y-12,class:"m-dist","text-anchor":"middle"},svg);t.textContent=`約 ${s.km} km`}
+      const pts=[];for(let j=0;j<=32;j++)pts.push(LL(bez(s,j/32)));
+      L.polyline(pts,{color:"#7D6A55",weight:3,dashArray:"3 8",lineCap:"round",opacity:.6,interactive:false}).addTo(lLayer);
+      const walked=L.polyline([],{color:red,weight:4.5,dashArray:"3 8",lineCap:"round",opacity:.95,interactive:false}).addTo(lLayer);
+      pathEls.push({walked,s,tm,k,last:-1});
+      const km=hav(s.a,s.b);
+      if(km>=2)L.marker(LL(bez(s,.5)),{icon:L.divIcon({className:"lkm",html:`<span>直線約 ${km<20?km.toFixed(1):Math.round(km).toLocaleString()} km</span>`,iconSize:[0,0]}),interactive:false,keyboard:false}).addTo(lLayer);
     });
   });
   pinEls=[];
   d._nodes.forEach(n=>{
     const s0=n.stops[0];
-    const gp=el("g",{class:"m-pin"+(n.stops.every(s=>s.mv)?" mvpin":""),transform:`translate(${n.x},${n.y})`,tabindex:0,role:"button","aria-label":n.stops.map(s=>s.t+" "+s.short).join("、")},svg);
-    el("circle",{r:24,class:"base"},gp);
-    const ic=el("text",{class:"ic",y:1},gp);ic.textContent=s0.icon;
     const label=n.stops.map(s=>s.short).filter((v,idx,a)=>a.indexOf(v)===idx).join("・");
-    let txt=`${s0.t} ${label}`;if(txt.length>17)txt=txt.slice(0,16)+"…";
-    const lab=el("g",{class:"lab",transform:"translate(0,44)"},gp);
-    const fs=W<700?17:14.5;
-    const tw=[...txt].reduce((a,ch)=>a+(ch.charCodeAt(0)>255?fs:fs*.56),0)+22;
-    el("rect",{x:-tw/2,y:-13,width:tw,height:26,rx:13},lab);
-    el("text",{},lab).textContent=txt;
-    const go=()=>{setLive(false);pause();cur=s0.m;update();scrollToStop(s0)};
-    gp.addEventListener("click",go);gp.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
-    pinEls.push({n,g:gp});
+    let txt=`${s0.t} ${label}`;if(txt.length>20)txt=txt.slice(0,19)+"…";
+    const mk=L.marker(LL(n),{title:n.stops.map(s=>s.t+" "+s.short).join("、"),icon:L.divIcon({className:"lpin",html:`<div class="lp${n.stops.every(s=>s.mv)?" mvpin":""}"><div class="lp-c">${s0.icon}</div><div class="lp-l">${esc(txt)}</div></div>`,iconSize:[44,44],iconAnchor:[22,22]})}).addTo(lLayer);
+    mk.on("click",()=>{setLive(false);pause();cur=s0.m;update();scrollToStop(s0)});
+    pinEls.push({n,mk});
   });
   palEls=[];
   d._teams.forEach(tm=>tm.pals.forEach((pi,k)=>{
-    const u=el("use",{href:"#"+PALS[pi].id,width:50,height:50,x:-25,y:-44},svg);
-    palEls.push({u,tm,k,n:tm.pals.length});
+    const mk=L.marker(LL(tm.refs[0]),{icon:L.divIcon({className:"lpal",html:`<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#${PALS[pi].id}"/></svg>`,iconSize:[50,50],iconAnchor:[25,44]}),interactive:false,keyboard:false,zIndexOffset:2000}).addTo(lLayer);
+    palEls.push({mk,tm,k,n:tm.pals.length});
   }));
-  palEls.slice().reverse().forEach(p=>svg.appendChild(p.u));
+  const b=L.latLngBounds(d._nodes.map(n=>LL(n)));
+  const fit=()=>{lmap.invalidateSize();if(b.isValid())lmap.fitBounds(b,{padding:mq.matches?[40,40]:[60,60],maxZoom:15,animate:false})};
+  fit();requestAnimationFrame(fit);
 }
 function scrollToStop(s){
   const d=DAYS[dayIdx];const li=document.querySelector(`.stop[data-i="${d.stops.indexOf(s)}"]`);
@@ -788,22 +822,29 @@ function update(now=performance.now()){
     li.classList.toggle("now",nowSet.has(s));li.classList.toggle("done",s.m<=cur&&!nowSet.has(s))});
   const nowNodes=new Set([...nowSet].map(s=>s.node||null));
   states.forEach(({tm,st})=>{if(!st.moving&&cur>=tm.stops[0].m)nowNodes.add(tm.refs[st.idx])});
-  pinEls.forEach(({n,g})=>{const done=n.stops.some(s=>s.m<=cur);g.classList.toggle("now",nowNodes.has(n));g.classList.toggle("done",done&&!nowNodes.has(n))});
+  pinEls.forEach(({n,mk})=>{const g=mk.getElement();if(!g||!g.firstChild)return;const lp=g.firstChild;
+    const done=n.stops.some(s=>s.m<=cur),nw=nowNodes.has(n);
+    if(lp.classList.contains("now")!==nw){lp.classList.toggle("now",nw);mk.setZIndexOffset(nw?1000:0)}
+    lp.classList.toggle("done",done&&!nw)});
   pathEls.forEach(p=>{if(!p)return;
     const found=states.find(x=>x.tm===p.tm);if(!found)return;
     const st=found.st;
     let f=0;if(st.idx>p.k)f=1;else if(st.moving&&st.idx===p.k)f=st.f;
-    p.walked.style.opacity=f>0?.95:0;
-    p.walked.style.strokeDasharray=f>0?dashUpTo(p.len*f,p.len):`0 ${p.len}`;
+    const key=Math.round(f*200);if(key===p.last)return;p.last=key;
+    if(f<=0){p.walked.setLatLngs([]);return}
+    const pts=[];for(let j=0;j<=32*f;j++)pts.push(LL(bez(p.s,j/32)));pts.push(LL(bez(p.s,f)));
+    p.walked.setLatLngs(pts);
   });
-  palEls.forEach(({u,tm,k,n},gi)=>{
+  if(!lmap)return;
+  palEls.forEach(({mk,tm,k,n},gi)=>{
     const tk=cur-k*2.4,s=stateAt(tm,tk),s2=stateAt(tm,tk-0.6);
     const ang=k/n*Math.PI*2-Math.PI/2+tm.ti*0.6,rad=s.moving?18:46;
-    const x=s.p.x+Math.cos(ang)*rad,y=s.p.y+Math.sin(ang)*rad*0.8-6;
     let bob=0;
     if(!reduced){bob=s.moving?-Math.abs(Math.sin(now/110+gi*.9))*7:Math.sin(now/420+gi)*1.8}
-    const dir=s.moving&&(s.p.x-s2.p.x)<-0.05?-1:1;
-    u.setAttribute("transform",`translate(${x.toFixed(1)},${(y+bob).toFixed(1)}) scale(${dir},1)`);
+    const dir=s.moving&&(s.p.x-s2.p.x)<-1e-7?-1:1;
+    const bp=lmap.latLngToLayerPoint(LL(s.p));
+    mk.setLatLng(lmap.layerPointToLatLng(L.point(bp.x+Math.cos(ang)*rad,bp.y+Math.sin(ang)*rad*0.8-6+bob)));
+    const e=mk.getElement();if(e&&e.firstChild)e.firstChild.style.transform=`scaleX(${dir})`;
   });
 }
 function dashUpTo(vis,len){let a=[],acc=0;while(acc+11<=vis){a.push(3,8);acc+=11}a.push(Math.min(3,vis-acc),len);return a.join(" ")}
@@ -869,7 +910,7 @@ $("themeBtn").onclick=()=>{
   setTheme(nx[0]);toast("已切換為「"+nx[1]+"」配色！");
 };
 let toastT;function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("show"),3800)}
-const footerHtml=()=>`✨ 手帳版・地圖與座標皆為示意（不照比例），出發前請以 Google 地圖連結為準 ✨<br>行程資料即時讀取自 <a href="index.html">index.html</a>，主網頁更新後這頁會自動跟著變；營業時間、價格、預約規則都是第三方資料，出發前請再核對。<br>貼圖角色版權屬原權利人，這頁僅作個人旅遊手帳使用。<br><a class="back" href="index.html">→ 回主網頁</a>`;
+const footerHtml=()=>`✨ 手帳版・每日地圖底圖為 OpenStreetMap，點位為大致位置、連線為直線示意；出發前請以 Google 地圖連結為準 ✨<br>行程資料即時讀取自 <a href="index.html">index.html</a>，主網頁更新後這頁會自動跟著變；營業時間、價格、預約規則都是第三方資料，出發前請再核對。<br>貼圖角色版權屬原權利人，這頁僅作個人旅遊手帳使用。<br><a class="back" href="index.html">→ 回主網頁</a>`;
 
 /* ---------- 攻略地圖總覽 ---------- */
 const ART={"✈️":"plane","🛕":"prang","🏨":"hotel","🚐":"bus","🛍️":"bag","⛴️":"boat","🍴":"mango","🛺":"tuktuk"};
@@ -878,12 +919,11 @@ function renderPoster(){
   const g=$("pgrid");g.innerHTML='<svg class="plinks" id="plinks" aria-hidden="true"></svg>';
   let palI=0,blobI=0;
   DAYS.forEach((d,di)=>{
-    assignP(d);layout(d);
     const col=document.createElement("div");col.className="pcol";
     const [mo,da]=d.dstr.split("/");
     col.innerHTML=`<h3>Day ${d.no} : ${esc(trunc(d.title,13))}<br><span class="sub-date">${+mo}/${+da}（${d.wd}）</span></h3><div class="items"></div>`;
     const box=col.querySelector(".items");
-    d.stops.filter(s=>s.p&&!/出發前往/.test(s.name)).forEach((s,k)=>{
+    d.stops.filter((s,i)=>d._nodeIdx.includes(i)&&!/出發前往/.test(s.name)).forEach((s,k)=>{
       const b=document.createElement("button");b.type="button";b.className="pitem";
       const art=ART[s.icon];
       const vis=art?`<svg class="art" viewBox="-50 -50 100 100" aria-hidden="true">${DOODLE[art]}</svg>`:`<span class="emo" aria-hidden="true">${s.icon}</span>`;
@@ -953,7 +993,7 @@ function showInfo(){
 }
 
 document.addEventListener("error",e=>{const t=e.target;if(t&&t.classList&&t.classList.contains("pic"))t.style.display="none"},true);
-mq.addEventListener&&mq.addEventListener("change",()=>{if(DAYS.length&&!$("page").hidden)selectDay(dayIdx,true);else if(DAYS.length)renderPoster()});
+mq.addEventListener&&mq.addEventListener("change",()=>{if(lmap)lmap.invalidateSize()});
 
 /* ---------- 啟動 ---------- */
 $("footerText").innerHTML=footerHtml();
