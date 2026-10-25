@@ -327,6 +327,7 @@ html{scroll-behavior:smooth}
 .tbl th,.tbl td{border:1.5px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}.tbl th{background:var(--blob1)}
 footer .back{font-weight:700}
 footer{line-height:1.7}
+svg[viewBox="0 0 64 64"]{overflow:visible}
 #map{height:480px;background:var(--water);font:inherit;z-index:0}
 #map .leaflet-tile-pane{filter:saturate(.9) sepia(.08)}
 .toast{z-index:2000}
@@ -460,7 +461,9 @@ const SANRIO_PALS=[
 ];
 let brand="chiikawa";
 let PALS=CHIIKAWA_PALS;
-$("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>`<symbol id="${p.id}" viewBox="0 0 100 100"><image href="images/stickers/${p.id}.png" x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid meet"/></symbol>`).join("");
+/* 依臉的大小對齊：兔兔臉在原圖較小（寬 150px，吉依卡哇 205、小八 216），放大 1.36 倍、腳踩同一條線，耳朵會超出框上緣 */
+const PALBOX={pal2:[-16,-30.7,130.6]};
+$("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>{const [x,y,w]=PALBOX[p.id]||[2,2,96];return `<symbol id="${p.id}" viewBox="0 0 100 100" overflow="visible"><image href="images/stickers/${p.id}.png" x="${x}" y="${y}" width="${w}" height="${w}" preserveAspectRatio="xMidYMid meet"/></symbol>`}).join("");
 $("titleMascots").innerHTML=[0,1,2].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
 $("tipsMascots").innerHTML=[1,0].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
 
