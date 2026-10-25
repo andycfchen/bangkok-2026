@@ -460,21 +460,7 @@ const SANRIO_PALS=[
 ];
 let brand="chiikawa";
 let PALS=CHIIKAWA_PALS;
-/* 吉依卡哇六隻統一戴同一款泰式花環（金盞花＋茉莉＋金色流蘇）；數字是原圖 320px 上的 [中心x, 脖子y, 半寬, 下垂] */
-const GARLAND={pal0:[165,203,92,30],pal1:[150,203,84,28],pal2:[178,216,66,22],pal3:[150,180,76,16],pal4:[150,186,90,20],pal5:[165,198,84,26]};
-function garland(id){
-  const g=GARLAND[id];if(!g)return "";
-  const u=v=>2+v*0.3,[cx,cy,hw,sag]=g;
-  const P=t=>{const x0=cx-hw,x2=cx+hw,y1=cy+2*sag,m=1-t;return [u(m*m*x0+2*m*t*cx+t*t*x2),u(m*m*cy+2*m*t*y1+t*t*cy)]};
-  let beads="";const n=9;
-  for(let i=0;i<n;i++){const [x,y]=P(i/(n-1));
-    beads+=i%2?`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6" fill="#FFFDF5" stroke="#4A3A2A" stroke-width="1"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.1" fill="#F4C542"/>`
-              :`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.6" fill="#F7A21B" stroke="#4A3A2A" stroke-width="1.1"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.2" fill="#E2700F"/>`}
-  const [bx,by]=P(.5);
-  const tassel=`<path d="M${bx} ${by+4} v4" stroke="#C9971C" stroke-width="1.4"/><circle cx="${bx}" cy="${by+10}" r="3.4" fill="#E8456B" stroke="#4A3A2A" stroke-width="1"/><path d="M${bx-3} ${by+13} L${bx-4} ${by+20} M${bx} ${by+13.5} V${by+21} M${bx+3} ${by+13} L${bx+4} ${by+20}" stroke="#D4A017" stroke-width="1.6" stroke-linecap="round"/>`;
-  return `<g class="garland">${beads}${tassel}</g>`;
-}
-$("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>`<symbol id="${p.id}" viewBox="0 0 100 100"><image href="images/stickers/${p.id}.png" x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid meet"/>${garland(p.id)}</symbol>`).join("");
+$("charDefs").innerHTML=[...CHIIKAWA_PALS,...SANRIO_PALS].map(p=>`<symbol id="${p.id}" viewBox="0 0 100 100"><image href="images/stickers/${p.id}.png" x="2" y="2" width="96" height="96" preserveAspectRatio="xMidYMid meet"/></symbol>`).join("");
 $("titleMascots").innerHTML=[0,1,2].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
 $("tipsMascots").innerHTML=[1,0].map(i=>`<svg viewBox="0 0 64 64"><use href="#${PALS[i].id}"/></svg>`).join("");
 
